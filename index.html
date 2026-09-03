@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sala Elétrica — ferramentas para projeto elétrico</title>
+<meta name="description" content="Plataforma de ferramentas para projeto elétrico industrial: estudo de demanda, dimensionamento e memoriais de cálculo. Em desenvolvimento.">
+<meta property="og:title" content="Sala Elétrica">
+<meta property="og:description" content="Ferramentas para projeto elétrico industrial. Em desenvolvimento.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.salaeletrica.com.br">
+<meta name="theme-color" content="#101820">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23101820'/><path d='M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z' fill='%23f2b705'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tinta:#101820;      /* fundo, cor de barramento pintado */
+    --tinta-2:#18222c;
+    --linha:#2a3743;
+    --papel:#eef1f4;
+    --grafite:#9fb0bd;
+    --sinal:#f2b705;      /* amarelo de sinalização elétrica */
+    --verde:#3fb98a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--tinta);
+    color:var(--papel);
+    font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* Faixa de advertência, como as de painel elétrico */
+  .faixa{
+    height:6px;
+    background:repeating-linear-gradient(135deg,var(--sinal) 0 14px,var(--tinta) 14px 28px);
+  }
+
+  .envelope{
+    flex:1;
+    width:100%;
+    max-width:860px;
+    margin:0 auto;
+    padding:56px 24px 40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .marca{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:52px;
+  }
+  .marca svg{flex:none}
+  .marca span{
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:.02em;
+  }
+
+  h1{
+    font-size:clamp(34px,7vw,60px);
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-.025em;
+    margin:0 0 20px;
+    max-width:15ch;
+  }
+  .abertura{
+    font-size:clamp(15px,2.4vw,18px);
+    color:var(--grafite);
+    max-width:56ch;
+    margin:0 0 44px;
+  }
+
+  /* Estado da obra, apresentado como um diagrama vertical de alimentação */
+  .estado{
+    border-left:2px solid var(--linha);
+    padding-left:22px;
+    margin:0 0 44px;
+    display:grid;
+    gap:20px;
+  }
+  .etapa{position:relative}
+  .etapa::before{
+    content:"";
+    position:absolute;
+    left:-29px;
+    top:6px;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:var(--tinta);
+    border:2px solid var(--linha);
+  }
+  .etapa.ativa::before{
+    background:var(--sinal);
+    border-color:var(--sinal);
+    box-shadow:0 0 0 5px rgba(242,183,5,.16);
+  }
+  .etapa.pronta::before{
+    background:var(--verde);
+    border-color:var(--verde);
+  }
+  .etapa h2{
+    font-size:16px;
+    font-weight:700;
+    margin:0 0 3px;
+  }
+  .etapa p{
+    margin:0;
+    font-size:14px;
+    color:var(--grafite);
+    max-width:52ch;
+  }
+  .selo{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11px;
+    color:var(--sinal);
+    display:block;
+    margin-bottom:2px;
+  }
+  .etapa.pronta .selo{color:var(--verde)}
+  .etapa:not(.ativa):not(.pronta) .selo{color:var(--grafite);opacity:.65}
+
+  .contato{
+    border-top:1px solid var(--linha);
+    padding-top:24px;
+    font-size:14px;
+    color:var(--grafite);
+  }
+  .contato a{
+    color:var(--papel);
+    text-decoration:none;
+    border-bottom:1px solid var(--sinal);
+    padding-bottom:1px;
+  }
+  .contato a:hover,.contato a:focus-visible{color:var(--sinal)}
+
+  footer{
+    border-top:1px solid var(--linha);
+    padding:18px 24px;
+    text-align:center;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11px;
+    color:var(--grafite);
+  }
+
+  a:focus-visible,:focus-visible{
+    outline:2px solid var(--sinal);
+    outline-offset:3px;
+  }
+
+  @media (max-width:520px){
+    .envelope{padding:36px 20px 28px}
+    .marca{margin-bottom:36px}
+    .estado{padding-left:18px}
+    .etapa::before{left:-25px}
+  }
+</style>
+</head>
+<body>
+
+<div class="faixa" role="presentation"></div>
+
+<main class="envelope">
+
+  <div class="marca">
+    <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
+      <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
+    </svg>
+    <span>Sala Elétrica</span>
+  </div>
+
+  <h1>Ferramentas para quem faz projeto elétrico.</h1>
+
+  <p class="abertura">
+    Uma plataforma com as rotinas de cálculo que todo projetista refaz em planilha:
+    estudo de demanda, dimensionamento e memoriais. O site está em construção —
+    aguarde novas atualizações.
+  </p>
+
+  <div class="estado">
+    <div class="etapa ativa">
+      <span class="selo">em desenvolvimento</span>
+      <h2>Estudo de demanda</h2>
+      <p>Lê a lista de cargas em Excel, classifica, distribui em salas elétricas e painéis, monta o diagrama de blocos e exporta o estudo pronto.</p>
+    </div>
+    <div class="etapa">
+      <span class="selo">a seguir</span>
+      <h2>Novas ferramentas</h2>
+      <p>Outras rotinas de projeto elétrico serão publicadas aqui conforme ficarem prontas.</p>
+    </div>
+    <div class="etapa">
+      <span class="selo">a seguir</span>
+      <h2>Área do assinante</h2>
+      <p>Cadastro para acessar as ferramentas e retomar seus estudos de onde parou.</p>
+    </div>
+  </div>
+
+  <p class="contato">
+    Quer ser avisado quando abrir? Escreva para
+    <a href="mailto:contato@salaeletrica.com.br">contato@salaeletrica.com.br</a>.
+  </p>
+
+</main>
+
+<footer>Sala Elétrica · salaeletrica.com.br</footer>
+
+</body>
+</html>
