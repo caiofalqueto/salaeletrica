@@ -86,13 +86,12 @@
   }
 
   .complemento{
-    font-size:clamp(17px,2.6vw,28px);
+    font-size:clamp(15px,2.9vw,28px);
     font-weight:600;
     color:var(--sinal);
     letter-spacing:-.015em;
     line-height:1.25;
     margin:0;
-    max-width:30ch;
   }
 
   /* Texto explicativo apoiado numa linha vertical, como um alimentador */
@@ -106,7 +105,7 @@
     font-size:clamp(15px,1.5vw,19px);
     line-height:1.65;
     color:var(--grafite);
-    max-width:66ch;
+    max-width:92ch;
   }
 
   /* Aviso de obra, com lampada de sinalizacao de painel */
@@ -134,20 +133,16 @@
     50%{box-shadow:0 0 0 9px rgba(242,183,5,.05)}
   }
 
-  .rodape{
-    border-top:1px solid var(--linha);
-    padding-top:clamp(18px,2.6vh,28px);
+  .rodape-envolucro{
     display:flex;
-    flex-wrap:wrap;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:14px 40px;
+    flex-direction:column;
+    gap:clamp(16px,2.4vh,24px);
   }
   .chamada{
     margin:0;
     font-size:clamp(14px,1.3vw,16.5px);
     color:var(--grafite);
-    max-width:60ch;
+    max-width:84ch;
   }
   .chamada a{
     color:var(--papel);
@@ -158,13 +153,17 @@
   }
   .chamada a:hover,.chamada a:focus-visible{color:var(--sinal)}
 
+  .rodape{
+    border-top:1px solid var(--linha);
+    padding-top:clamp(18px,2.6vh,28px);
+    text-align:center;
+  }
   .assinatura{
     margin:0;
     font-family:'IBM Plex Mono',ui-monospace,monospace;
     font-size:clamp(11px,1vw,13px);
     color:var(--grafite);
     opacity:.85;
-    white-space:nowrap;
   }
 
   :focus-visible{
@@ -184,14 +183,8 @@
     .complemento{font-size:clamp(16px,2vw,20px)}
   }
 
-  /* Celular: empilha o rodape */
+  /* Celular: permite quebra na chamada e no e-mail */
   @media (max-width:620px){
-    .rodape{
-      flex-direction:column;
-      align-items:flex-start;
-      gap:14px;
-    }
-    .assinatura{white-space:normal}
     .chamada a{white-space:normal}
   }
 
@@ -230,12 +223,14 @@
       <p class="aviso">O site está em desenvolvimento, aguarde novas atualizações.</p>
     </section>
 
-    <div class="rodape">
+    <div class="rodape-envolucro">
       <p class="chamada">
-        Quer ser avisado quando as ferramentas estiverem disponíveis?
+        Quer ser avisado quando as ferramentas estiverem disponíveis?<br>
         Escreva para <a href="mailto:contato@salaeletrica.com.br">contato@salaeletrica.com.br</a>.
       </p>
-      <p class="assinatura">Sala Elétrica, todo mundo no mesmo barramento.</p>
+      <div class="rodape">
+        <p class="assinatura">Sala Elétrica, todo mundo no mesmo barramento.</p>
+      </div>
     </div>
 
   </main>
