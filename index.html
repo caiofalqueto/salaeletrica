@@ -31,7 +31,7 @@
     background:var(--tinta);
     color:var(--papel);
     font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
-    line-height:1.55;
+    line-height:1.5;
     -webkit-font-smoothing:antialiased;
     overflow:hidden;
   }
@@ -53,73 +53,75 @@
     height:100%;
     padding:var(--faixa-altura) 0;
     overflow-y:auto;
-    display:flex;
-    flex-direction:column;
   }
 
+  /* Ocupa toda a altura disponivel e distribui os blocos */
   .envelope{
-    flex:1;
+    min-height:100%;
     width:100%;
-    max-width:820px;
+    max-width:1180px;
     margin:0 auto;
-    padding:48px 28px 32px;
+    padding:clamp(32px,6vh,76px) clamp(24px,5vw,72px);
     display:flex;
     flex-direction:column;
-    justify-content:center;
+    justify-content:space-between;
+    gap:clamp(32px,6vh,72px);
   }
 
   /* Nome do site como elemento principal */
   .titulo{
     display:flex;
     align-items:center;
-    gap:16px;
-    margin:0 0 14px;
-    font-size:clamp(38px,8vw,68px);
+    gap:clamp(12px,1.6vw,22px);
+    margin:0 0 clamp(12px,1.8vh,22px);
+    font-size:clamp(40px,8.5vw,92px);
     font-weight:700;
-    line-height:1;
-    letter-spacing:-.03em;
+    line-height:.95;
+    letter-spacing:-.035em;
   }
   .titulo svg{
     flex:none;
-    width:clamp(34px,7vw,58px);
+    width:clamp(36px,7vw,74px);
     height:auto;
   }
 
   .complemento{
-    font-size:clamp(16px,2.7vw,22px);
+    font-size:clamp(17px,2.6vw,28px);
     font-weight:600;
     color:var(--sinal);
-    letter-spacing:-.01em;
-    margin:0 0 36px;
-    max-width:26ch;
+    letter-spacing:-.015em;
+    line-height:1.25;
+    margin:0;
+    max-width:30ch;
   }
 
   /* Texto explicativo apoiado numa linha vertical, como um alimentador */
   .explicacao{
     border-left:2px solid var(--linha);
-    padding-left:22px;
-    margin:0 0 34px;
+    padding-left:clamp(20px,2.2vw,30px);
+    margin:0 0 clamp(22px,3.5vh,38px);
   }
   .explicacao p{
     margin:0;
-    font-size:clamp(14.5px,2vw,16.5px);
+    font-size:clamp(15px,1.5vw,19px);
+    line-height:1.65;
     color:var(--grafite);
-    max-width:62ch;
+    max-width:66ch;
   }
 
   /* Aviso de obra, com lampada de sinalizacao de painel */
   .aviso{
     position:relative;
-    padding-left:26px;
-    font-size:clamp(14px,1.9vw,15.5px);
+    padding-left:clamp(24px,2vw,30px);
+    font-size:clamp(14.5px,1.35vw,17px);
     color:var(--papel);
-    margin:0 0 40px;
+    margin:0;
   }
   .aviso::before{
     content:"";
     position:absolute;
     left:0;
-    top:.45em;
+    top:.5em;
     width:11px;
     height:11px;
     border-radius:50%;
@@ -134,28 +136,35 @@
 
   .rodape{
     border-top:1px solid var(--linha);
-    padding-top:22px;
+    padding-top:clamp(18px,2.6vh,28px);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px 40px;
   }
   .chamada{
-    margin:0 0 16px;
-    font-size:clamp(14px,1.9vw,15.5px);
+    margin:0;
+    font-size:clamp(14px,1.3vw,16.5px);
     color:var(--grafite);
-    max-width:58ch;
+    max-width:60ch;
   }
   .chamada a{
     color:var(--papel);
     text-decoration:none;
     border-bottom:1px solid var(--sinal);
     padding-bottom:1px;
+    white-space:nowrap;
   }
   .chamada a:hover,.chamada a:focus-visible{color:var(--sinal)}
 
   .assinatura{
     margin:0;
     font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:11.5px;
+    font-size:clamp(11px,1vw,13px);
     color:var(--grafite);
-    opacity:.8;
+    opacity:.85;
+    white-space:nowrap;
   }
 
   :focus-visible{
@@ -163,12 +172,27 @@
     outline-offset:3px;
   }
 
-  @media (max-width:520px){
-    .envelope{padding:32px 20px 24px}
-    .titulo{gap:12px;margin-bottom:12px}
-    .complemento{margin-bottom:28px}
-    .explicacao{padding-left:18px;margin-bottom:26px}
-    .aviso{margin-bottom:30px}
+  /* Telas baixas: aperta o respiro para nao gerar rolagem */
+  @media (max-height:620px){
+    .envelope{
+      justify-content:flex-start;
+      gap:26px;
+      padding-top:28px;
+      padding-bottom:24px;
+    }
+    .titulo{font-size:clamp(34px,6vw,52px)}
+    .complemento{font-size:clamp(16px,2vw,20px)}
+  }
+
+  /* Celular: empilha o rodape */
+  @media (max-width:620px){
+    .rodape{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:14px;
+    }
+    .assinatura{white-space:normal}
+    .chamada a{white-space:normal}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -183,33 +207,35 @@
 <div class="pagina">
   <main class="envelope">
 
-    <h1 class="titulo">
-      <svg viewBox="0 0 32 32" aria-hidden="true">
-        <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
-        <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
-      </svg>
-      Sala Elétrica
-    </h1>
+    <header>
+      <h1 class="titulo">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
+          <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
+        </svg>
+        Sala Elétrica
+      </h1>
+      <p class="complemento">Site com Ferramentas Online para Projeto Elétrico Industrial</p>
+    </header>
 
-    <p class="complemento">Site com Ferramentas Online para Projeto Elétrico Industrial</p>
-
-    <div class="explicacao">
-      <p>
-        Uma plataforma com rotinas de cálculo que todo projetista utiliza no seu trabalho
-        diário com projetos industriais: estudo de demanda, memória de cálculo de equipamentos
-        elétricos como painéis, transformadores e geradores, memória de cálculo de cabos,
-        dimensionais de painéis e etc.
-      </p>
-    </div>
-
-    <p class="aviso">O site está em desenvolvimento, aguarde novas atualizações.</p>
+    <section>
+      <div class="explicacao">
+        <p>
+          Uma plataforma com rotinas de cálculo que todo projetista utiliza no seu trabalho
+          diário com projetos industriais: estudo de demanda, memória de cálculo de equipamentos
+          elétricos como painéis, transformadores e geradores, memória de cálculo de cabos,
+          dimensionais de painéis e etc.
+        </p>
+      </div>
+      <p class="aviso">O site está em desenvolvimento, aguarde novas atualizações.</p>
+    </section>
 
     <div class="rodape">
       <p class="chamada">
         Quer ser avisado quando as ferramentas estiverem disponíveis?
         Escreva para <a href="mailto:contato@salaeletrica.com.br">contato@salaeletrica.com.br</a>.
       </p>
-      <p class="assinatura">Sala Elétrica, desenvolvido por quem usa.</p>
+      <p class="assinatura">Sala Elétrica, todo mundo no mesmo barramento.</p>
     </div>
 
   </main>
