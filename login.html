@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar — Sala Elétrica</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23101820'/><path d='M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z' fill='%23f2b705'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tinta:#101820;
+    --tinta-2:#18222c;
+    --linha:#2a3743;
+    --papel:#eef1f4;
+    --grafite:#9fb0bd;
+    --sinal:#f2b705;
+    --erro:#e2635c;
+    --faixa-altura:8px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%}
+  body{
+    background:var(--tinta);
+    color:var(--papel);
+    font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+  .faixa{
+    position:fixed;left:0;right:0;height:var(--faixa-altura);
+    background:repeating-linear-gradient(135deg,var(--sinal) 0 14px,var(--tinta) 14px 28px);
+    z-index:10;
+  }
+  .faixa-topo{top:0}
+  .faixa-base{bottom:0}
+
+  .pagina{
+    height:100%;
+    padding:var(--faixa-altura) 0;
+    overflow-y:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .cartao{
+    width:100%;
+    max-width:430px;
+    padding:36px 28px;
+    text-align:center;
+  }
+  .marca{
+    display:flex;align-items:center;justify-content:center;
+    gap:12px;margin:0 0 10px;
+    font-size:clamp(28px,6vw,38px);font-weight:700;
+    line-height:1;letter-spacing:-.03em;
+  }
+  .marca svg{flex:none;width:clamp(28px,5vw,36px);height:auto}
+
+  .legenda{
+    margin:0 0 34px;
+    color:var(--grafite);
+    font-size:15px;
+  }
+
+  .botao{
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    width:100%;padding:14px 20px;
+    background:var(--papel);
+    color:#1f1f1f;
+    border:none;border-radius:8px;
+    font-family:inherit;font-size:15.5px;font-weight:600;
+    cursor:pointer;
+    transition:transform .12s ease,box-shadow .12s ease;
+  }
+  .botao:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.28)}
+  .botao:disabled{opacity:.6;cursor:wait;transform:none}
+  .botao svg{flex:none}
+
+  .aviso{
+    margin:26px 0 0;
+    font-size:12.5px;
+    color:var(--grafite);
+    line-height:1.6;
+  }
+  .aviso a{color:var(--papel);border-bottom:1px solid var(--sinal);text-decoration:none}
+
+  .erro{
+    margin:20px 0 0;
+    padding:12px 14px;
+    border:1px solid var(--erro);
+    border-radius:6px;
+    color:var(--erro);
+    font-size:13.5px;
+    display:none;
+  }
+
+  .voltar{
+    margin:30px 0 0;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11.5px;
+  }
+  .voltar a{color:var(--grafite);text-decoration:none}
+  .voltar a:hover{color:var(--sinal)}
+
+  :focus-visible{outline:2px solid var(--sinal);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="faixa faixa-topo" role="presentation"></div>
+
+<div class="pagina">
+  <main class="cartao">
+
+    <h1 class="marca">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
+        <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
+      </svg>
+      Sala Elétrica
+    </h1>
+
+    <p class="legenda">Entre para acessar as ferramentas.</p>
+
+    <button class="botao" id="btnGoogle">
+      <svg width="19" height="19" viewBox="0 0 48 48" aria-hidden="true">
+        <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.8-.4-4.1H24v7.4h12.1c-.2 2-1.6 5-4.5 7l-.1.3 6.5 5 .5.1c4.1-3.8 6.6-9.4 6.6-15.7z"/>
+        <path fill="#34A853" d="M24 46c5.9 0 10.9-1.9 14.5-5.3l-6.9-5.3c-1.8 1.3-4.3 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.900l-.3.1-6.8 5.2-.1.3C7.9 41 15.3 46 24 46z"/>
+        <path fill="#FBBC05" d="M11.5 27.7c-.5-1.4-.7-2.9-.7-4.4s.3-3 .7-4.4v-.3l-6.9-5.3-.2.1C2.9 16.3 2 20 2 23.9s.9 7.6 2.4 10.9l7.1-5.5z"/>
+        <path fill="#EB4335" d="M24 9.5c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.4 29.9 1 24 1 15.3 1 7.9 6 4.4 13.3l7.1 5.5C13.3 13.3 18.2 9.5 24 9.5z"/>
+      </svg>
+      Entrar com o Google
+    </button>
+
+    <div class="erro" id="erro" role="alert"></div>
+
+    <p class="aviso">
+      Ao entrar, você concorda com os
+      <a href="/termos">termos de uso</a> e a
+      <a href="/privacidade">política de privacidade</a>.
+    </p>
+
+    <p class="voltar"><a href="/">voltar ao site</a></p>
+
+  </main>
+</div>
+
+<div class="faixa faixa-base" role="presentation"></div>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+  const SUPABASE_URL = 'https://kahbgjwwqsejocmseegc.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_g2opUBjSqj6hXZ2HDsAMhQ_jfMVARqX';
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const btn = document.getElementById('btnGoogle');
+  const erro = document.getElementById('erro');
+
+  // Se já estiver logado, vai direto para a área de ferramentas
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) window.location.replace('/app');
+
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    erro.style.display = 'none';
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin + '/app' }
+    });
+
+    if (error) {
+      erro.textContent = 'Não foi possível iniciar o login: ' + error.message;
+      erro.style.display = 'block';
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
