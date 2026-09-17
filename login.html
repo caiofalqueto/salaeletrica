@@ -166,13 +166,16 @@
   const { data: { session } } = await supabase.auth.getSession();
   if (session) window.location.replace('/app');
 
+  // Destino fixo: nao depende de o usuario ter chegado pelo www ou pelo apex
+  const DESTINO = 'https://salaeletrica.com.br/app';
+
   btn.addEventListener('click', async () => {
     btn.disabled = true;
     erro.style.display = 'none';
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.origin + '/app' }
+      options: { redirectTo: DESTINO }
     });
 
     if (error) {
