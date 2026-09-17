@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ferramentas — Sala Elétrica</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23101820'/><path d='M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z' fill='%23f2b705'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tinta:#101820;
+    --tinta-2:#18222c;
+    --linha:#2a3743;
+    --papel:#eef1f4;
+    --grafite:#9fb0bd;
+    --sinal:#f2b705;
+    --faixa-altura:8px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;min-height:100%}
+  body{
+    background:var(--tinta);
+    color:var(--papel);
+    font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .faixa{
+    position:fixed;left:0;right:0;height:var(--faixa-altura);
+    background:repeating-linear-gradient(135deg,var(--sinal) 0 14px,var(--tinta) 14px 28px);
+    z-index:10;
+  }
+  .faixa-topo{top:0}
+  .faixa-base{bottom:0}
+
+  /* Enquanto a sessao nao e verificada, nada e mostrado */
+  #conteudo{display:none}
+
+  #carregando{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:12.5px;color:var(--grafite);
+  }
+
+  .barra{
+    border-bottom:1px solid var(--linha);
+    padding:18px clamp(20px,4vw,40px);
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;
+  }
+  .marca{
+    display:flex;align-items:center;gap:10px;
+    font-size:17px;font-weight:700;letter-spacing:-.02em;
+  }
+  .marca svg{flex:none}
+  .usuario{
+    display:flex;align-items:center;gap:12px;
+    font-size:13.5px;color:var(--grafite);
+  }
+  .usuario img{
+    width:30px;height:30px;border-radius:50%;
+    border:1px solid var(--linha);
+  }
+  .sair{
+    background:none;border:1px solid var(--linha);
+    color:var(--grafite);
+    padding:7px 14px;border-radius:6px;
+    font-family:inherit;font-size:13px;cursor:pointer;
+  }
+  .sair:hover{border-color:var(--sinal);color:var(--sinal)}
+
+  main{
+    max-width:1180px;margin:0 auto;
+    padding:clamp(32px,6vh,64px) clamp(20px,4vw,40px) 60px;
+  }
+  h1{
+    font-size:clamp(26px,4vw,40px);
+    font-weight:700;letter-spacing:-.025em;
+    margin:0 0 12px;
+  }
+  .abertura{
+    color:var(--grafite);
+    font-size:clamp(14.5px,1.5vw,17px);
+    max-width:62ch;margin:0 0 40px;
+  }
+
+  .grade{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:18px;
+  }
+  .ferramenta{
+    border:1px solid var(--linha);
+    border-radius:10px;
+    padding:22px;
+    background:var(--tinta-2);
+  }
+  .ferramenta h2{
+    font-size:16.5px;font-weight:700;margin:0 0 6px;
+  }
+  .ferramenta p{
+    margin:0;font-size:14px;color:var(--grafite);
+  }
+  .selo{
+    display:inline-block;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:10.5px;color:var(--sinal);
+    margin-bottom:8px;
+  }
+
+  :focus-visible{outline:2px solid var(--sinal);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div id="carregando">verificando acesso…</div>
+
+<div id="conteudo">
+  <div class="faixa faixa-topo" role="presentation"></div>
+
+  <div class="barra" style="margin-top:var(--faixa-altura)">
+    <div class="marca">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
+        <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
+      </svg>
+      Sala Elétrica
+    </div>
+    <div class="usuario">
+      <img id="foto" alt="" hidden>
+      <span id="nome"></span>
+      <button class="sair" id="btnSair">Sair</button>
+    </div>
+  </div>
+
+  <main>
+    <h1>Ferramentas</h1>
+    <p class="abertura">
+      Esta é a área de ferramentas. Nenhuma rotina está publicada ainda —
+      as primeiras entram conforme forem ficando prontas.
+    </p>
+
+    <div class="grade">
+      <div class="ferramenta">
+        <span class="selo">em desenvolvimento</span>
+        <h2>Estudo de demanda</h2>
+        <p>Leitura da lista de cargas, classificação, distribuição em salas elétricas e painéis.</p>
+      </div>
+      <div class="ferramenta">
+        <span class="selo">a seguir</span>
+        <h2>Memória de cálculo</h2>
+        <p>Painéis, transformadores, geradores e cabos.</p>
+      </div>
+      <div class="ferramenta">
+        <span class="selo">a seguir</span>
+        <h2>Dimensionais de painéis</h2>
+        <p>Cálculo dimensional e geração do documento.</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="faixa faixa-base" role="presentation"></div>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+  const SUPABASE_URL = 'https://kahbgjwwqsejocmseegc.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_g2opUBjSqj6hXZ2HDsAMhQ_jfMVARqX';
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Porteiro: sem sessao ativa, volta para o login sem mostrar nada
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) {
+    window.location.replace('/login');
+  } else {
+    const u = session.user.user_metadata || {};
+
+    document.getElementById('nome').textContent =
+      u.full_name || u.name || session.user.email;
+
+    if (u.avatar_url) {
+      const foto = document.getElementById('foto');
+      foto.src = u.avatar_url;
+      foto.hidden = false;
+    }
+
+    document.getElementById('carregando').remove();
+    document.getElementById('conteudo').style.display = 'block';
+  }
+
+  document.getElementById('btnSair').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.replace('/');
+  });
+</script>
+
+</body>
+</html>
