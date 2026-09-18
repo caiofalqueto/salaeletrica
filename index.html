@@ -3,240 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sala Elétrica</title>
-<meta name="description" content="Site com ferramentas online para projeto elétrico industrial: estudo de demanda, memória de cálculo de equipamentos e cabos, dimensionais de painéis. Em desenvolvimento.">
-<meta property="og:title" content="Sala Elétrica">
-<meta property="og:description" content="Ferramentas online para projeto elétrico industrial. Em desenvolvimento.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://salaeletrica.com.br">
-<meta name="theme-color" content="#101820">
+<title>Ferramentas — Sala Elétrica</title>
+<meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23101820'/><path d='M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z' fill='%23f2b705'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --tinta:#101820;      /* fundo, cor de barramento pintado */
+    --tinta:#101820;
     --tinta-2:#18222c;
     --linha:#2a3743;
     --papel:#eef1f4;
     --grafite:#9fb0bd;
-    --sinal:#f2b705;      /* amarelo de sinalizacao eletrica */
+    --sinal:#f2b705;
     --faixa-altura:8px;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;height:100%}
-
+  html,body{margin:0;padding:0;min-height:100%}
   body{
     background:var(--tinta);
     color:var(--papel);
     font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
-    line-height:1.5;
+    line-height:1.55;
     -webkit-font-smoothing:antialiased;
-    overflow:hidden;
   }
-
-  /* Faixas de advertencia fixas, como as de painel eletrico */
   .faixa{
-    position:fixed;
-    left:0;
-    right:0;
-    height:var(--faixa-altura);
+    position:fixed;left:0;right:0;height:var(--faixa-altura);
     background:repeating-linear-gradient(135deg,var(--sinal) 0 14px,var(--tinta) 14px 28px);
     z-index:10;
   }
   .faixa-topo{top:0}
   .faixa-base{bottom:0}
 
-  /* Area util entre as duas faixas */
-  .pagina{
-    height:100%;
-    padding:var(--faixa-altura) 0;
-    overflow-y:auto;
-  }
+  /* Enquanto a sessao nao e verificada, nada e mostrado */
+  #conteudo{display:none}
 
-  /* Ocupa toda a altura disponivel e distribui os blocos */
-  .envelope{
-    min-height:100%;
-    width:100%;
-    max-width:1180px;
-    margin:0 auto;
-    padding:clamp(32px,6vh,76px) clamp(24px,5vw,72px);
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    gap:clamp(32px,6vh,72px);
-  }
-
-  /* Nome do site como elemento principal */
-  .titulo{
-    display:flex;
-    align-items:center;
-    gap:clamp(12px,1.6vw,22px);
-    margin:0 0 clamp(12px,1.8vh,22px);
-    font-size:clamp(40px,8.5vw,92px);
-    font-weight:700;
-    line-height:.95;
-    letter-spacing:-.035em;
-  }
-  .titulo svg{
-    flex:none;
-    width:clamp(36px,7vw,74px);
-    height:auto;
-  }
-
-  .complemento{
-    font-size:clamp(15px,2.9vw,28px);
-    font-weight:600;
-    color:var(--sinal);
-    letter-spacing:-.015em;
-    line-height:1.25;
-    margin:0;
-  }
-
-  /* Texto explicativo apoiado numa linha vertical, como um alimentador */
-  .explicacao{
-    border-left:2px solid var(--linha);
-    padding-left:clamp(20px,2.2vw,30px);
-    margin:0 0 clamp(22px,3.5vh,38px);
-  }
-  .explicacao p{
-    margin:0;
-    font-size:clamp(15px,1.5vw,19px);
-    line-height:1.65;
-    color:var(--grafite);
-    max-width:92ch;
-  }
-
-  /* Aviso de obra, com lampada de sinalizacao de painel */
-  .aviso{
-    position:relative;
-    padding-left:clamp(24px,2vw,30px);
-    font-size:clamp(14.5px,1.35vw,17px);
-    color:var(--papel);
-    margin:0;
-  }
-  .aviso::before{
-    content:"";
-    position:absolute;
-    left:0;
-    top:.5em;
-    width:11px;
-    height:11px;
-    border-radius:50%;
-    background:var(--sinal);
-    box-shadow:0 0 0 5px rgba(242,183,5,.16);
-    animation:pulsa 2.6s ease-in-out infinite;
-  }
-  @keyframes pulsa{
-    0%,100%{box-shadow:0 0 0 5px rgba(242,183,5,.16)}
-    50%{box-shadow:0 0 0 9px rgba(242,183,5,.05)}
-  }
-
-  .rodape-envolucro{
-    display:flex;
-    flex-direction:column;
-    gap:clamp(16px,2.4vh,24px);
-  }
-  .chamada{
-    margin:0;
-    font-size:clamp(14px,1.3vw,16.5px);
-    color:var(--grafite);
-    max-width:84ch;
-  }
-  .chamada a{
-    color:var(--papel);
-    text-decoration:none;
-    border-bottom:1px solid var(--sinal);
-    padding-bottom:1px;
-    white-space:nowrap;
-  }
-  .chamada a:hover,.chamada a:focus-visible{color:var(--sinal)}
-
-  .rodape{
-    border-top:1px solid var(--linha);
-    padding-top:clamp(18px,2.6vh,28px);
-    text-align:center;
-  }
-  .assinatura{
-    margin:0;
+  #carregando{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
     font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:clamp(11px,1vw,13px);
+    font-size:12.5px;color:var(--grafite);
+  }
+
+  .barra{
+    border-bottom:1px solid var(--linha);
+    padding:18px clamp(20px,4vw,40px);
+    display:flex;align-items:center;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;
+  }
+  .marca{
+    display:flex;align-items:center;gap:10px;
+    font-size:17px;font-weight:700;letter-spacing:-.02em;
+  }
+  .marca svg{flex:none}
+  .usuario{
+    display:flex;align-items:center;gap:12px;
+    font-size:13.5px;color:var(--grafite);
+  }
+  .usuario img{
+    width:30px;height:30px;border-radius:50%;
+    border:1px solid var(--linha);
+  }
+  .sair{
+    background:none;border:1px solid var(--linha);
     color:var(--grafite);
-    opacity:.85;
+    padding:7px 14px;border-radius:6px;
+    font-family:inherit;font-size:13px;cursor:pointer;
+  }
+  .sair:hover{border-color:var(--sinal);color:var(--sinal)}
+
+  main{
+    max-width:1180px;margin:0 auto;
+    padding:clamp(32px,6vh,64px) clamp(20px,4vw,40px) 60px;
+  }
+  h1{
+    font-size:clamp(26px,4vw,40px);
+    font-weight:700;letter-spacing:-.025em;
+    margin:0 0 12px;
+  }
+  .abertura{
+    color:var(--grafite);
+    font-size:clamp(14.5px,1.5vw,17px);
+    max-width:62ch;margin:0 0 40px;
   }
 
-  :focus-visible{
-    outline:2px solid var(--sinal);
-    outline-offset:3px;
+  .grade{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:18px;
+  }
+  .ferramenta{
+    border:1px solid var(--linha);
+    border-radius:10px;
+    padding:22px;
+    background:var(--tinta-2);
+  }
+  .ferramenta h2{
+    font-size:16.5px;font-weight:700;margin:0 0 6px;
+  }
+  .ferramenta p{
+    margin:0;font-size:14px;color:var(--grafite);
+  }
+  .selo{
+    display:inline-block;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:10.5px;color:var(--sinal);
+    margin-bottom:8px;
   }
 
-  /* Telas baixas: aperta o respiro para nao gerar rolagem */
-  @media (max-height:620px){
-    .envelope{
-      justify-content:flex-start;
-      gap:26px;
-      padding-top:28px;
-      padding-bottom:24px;
-    }
-    .titulo{font-size:clamp(34px,6vw,52px)}
-    .complemento{font-size:clamp(16px,2vw,20px)}
+  /* Aviso tecnico permanente */
+  .alerta{
+    display:flex;gap:14px;align-items:flex-start;
+    border:1px solid rgba(242,183,5,.45);
+    border-left:4px solid var(--sinal);
+    border-radius:8px;
+    background:rgba(242,183,5,.07);
+    padding:16px 18px;
+    margin:0 0 34px;
   }
+  .alerta svg{flex:none;margin-top:2px}
+  .alerta p{
+    margin:0;font-size:13.5px;line-height:1.6;
+    color:var(--papel);
+  }
+  .alerta strong{color:var(--sinal);font-weight:700}
+  .alerta a{color:var(--grafite);border-bottom:1px solid var(--linha);text-decoration:none}
+  .alerta a:hover{color:var(--sinal)}
 
-  /* Celular: permite quebra na chamada e no e-mail */
-  @media (max-width:620px){
-    .chamada a{white-space:normal}
+  .rodape-app{
+    max-width:1180px;margin:0 auto;
+    padding:0 clamp(20px,4vw,40px) 48px;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11px;color:var(--grafite);opacity:.75;
   }
+  .rodape-app a{color:inherit;text-decoration:none;border-bottom:1px solid var(--linha)}
+  .rodape-app a:hover{color:var(--sinal)}
 
-  @media (prefers-reduced-motion:reduce){
-    .aviso::before{animation:none}
-  }
+  :focus-visible{outline:2px solid var(--sinal);outline-offset:3px}
 </style>
 </head>
 <body>
 
-<div class="faixa faixa-topo" role="presentation"></div>
+<div id="carregando">verificando acesso…</div>
 
-<div class="pagina">
-  <main class="envelope">
+<div id="conteudo">
+  <div class="faixa faixa-topo" role="presentation"></div>
 
-    <header>
-      <h1 class="titulo">
-        <svg viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
-          <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
-        </svg>
-        Sala Elétrica
-      </h1>
-      <p class="complemento">Site com Ferramentas Online para Projeto Elétrico Industrial</p>
-    </header>
+  <div class="barra" style="margin-top:var(--faixa-altura)">
+    <div class="marca">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
+        <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
+      </svg>
+      Sala Elétrica
+    </div>
+    <div class="usuario">
+      <img id="foto" alt="" hidden>
+      <span id="nome"></span>
+      <button class="sair" id="btnSair">Sair</button>
+    </div>
+  </div>
 
-    <section>
-      <div class="explicacao">
-        <p>
-          Uma plataforma com rotinas de cálculo que todo projetista utiliza no seu trabalho
-          diário com projetos industriais: estudo de demanda, memória de cálculo de equipamentos
-          elétricos como painéis, transformadores e geradores, memória de cálculo de cabos,
-          dimensionais de painéis e etc.
-        </p>
-      </div>
-      <p class="aviso">O site está em desenvolvimento, aguarde novas atualizações.</p>
-    </section>
+  <main>
+    <h1>Ferramentas</h1>
+    <p class="abertura">
+      Esta é a área de ferramentas. Nenhuma rotina está publicada ainda —
+      as primeiras entram conforme forem ficando prontas.
+    </p>
 
-    <div class="rodape-envolucro">
-      <p class="chamada">
-        Quer ser avisado quando as ferramentas estiverem disponíveis?<br>
-        Escreva para <a href="mailto:contato@salaeletrica.com.br">contato@salaeletrica.com.br</a>.
+    <div class="alerta" role="note">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3 L22 20 H2 Z" stroke="#f2b705" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M12 10 v4" stroke="#f2b705" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="12" cy="17" r="1.1" fill="#f2b705"/>
+      </svg>
+      <p>
+        <strong>Resultados preliminares.</strong>
+        As ferramentas deste site s&atilde;o instrumentos de apoio e est&atilde;o em
+        desenvolvimento cont&iacute;nuo. Todo resultado deve ser conferido pelo
+        profissional habilitado antes de ser incorporado a projeto, mem&oacute;ria de
+        c&aacute;lculo ou qualquer entreg&aacute;vel t&eacute;cnico. A responsabilidade
+        t&eacute;cnica permanece de quem assina a ART.
+        <a href="/termos">Ver termos de uso</a>
       </p>
-      <div class="rodape">
-        <p class="assinatura">Sala Elétrica, todo mundo no mesmo barramento.</p>
-      </div>
     </div>
 
+    <div class="grade">
+      <div class="ferramenta">
+        <span class="selo">em desenvolvimento</span>
+        <h2>Estudo de demanda</h2>
+        <p>Leitura da lista de cargas, classificação, distribuição em salas elétricas e painéis.</p>
+      </div>
+      <div class="ferramenta">
+        <span class="selo">a seguir</span>
+        <h2>Memória de cálculo</h2>
+        <p>Painéis, transformadores, geradores e cabos.</p>
+      </div>
+      <div class="ferramenta">
+        <span class="selo">a seguir</span>
+        <h2>Dimensionais de painéis</h2>
+        <p>Cálculo dimensional e geração do documento.</p>
+      </div>
+    </div>
   </main>
+
+  <div class="rodape-app">
+    Sala El&eacute;trica &nbsp;&middot;&nbsp;
+    <a href="/termos">termos de uso</a> &nbsp;&middot;&nbsp;
+    <a href="/privacidade">privacidade</a>
+  </div>
+
+  <div class="faixa faixa-base" role="presentation"></div>
 </div>
 
-<div class="faixa faixa-base" role="presentation"></div>
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+  const SUPABASE_URL = 'https://kahbgjwwqsejocmseegc.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_g2opUBjSqj6hXZ2HDsAMhQ_jfMVARqX';
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Porteiro: sem sessao ativa, volta para o login sem mostrar nada
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) {
+    window.location.replace('/login');
+  } else {
+    const u = session.user.user_metadata || {};
+
+    document.getElementById('nome').textContent =
+      u.full_name || u.name || session.user.email;
+
+    if (u.avatar_url) {
+      const foto = document.getElementById('foto');
+      foto.src = u.avatar_url;
+      foto.hidden = false;
+    }
+
+    document.getElementById('carregando').remove();
+    document.getElementById('conteudo').style.display = 'block';
+  }
+
+  document.getElementById('btnSair').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.replace('/');
+  });
+</script>
 
 </body>
 </html>
