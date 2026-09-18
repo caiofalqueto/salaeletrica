@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade — Sala Elétrica</title>
+<meta name="description" content="Como o Sala Elétrica trata dados pessoais, conforme a Lei Geral de Proteção de Dados.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23101820'/><path d='M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z' fill='%23f2b705'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tinta:#101820;--tinta-2:#18222c;--linha:#2a3743;
+    --papel:#eef1f4;--grafite:#9fb0bd;--sinal:#f2b705;
+    --faixa-altura:8px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--tinta);color:var(--papel);
+    font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+    line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  .faixa{
+    position:fixed;left:0;right:0;height:var(--faixa-altura);
+    background:repeating-linear-gradient(135deg,var(--sinal) 0 14px,var(--tinta) 14px 28px);
+    z-index:10;
+  }
+  .faixa-topo{top:0}
+  .faixa-base{bottom:0}
+
+  .doc{
+    max-width:760px;margin:0 auto;
+    padding:calc(var(--faixa-altura) + 52px) 24px calc(var(--faixa-altura) + 64px);
+  }
+  .marca{
+    display:flex;align-items:center;gap:10px;
+    font-size:15px;font-weight:700;letter-spacing:.01em;
+    margin:0 0 44px;text-decoration:none;color:var(--papel);
+  }
+  .marca svg{flex:none}
+
+  h1{
+    font-size:clamp(28px,5vw,40px);font-weight:700;
+    letter-spacing:-.025em;line-height:1.12;margin:0 0 10px;
+  }
+  .data{
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11.5px;color:var(--grafite);
+    margin:0 0 40px;
+  }
+  h2{
+    font-size:18px;font-weight:700;letter-spacing:-.015em;
+    margin:40px 0 12px;padding-top:20px;
+    border-top:1px solid var(--linha);
+  }
+  h3{font-size:15px;font-weight:600;margin:24px 0 8px;color:var(--sinal)}
+  p,li{font-size:15.5px;color:var(--grafite);margin:0 0 14px}
+  strong{color:var(--papel);font-weight:600}
+  ul{padding-left:22px;margin:0 0 18px}
+  li{margin-bottom:8px}
+  a{color:var(--papel);text-decoration:none;border-bottom:1px solid var(--sinal)}
+  a:hover{color:var(--sinal)}
+
+  table{
+    width:100%;border-collapse:collapse;margin:0 0 20px;
+    font-size:14px;
+  }
+  th,td{
+    text-align:left;padding:10px 12px;
+    border:1px solid var(--linha);vertical-align:top;
+    color:var(--grafite);
+  }
+  th{color:var(--papel);font-weight:600;background:var(--tinta-2)}
+
+  .preencher{
+    background:rgba(242,183,5,.13);
+    color:var(--sinal);
+    padding:1px 6px;border-radius:3px;
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:13px;
+  }
+
+  .voltar{
+    margin-top:48px;padding-top:22px;
+    border-top:1px solid var(--linha);
+    font-family:'IBM Plex Mono',ui-monospace,monospace;
+    font-size:11.5px;
+  }
+  .voltar a{color:var(--grafite);border:none}
+  .voltar a:hover{color:var(--sinal)}
+
+  :focus-visible{outline:2px solid var(--sinal);outline-offset:3px}
+  @media (max-width:560px){
+    table{font-size:13px}
+    th,td{padding:8px 9px}
+  }
+</style>
+</head>
+<body>
+
+<div class="faixa faixa-topo" role="presentation"></div>
+
+<article class="doc">
+
+  <a class="marca" href="/">
+    <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
+      <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
+    </svg>
+    Sala Elétrica
+  </a>
+
+  <h1>Política de Privacidade</h1>
+  <p class="data">Última atualização: <span class="preencher">DATA</span></p>
+
+  <p>
+    Esta política explica quais dados pessoais o Sala Elétrica coleta, por que coleta,
+    com quem compartilha e quais são os seus direitos, conforme a Lei nº 13.709/2018
+    (Lei Geral de Proteção de Dados Pessoais — LGPD).
+  </p>
+
+  <h2>1. Quem é o controlador dos dados</h2>
+  <p>
+    O controlador dos dados pessoais tratados neste site é
+    <span class="preencher">NOME COMPLETO OU RAZÃO SOCIAL</span>,
+    inscrito no <span class="preencher">CPF OU CNPJ</span>,
+    com endereço em <span class="preencher">ENDEREÇO</span>.
+  </p>
+  <p>
+    Contato para assuntos de privacidade:
+    <a href="mailto:contato@salaeletrica.com.br">contato@salaeletrica.com.br</a>.
+  </p>
+
+  <h2>2. Quais dados são coletados</h2>
+
+  <h3>2.1 Dados de cadastro</h3>
+  <p>
+    O acesso às ferramentas exige login com uma conta Google. Nesse processo recebemos
+    do Google, mediante a sua autorização: <strong>nome</strong>, <strong>endereço de
+    e-mail</strong>, <strong>foto de perfil</strong> e um <strong>identificador
+    numérico</strong> da conta.
+  </p>
+  <p>
+    Não temos acesso à sua senha do Google, nem ao conteúdo de e-mails, arquivos,
+    agenda ou qualquer outro serviço da sua conta.
+  </p>
+
+  <h3>2.2 Dados inseridos nas ferramentas</h3>
+  <p>
+    As informações que você informa ou carrega para usar as ferramentas — listas de
+    cargas, parâmetros de cálculo, nomes de projetos e resultados salvos — são
+    armazenadas e vinculadas à sua conta, para que você possa retomar o trabalho
+    depois.
+  </p>
+
+  <h3>2.3 Dados técnicos</h3>
+  <p>
+    Nossos provedores de infraestrutura registram automaticamente dados como endereço
+    IP, tipo de navegador, sistema operacional, data e hora de acesso e páginas
+    visitadas. Esses registros servem à segurança e ao funcionamento do serviço.
+  </p>
+
+  <h2>3. Para que usamos e com qual base legal</h2>
+
+  <table>
+    <tr>
+      <th>Finalidade</th>
+      <th>Dados</th>
+      <th>Base legal (LGPD)</th>
+    </tr>
+    <tr>
+      <td>Criar e manter sua conta, autenticar o acesso</td>
+      <td>Cadastro</td>
+      <td>Execução de contrato (art. 7º, V)</td>
+    </tr>
+    <tr>
+      <td>Salvar e permitir retomar seus estudos</td>
+      <td>Dados das ferramentas</td>
+      <td>Execução de contrato (art. 7º, V)</td>
+    </tr>
+    <tr>
+      <td>Responder a mensagens enviadas por você</td>
+      <td>E-mail e conteúdo da mensagem</td>
+      <td>Legítimo interesse (art. 7º, IX)</td>
+    </tr>
+    <tr>
+      <td>Segurança, prevenção de fraude e abuso</td>
+      <td>Dados técnicos</td>
+      <td>Legítimo interesse (art. 7º, IX)</td>
+    </tr>
+    <tr>
+      <td>Cumprir obrigações legais e guardar registros de acesso</td>
+      <td>Dados técnicos</td>
+      <td>Obrigação legal (art. 7º, II)</td>
+    </tr>
+  </table>
+
+  <p>
+    Não usamos seus dados para publicidade, não fazemos perfilamento comportamental
+    e <strong>não vendemos dados pessoais a terceiros</strong>.
+  </p>
+
+  <h2>4. Com quem compartilhamos</h2>
+  <p>
+    Utilizamos prestadores de serviço que atuam como operadores, tratando dados
+    exclusivamente conforme nossas instruções:
+  </p>
+  <ul>
+    <li><strong>Google LLC</strong> — autenticação da conta (login).</li>
+    <li><strong>Supabase, Inc.</strong> — banco de dados e gestão de contas.</li>
+    <li><strong>Vercel Inc.</strong> — hospedagem do site e execução das rotinas de cálculo.</li>
+    <li><strong>Serviço de encaminhamento de e-mail</strong> — entrega das mensagens enviadas ao nosso endereço de contato.</li>
+  </ul>
+  <p>
+    Também poderemos compartilhar dados quando houver determinação judicial,
+    requisição de autoridade competente ou necessidade de defesa em processo.
+  </p>
+
+  <h2>5. Transferência internacional</h2>
+  <p>
+    Os prestadores acima mantêm servidores fora do Brasil, o que implica
+    transferência internacional de dados pessoais, nos termos dos artigos 33 e
+    seguintes da LGPD. A transferência ocorre para viabilizar a prestação do serviço
+    que você contratou, e os fornecedores adotam cláusulas contratuais e medidas de
+    segurança compatíveis com a legislação aplicável.
+  </p>
+
+  <h2>6. Por quanto tempo guardamos</h2>
+  <ul>
+    <li><strong>Dados de cadastro:</strong> enquanto a conta existir.</li>
+    <li><strong>Estudos salvos:</strong> enquanto a conta existir, ou até que você os exclua.</li>
+    <li><strong>Registros de acesso:</strong> pelo prazo de 6 meses, conforme o art. 15 do Marco Civil da Internet, podendo ser mantidos por mais tempo mediante determinação legal.</li>
+  </ul>
+  <p>
+    Encerrada a conta, os dados são excluídos, ressalvadas as hipóteses de guarda
+    obrigatória previstas no art. 16 da LGPD.
+  </p>
+
+  <h2>7. Segurança</h2>
+  <p>
+    Adotamos medidas técnicas para proteger seus dados, entre elas conexão
+    criptografada (HTTPS), autenticação delegada ao Google — de modo que não
+    armazenamos senhas — e regras de acesso no banco de dados que restringem cada
+    registro ao usuário a quem pertence.
+  </p>
+  <p>
+    Nenhum sistema é completamente imune a incidentes. Caso ocorra um incidente de
+    segurança com risco relevante aos seus direitos, comunicaremos você e a Autoridade
+    Nacional de Proteção de Dados, conforme o art. 48 da LGPD.
+  </p>
+
+  <h2>8. Seus direitos</h2>
+  <p>O art. 18 da LGPD assegura a você o direito de:</p>
+  <ul>
+    <li>confirmar se tratamos dados seus e acessá-los;</li>
+    <li>corrigir dados incompletos, inexatos ou desatualizados;</li>
+    <li>solicitar anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade com a lei;</li>
+    <li>solicitar a portabilidade dos dados a outro fornecedor;</li>
+    <li>eliminar dados tratados com base no seu consentimento;</li>
+    <li>saber com quais entidades compartilhamos seus dados;</li>
+    <li>revogar o consentimento;</li>
+    <li>opor-se a tratamento realizado com fundamento em legítimo interesse.</li>
+  </ul>
+  <p>
+    Para exercer qualquer um deles, escreva para
+    <a href="mailto:contato@salaeletrica.com.br">contato@salaeletrica.com.br</a>.
+    Responderemos no menor prazo possível, observados os limites legais.
+  </p>
+
+  <h2>9. Cookies e armazenamento local</h2>
+  <p>
+    Utilizamos armazenamento local do navegador para manter você autenticado entre
+    as visitas. Esse recurso é necessário ao funcionamento do serviço — sem ele, o
+    login não se mantém. Não utilizamos cookies de publicidade nem de rastreamento
+    por terceiros.
+  </p>
+
+  <h2>10. Menores de idade</h2>
+  <p>
+    O serviço é destinado a profissionais e estudantes de engenharia elétrica e não
+    se dirige a menores de 18 anos.
+  </p>
+
+  <h2>11. Alterações desta política</h2>
+  <p>
+    Esta política pode ser atualizada. Quando houver mudança relevante, avisaremos
+    pelo site ou por e-mail. A data da última atualização consta no topo desta página.
+  </p>
+
+  <div class="voltar">
+    <a href="/">voltar ao site</a> &nbsp;·&nbsp;
+    <a href="/termos">termos de uso</a>
+  </div>
+
+</article>
+
+<div class="faixa faixa-base" role="presentation"></div>
+
+</body>
+</html>
