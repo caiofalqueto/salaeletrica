@@ -212,6 +212,51 @@ a.cartao:hover{border-color:var(--verde);color:var(--tinta)}
 .selo-verde{color:var(--verde)}
 
 /* --------------------------------------------------------------------------
+   Barra "Mais..." ao fim de cada seção da home
+   -------------------------------------------------------------------------- */
+
+.mais{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  margin-top:16px;padding:16px 22px;
+  background:var(--branco);
+  border:1px solid var(--linha);
+  color:var(--tinta);
+  font-size:15px;font-weight:600;
+}
+.mais:hover{border-color:var(--verde);color:var(--verde)}
+.mais .seta{flex:none;transition:transform .16s ease}
+.mais:hover .seta{transform:translateX(4px)}
+.mais small{
+  font-family:var(--mono);font-size:12px;font-weight:400;
+  letter-spacing:.06em;color:var(--cinza);
+}
+.mais-texto{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+
+/* --------------------------------------------------------------------------
+   Cabeçalho das páginas internas
+   -------------------------------------------------------------------------- */
+
+.capa{
+  max-width:var(--largura);margin:0 auto;
+  padding:52px var(--respiro) 36px;
+}
+.capa h1{
+  margin:10px 0 12px;
+  font-size:clamp(30px,4.2vw,46px);
+  font-weight:700;letter-spacing:-.035em;line-height:1.08;
+}
+.capa p{
+  margin:0;font-size:17px;line-height:1.6;
+  color:var(--grafite);max-width:64ch;text-wrap:pretty;
+}
+.trilha{
+  font-family:var(--mono);font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);
+}
+.trilha a{color:var(--cinza)}
+.trilha a:hover{color:var(--verde)}
+
+/* --------------------------------------------------------------------------
    Rodapé
    -------------------------------------------------------------------------- */
 
