@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ferramentas — Sala Elétrica</title>
+<meta name="description" content="Ferramentas de projeto elétrico industrial na área de membros: estudo de demanda, dimensional de painéis, diagrama de blocos e cálculo de cabos.">
+<meta name="theme-color" content="#00795A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+  .cartao-membros{
+    display:flex;flex-direction:column;gap:14px;
+    padding:24px;background:var(--tinta-forte);
+  }
+  .cartao-membros span{
+    font-size:19px;font-weight:700;letter-spacing:-.025em;
+    line-height:1.25;color:var(--branco);text-wrap:pretty;
+  }
+  .cartao-membros .botao{align-self:flex-start;margin-top:auto}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="/">
+    <svg width="42" height="42" viewBox="0 0 100 100" role="img" aria-label="Sala Elétrica">
+      <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+    </svg>
+    <span class="marca-texto">
+      <span>Sala</span>
+      <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+    </span>
+  </a>
+
+  <nav class="menu">
+    <label class="busca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6E7074" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M16.5 16.5 L21 21" stroke-linecap="round"/>
+      </svg>
+      <input type="search" placeholder="Buscar no site" aria-label="Buscar no site">
+    </label>
+    <a href="/calculadoras">Calculadoras</a>
+    <a href="/ferramentas">Ferramentas</a>
+    <a href="/downloads">Downloads</a>
+    <a href="/sobre">Sobre</a>
+    <a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a>
+  </nav>
+</header>
+
+<div class="capa">
+  <div class="trilha"><a href="/">Início</a> / Ferramentas</div>
+  <h1>Ferramentas</h1>
+  <p>As rotinas completas de projeto, que levam o trabalho do arquivo de entrada ao documento pronto. Ficam na área de membros e o acesso é gratuito, exigindo apenas cadastro.</p>
+</div>
+
+<section class="faixa-conteudo">
+  <div class="cabecalho-secao">
+    <h2>Todas as ferramentas</h2>
+    <span class="etiqueta"><span class="ponto-escuro"></span>área de membros</span>
+  </div>
+  <div class="grade grade-larga">
+  <div class="cartao cartao-futuro">
+    <span class="cartao-titulo">Estudo de demanda</span>
+    <span class="cartao-texto">Separação das cargas elétricas a partir da lista de equipamentos mecânicos em Excel. Classifica, distribui em salas elétricas e painéis, e traz clareza sobre o sistema elétrico de forma rápida e prática.</span>
+    <span class="selo">em desenvolvimento</span>
+  </div>
+  <div class="cartao cartao-futuro">
+    <span class="cartao-titulo">Dimensional de painéis</span>
+    <span class="cartao-texto">Ferramenta individual ou integrada ao estudo de demanda, com o dimensional dos painéis dos principais fornecedores: ABB, Schneider, Siemens e WEG.</span>
+    <span class="selo">em desenvolvimento</span>
+  </div>
+  <div class="cartao cartao-futuro">
+    <span class="cartao-titulo">Diagrama de blocos e dashboard</span>
+    <span class="cartao-texto">Ferramenta individual ou integrada ao estudo de demanda, em diagrama de blocos, com a interligação dos principais equipamentos e painéis do projeto.</span>
+    <span class="selo">em desenvolvimento</span>
+  </div>
+  <div class="cartao cartao-futuro">
+    <span class="cartao-titulo">Cálculo de cabos</span>
+    <span class="cartao-texto">Dimensionamento de cabos conforme as normas NBR 5410 e NBR 14039, para a especificação correta dos condutores em cobre ou alumínio.</span>
+    <span class="selo">em desenvolvimento</span>
+  </div>
+  <div class="cartao cartao-futuro">
+    <span class="cartao-titulo">Cronograma de projeto</span>
+    <span class="cartao-texto">Visualização mais clara do cronograma de projeto, a partir do arquivo em Excel gerado pelo MS Project.</span>
+    <span class="selo">em desenvolvimento</span>
+  </div>
+    <div class="cartao-membros">
+      <span>Seja membro e use todas as ferramentas nos seus projetos elétricos.</span>
+      <a class="botao botao-verde" href="/login">Criar conta</a>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="rodape-grade">
+
+    <div class="rodape-sobre">
+      <a class="marca" href="/">
+        <svg width="32" height="32" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+        </svg>
+        <span class="marca-texto" style="font-size:13px">
+          <span>Sala</span>
+          <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+        </span>
+      </a>
+      <p>Ferramentas de apoio ao projeto elétrico industrial, mantidas pela comunidade projetista.</p>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Usar</span>
+      <a href="#calculadoras">Calculadoras</a>
+      <a href="#ferramentas">Ferramentas <span class="nota-membros">∗ área de membros</span></a>
+      <a href="#downloads">Downloads</a>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Consultar</span>
+      <a href="https://www.confea.org.br" target="_blank" rel="noopener">CREA</a>
+      <a href="https://www.abntcolecao.com.br" target="_blank" rel="noopener">Catálogo de normas</a>
+      <a href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">Normas Regulamentadoras</a>
+      <a href="https://www.gov.br/aneel/pt-br" target="_blank" rel="noopener">Concessionárias</a>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Site</span>
+      <a href="/sobre">Sobre</a>
+      <a href="/login">Área de membros</a>
+      <a href="mailto:contato@salaeletrica.com.br">Contato</a>
+      <a href="/termos">Termos de uso</a>
+      <a href="/privacidade">Privacidade</a>
+    </div>
+
+  </div>
+
+  <div class="assinatura">
+    <div>Desenvolvido por Caio Falqueto e IAs</div>
+  </div>
+</footer>
+
+</body>
+</html>
