@@ -5,131 +5,122 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Entrar — Sala Elétrica</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23101820'/><path d='M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z' fill='%23f2b705'/></svg>">
+<meta name="theme-color" content="#00795A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
 <style>
-  :root{
-    --tinta:#101820;
-    --tinta-2:#18222c;
-    --linha:#2a3743;
-    --papel:#eef1f4;
-    --grafite:#9fb0bd;
-    --sinal:#f2b705;
-    --erro:#e2635c;
-    --faixa-altura:8px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;height:100%}
-  body{
-    background:var(--tinta);
-    color:var(--papel);
-    font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-    overflow:hidden;
-  }
-  .faixa{
-    position:fixed;left:0;right:0;height:var(--faixa-altura);
-    background:repeating-linear-gradient(135deg,var(--sinal) 0 14px,var(--tinta) 14px 28px);
-    z-index:10;
-  }
-  .faixa-topo{top:0}
-  .faixa-base{bottom:0}
+  body{display:flex;flex-direction:column;min-height:100vh}
 
-  .pagina{
-    height:100%;
-    padding:var(--faixa-altura) 0;
-    overflow-y:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  .centro{
+    flex:1;
+    display:flex;align-items:center;justify-content:center;
+    padding:48px var(--respiro);
   }
-  .cartao{
-    width:100%;
-    max-width:430px;
-    padding:36px 28px;
+
+  .cartao-acesso{
+    width:100%;max-width:440px;
+    background:var(--branco);
+    border:1px solid var(--linha);
+    padding:40px 34px;
+  }
+
+  .cartao-acesso .marca{justify-content:center;margin-bottom:26px}
+
+  .cartao-acesso h1{
+    margin:0 0 8px;
+    font-size:26px;font-weight:700;letter-spacing:-.03em;
     text-align:center;
   }
-  .marca{
-    display:flex;align-items:center;justify-content:center;
-    gap:12px;margin:0 0 10px;
-    font-size:clamp(28px,6vw,38px);font-weight:700;
-    line-height:1;letter-spacing:-.03em;
-  }
-  .marca svg{flex:none;width:clamp(28px,5vw,36px);height:auto}
-
-  .legenda{
-    margin:0 0 34px;
-    color:var(--grafite);
-    font-size:15px;
+  .cartao-acesso .subtitulo{
+    margin:0 0 30px;
+    font-size:15px;color:var(--grafite-2);
+    text-align:center;text-wrap:pretty;
   }
 
-  .botao{
+  /* Botao do Google, seguindo a marca deles em fundo claro */
+  .botao-google{
     display:flex;align-items:center;justify-content:center;gap:12px;
     width:100%;padding:14px 20px;
-    background:var(--papel);
-    color:#1f1f1f;
-    border:none;border-radius:8px;
-    font-family:inherit;font-size:15.5px;font-weight:600;
+    background:var(--branco);
+    border:1px solid var(--borda-campo);
+    color:var(--tinta);
+    font-family:var(--texto);font-size:15.5px;font-weight:600;
     cursor:pointer;
-    transition:transform .12s ease,box-shadow .12s ease;
+    transition:border-color .14s ease,box-shadow .14s ease;
   }
-  .botao:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.28)}
-  .botao:disabled{opacity:.6;cursor:wait;transform:none}
-  .botao svg{flex:none}
+  .botao-google:hover{border-color:var(--cinza);box-shadow:0 2px 8px rgba(0,0,0,.07)}
+  .botao-google:disabled{opacity:.55;cursor:wait;box-shadow:none}
+  .botao-google svg{flex:none}
 
-  .aviso{
-    margin:26px 0 0;
-    font-size:12.5px;
-    color:var(--grafite);
-    line-height:1.6;
+  .nota{
+    margin:24px 0 0;
+    font-size:12.5px;line-height:1.6;
+    color:var(--grafite-2);text-align:center;
   }
-  .aviso a{color:var(--papel);border-bottom:1px solid var(--sinal);text-decoration:none}
+  .nota a{border-bottom:1px solid var(--verde-linha)}
 
   .erro{
-    margin:20px 0 0;
+    margin:22px 0 0;
     padding:12px 14px;
-    border:1px solid var(--erro);
-    border-radius:6px;
-    color:var(--erro);
+    background:#FDF1F0;
+    border:1px solid #E7B9B5;
+    color:#9B322B;
     font-size:13.5px;
     display:none;
   }
 
   .voltar{
-    margin:30px 0 0;
-    font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:11.5px;
+    margin:28px 0 0;padding-top:20px;
+    border-top:1px solid var(--linha-clara);
+    text-align:center;
+    font-family:var(--mono);font-size:11.5px;
   }
-  .voltar a{color:var(--grafite);text-decoration:none}
-  .voltar a:hover{color:var(--sinal)}
+  .voltar a{color:var(--cinza);border:none}
+  .voltar a:hover{color:var(--verde)}
 
-  :focus-visible{outline:2px solid var(--sinal);outline-offset:3px}
+  @media (max-width:520px){
+    .cartao-acesso{padding:32px 22px;border-left:none;border-right:none}
+  }
 </style>
 </head>
 <body>
 
-<div class="faixa faixa-topo" role="presentation"></div>
+<header class="topo">
+  <a class="marca" href="/">
+    <svg width="42" height="42" viewBox="0 0 100 100" role="img" aria-label="Sala Elétrica">
+      <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+    </svg>
+    <span class="marca-texto">
+      <span>Sala</span>
+      <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+    </span>
+  </a>
+  <nav class="menu">
+    <a href="/#calculadoras">Calculadoras</a>
+    <a href="/#downloads">Downloads</a>
+    <a href="/sobre">Sobre</a>
+  </nav>
+</header>
 
-<div class="pagina">
-  <main class="cartao">
+<div class="centro">
+  <main class="cartao-acesso">
 
-    <h1 class="marca">
-      <svg viewBox="0 0 32 32" aria-hidden="true">
-        <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
-        <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
+    <div class="marca">
+      <svg width="46" height="46" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
       </svg>
-      Sala Elétrica
-    </h1>
+    </div>
 
-    <p class="legenda">Entre para acessar as ferramentas.</p>
+    <h1>Área de membros</h1>
+    <p class="subtitulo">Entre para acessar as ferramentas de projeto.</p>
 
-    <button class="botao" id="btnGoogle">
+    <button class="botao-google" id="btnGoogle">
       <svg width="19" height="19" viewBox="0 0 48 48" aria-hidden="true">
         <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.8-.4-4.1H24v7.4h12.1c-.2 2-1.6 5-4.5 7l-.1.3 6.5 5 .5.1c4.1-3.8 6.6-9.4 6.6-15.7z"/>
-        <path fill="#34A853" d="M24 46c5.9 0 10.9-1.9 14.5-5.3l-6.9-5.3c-1.8 1.3-4.3 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.900l-.3.1-6.8 5.2-.1.3C7.9 41 15.3 46 24 46z"/>
+        <path fill="#34A853" d="M24 46c5.9 0 10.9-1.9 14.5-5.3l-6.9-5.3c-1.8 1.3-4.3 2.2-7.6 2.2-5.8 0-10.7-3.8-12.5-9.9l-.3.1-6.8 5.2-.1.3C7.9 41 15.3 46 24 46z"/>
         <path fill="#FBBC05" d="M11.5 27.7c-.5-1.4-.7-2.9-.7-4.4s.3-3 .7-4.4v-.3l-6.9-5.3-.2.1C2.9 16.3 2 20 2 23.9s.9 7.6 2.4 10.9l7.1-5.5z"/>
         <path fill="#EB4335" d="M24 9.5c4.1 0 6.9 1.8 8.5 3.3l6.2-6C34.9 3.4 29.9 1 24 1 15.3 1 7.9 6 4.4 13.3l7.1 5.5C13.3 13.3 18.2 9.5 24 9.5z"/>
       </svg>
@@ -138,7 +129,7 @@
 
     <div class="erro" id="erro" role="alert"></div>
 
-    <p class="aviso">
+    <p class="nota">
       Ao entrar, você concorda com os
       <a href="/termos">termos de uso</a> e a
       <a href="/privacidade">política de privacidade</a>.
@@ -149,8 +140,6 @@
   </main>
 </div>
 
-<div class="faixa faixa-base" role="presentation"></div>
-
 <script type="module">
   import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
@@ -159,15 +148,15 @@
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+  // Destino fixo: nao depende de o usuario ter chegado pelo www ou pelo apex
+  const DESTINO = 'https://salaeletrica.com.br/app';
+
   const btn = document.getElementById('btnGoogle');
   const erro = document.getElementById('erro');
 
-  // Se já estiver logado, vai direto para a área de ferramentas
+  // Se ja estiver logado, vai direto para a area de ferramentas
   const { data: { session } } = await supabase.auth.getSession();
   if (session) window.location.replace('/app');
-
-  // Destino fixo: nao depende de o usuario ter chegado pelo www ou pelo apex
-  const DESTINO = 'https://salaeletrica.com.br/app';
 
   btn.addEventListener('click', async () => {
     btn.disabled = true;
