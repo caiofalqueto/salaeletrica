@@ -96,8 +96,9 @@ img{max-width:100%;height:auto}
   display:flex;flex-wrap:wrap;align-items:center;gap:24px;
   font-size:15px;font-weight:500;
 }
-.menu a{color:var(--grafite)}
-.menu a:hover{color:var(--tinta-forte)}
+/* :not(.botao) evita que esta regra sobreponha a cor dos botoes do menu */
+.menu a:not(.botao){color:var(--grafite)}
+.menu a:not(.botao):hover{color:var(--tinta-forte)}
 
 .busca{
   display:flex;align-items:center;gap:8px;
