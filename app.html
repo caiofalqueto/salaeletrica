@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ferramentas — Sala Elétrica</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#00795A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+  /* Nada e exibido antes de a sessao ser verificada */
+  #conteudo{display:none}
+  #verificando{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:12.5px;color:var(--cinza);
+  }
+
+  .usuario{
+    display:flex;align-items:center;gap:12px;
+    font-size:14px;color:var(--grafite);
+  }
+  .usuario img{
+    width:30px;height:30px;
+    border-radius:50%;border:1px solid var(--linha);
+  }
+  .sair{
+    background:none;border:1px solid var(--borda-campo);
+    color:var(--grafite);
+    padding:8px 15px;
+    font-family:var(--texto);font-size:13.5px;font-weight:500;
+    cursor:pointer;
+  }
+  .sair:hover{border-color:var(--verde);color:var(--verde)}
+
+  .topo-area{
+    max-width:var(--largura);margin:0 auto;
+    padding:44px var(--respiro) 0;
+  }
+  .topo-area h1{
+    margin:0 0 10px;
+    font-size:clamp(26px,4vw,40px);
+    font-weight:700;letter-spacing:-.03em;
+  }
+  .topo-area .resumo{
+    margin:0 0 30px;
+    font-size:clamp(15px,1.6vw,17px);
+    color:var(--grafite);max-width:64ch;text-wrap:pretty;
+  }
+  .alerta{margin-bottom:38px}
+  .alerta a{color:var(--grafite-2);border-bottom:1px solid var(--verde-linha)}
+</style>
+</head>
+<body>
+
+<div id="verificando">verificando acesso…</div>
+
+<div id="conteudo">
+
+  <header class="topo">
+    <a class="marca" href="/">
+      <svg width="42" height="42" viewBox="0 0 100 100" role="img" aria-label="Sala Elétrica">
+        <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+      </svg>
+      <span class="marca-texto">
+        <span>Sala</span>
+        <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+      </span>
+    </a>
+    <div class="usuario">
+      <img id="foto" alt="" hidden>
+      <span id="nome"></span>
+      <button class="sair" id="btnSair">Sair</button>
+    </div>
+  </header>
+
+  <div class="topo-area">
+    <h1>Ferramentas</h1>
+    <p class="resumo">
+      Esta é a área de membros. As ferramentas entram aqui conforme forem ficando prontas.
+    </p>
+
+    <div class="alerta" role="note">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M12 3 L22 20 H2 Z" stroke="#00795A" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M12 10 v4" stroke="#00795A" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="12" cy="17" r="1.1" fill="#00795A"/>
+      </svg>
+      <p>
+        <strong>Resultados preliminares.</strong>
+        As ferramentas deste site são instrumentos de apoio e estão em desenvolvimento
+        contínuo. Todo resultado deve ser conferido pelo profissional habilitado antes
+        de ser incorporado a projeto, memória de cálculo ou qualquer entregável técnico.
+        A responsabilidade técnica permanece de quem assina a ART.
+        <a href="/termos">Ver termos de uso</a>
+      </p>
+    </div>
+  </div>
+
+  <section class="faixa-conteudo">
+    <div class="grade grade-larga" style="padding-top:0">
+      <div class="cartao cartao-futuro">
+        <span class="cartao-titulo">Estudo de demanda</span>
+        <span class="cartao-texto">Separação das cargas elétricas a partir da lista de equipamentos mecânicos em Excel.</span>
+        <span class="selo">em desenvolvimento</span>
+      </div>
+      <div class="cartao cartao-futuro">
+        <span class="cartao-titulo">Dimensional de painéis</span>
+        <span class="cartao-texto">Dimensional dos painéis dos principais fornecedores: ABB, Schneider, Siemens e WEG.</span>
+        <span class="selo">em desenvolvimento</span>
+      </div>
+      <div class="cartao cartao-futuro">
+        <span class="cartao-titulo">Diagrama de blocos e dashboard</span>
+        <span class="cartao-texto">Interligação dos principais equipamentos e painéis do projeto, em diagrama de blocos.</span>
+        <span class="selo">em desenvolvimento</span>
+      </div>
+      <div class="cartao cartao-futuro">
+        <span class="cartao-titulo">Cálculo de cabos</span>
+        <span class="cartao-texto">Dimensionamento conforme NBR 5410 e NBR 14039, em cobre ou alumínio.</span>
+        <span class="selo">em desenvolvimento</span>
+      </div>
+      <div class="cartao cartao-futuro">
+        <span class="cartao-titulo">Cronograma de projeto</span>
+        <span class="cartao-texto">Visualização do cronograma a partir do arquivo em Excel gerado pelo MS Project.</span>
+        <span class="selo">em desenvolvimento</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <div class="assinatura" style="padding-top:0">
+      <div style="border:none;padding-top:0">
+        <a href="/termos">Termos de uso</a> &nbsp;·&nbsp;
+        <a href="/privacidade">Privacidade</a> &nbsp;·&nbsp;
+        <a href="mailto:contato@salaeletrica.com.br">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+  const SUPABASE_URL = 'https://kahbgjwwqsejocmseegc.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_g2opUBjSqj6hXZ2HDsAMhQ_jfMVARqX';
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Porteiro: sem sessao ativa, volta para o login sem exibir nada
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) {
+    window.location.replace('/login');
+  } else {
+    const u = session.user.user_metadata || {};
+
+    document.getElementById('nome').textContent =
+      u.full_name || u.name || session.user.email;
+
+    if (u.avatar_url) {
+      const foto = document.getElementById('foto');
+      foto.src = u.avatar_url;
+      foto.hidden = false;
+    }
+
+    document.getElementById('verificando').remove();
+    document.getElementById('conteudo').style.display = 'block';
+  }
+
+  document.getElementById('btnSair').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.replace('/');
+  });
+</script>
+
+</body>
+</html>
