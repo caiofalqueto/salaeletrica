@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Downloads — Sala Elétrica</title>
+<meta name="description" content="Planilhas e modelos abertos para projeto elétrico industrial: quadro de cargas, rede de dutos, leito para cabos e tags de condutos.">
+<meta name="theme-color" content="#00795A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+  .lista-arquivos{display:flex;flex-direction:column;border-top:1px solid var(--linha)}
+  .lista-arquivos a{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:16px 0;border-bottom:1px solid var(--linha-clara);
+    color:var(--tinta);font-size:15.5px;font-weight:600;
+  }
+  .lista-arquivos a:hover{color:var(--verde)}
+  .lista-arquivos .descricao{
+    display:block;font-size:13.5px;font-weight:400;
+    color:var(--grafite-2);margin-top:3px;max-width:62ch;
+  }
+  .lista-arquivos em{
+    font-family:var(--mono);font-size:12px;font-style:normal;
+    color:var(--cinza);font-weight:400;flex:none;
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="/">
+    <svg width="42" height="42" viewBox="0 0 100 100" role="img" aria-label="Sala Elétrica">
+      <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+    </svg>
+    <span class="marca-texto">
+      <span>Sala</span>
+      <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+    </span>
+  </a>
+
+  <nav class="menu">
+    <label class="busca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6E7074" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M16.5 16.5 L21 21" stroke-linecap="round"/>
+      </svg>
+      <input type="search" placeholder="Buscar no site" aria-label="Buscar no site">
+    </label>
+    <a href="/calculadoras">Calculadoras</a>
+    <a href="/ferramentas">Ferramentas</a>
+    <a href="/downloads">Downloads</a>
+    <a href="/sobre">Sobre</a>
+    <a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a>
+  </nav>
+</header>
+
+<div class="capa">
+  <div class="trilha"><a href="/">Início</a> / Downloads</div>
+  <h1>Downloads</h1>
+  <p>Planilhas e modelos que utilizamos na elaboração de projeto elétrico industrial. Abertos, editáveis e sem marca d'água.</p>
+</div>
+
+<section class="faixa-conteudo">
+  <div class="cabecalho-secao">
+    <h2>Planilhas e modelos</h2>
+    <span class="etiqueta etiqueta-verde"><span class="ponto"></span>abertos e editáveis</span>
+  </div>
+  <div class="lista-arquivos" style="margin-top:24px">
+    <a href="#">
+      <span>Quadro de cargas — painel de iluminação<span class="descricao">Modelo de quadro de cargas para painel de iluminação, com balanceamento entre fases.</span></span>
+      <em>XLSX</em>
+    </a>
+    <a href="#">
+      <span>Memória de rede de dutos<span class="descricao">Levantamento e memória de cálculo da rede de dutos do projeto.</span></span>
+      <em>XLSX</em>
+    </a>
+    <a href="#">
+      <span>Memória de leito para cabos<span class="descricao">Dimensionamento e ocupação de leitos, com quantitativo de material.</span></span>
+      <em>XLSX</em>
+    </a>
+    <a href="#">
+      <span>Planilha de tags para condutos<span class="descricao">Geração e controle de tags de condutos conforme padrão de projeto.</span></span>
+      <em>XLSX</em>
+    </a>
+  </div>
+</section>
+
+<section class="faixa-conteudo">
+  <div class="cabecalho-secao">
+    <h2>Material de fornecedores</h2>
+    <span class="etiqueta">links externos</span>
+  </div>
+  <div class="lista-arquivos" style="margin-top:24px">
+    <a href="https://www.prysmian.com.br" target="_blank" rel="noopener">
+      <span>Guias técnicos Prysmian<span class="descricao">Catálogos e guias de dimensionamento de condutores, no site oficial do fabricante.</span></span>
+      <em>site oficial</em>
+    </a>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="rodape-grade">
+
+    <div class="rodape-sobre">
+      <a class="marca" href="/">
+        <svg width="32" height="32" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+        </svg>
+        <span class="marca-texto" style="font-size:13px">
+          <span>Sala</span>
+          <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+        </span>
+      </a>
+      <p>Ferramentas de apoio ao projeto elétrico industrial, mantidas pela comunidade projetista.</p>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Usar</span>
+      <a href="#calculadoras">Calculadoras</a>
+      <a href="#ferramentas">Ferramentas <span class="nota-membros">∗ área de membros</span></a>
+      <a href="#downloads">Downloads</a>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Consultar</span>
+      <a href="https://www.confea.org.br" target="_blank" rel="noopener">CREA</a>
+      <a href="https://www.abntcolecao.com.br" target="_blank" rel="noopener">Catálogo de normas</a>
+      <a href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">Normas Regulamentadoras</a>
+      <a href="https://www.gov.br/aneel/pt-br" target="_blank" rel="noopener">Concessionárias</a>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Site</span>
+      <a href="/sobre">Sobre</a>
+      <a href="/login">Área de membros</a>
+      <a href="mailto:contato@salaeletrica.com.br">Contato</a>
+      <a href="/termos">Termos de uso</a>
+      <a href="/privacidade">Privacidade</a>
+    </div>
+
+  </div>
+
+  <div class="assinatura">
+    <div>Desenvolvido por Caio Falqueto e IAs</div>
+  </div>
+</footer>
+
+</body>
+</html>
