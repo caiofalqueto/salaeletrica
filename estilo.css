@@ -1,0 +1,337 @@
+/* ==========================================================================
+   Sala Elétrica — folha de estilo compartilhada
+   Base extraída do desenho feito no Claude Design.
+   Todas as páginas do site carregam este arquivo.
+   ========================================================================== */
+
+:root{
+  /* Superfícies */
+  --fundo:        #F4F4F2;
+  --branco:       #FFFFFF;
+  --quase-branco: #FBFBF9;
+
+  /* Texto */
+  --tinta:        #23262B;
+  --tinta-forte:  #101215;
+  --grafite:      #3A3D42;
+  --grafite-2:    #5A5D62;
+  --cinza:        #6E7074;
+
+  /* Linhas */
+  --linha:        #E2E2DF;
+  --linha-clara:  #EDEDEA;
+  --borda-campo:  #D8D8D4;
+
+  /* Destaque */
+  --verde:        #00795A;   /* texto e botões — contraste adequado */
+  --verde-vivo:   #00A37A;   /* marca e elementos gráficos */
+  --verde-fundo:  #E8F1ED;
+  --verde-linha:  #CFE0D9;
+
+  /* Medidas */
+  --largura:      1240px;
+  --respiro:      28px;
+
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --texto: 'Archivo', Helvetica, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+*{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--fundo);
+  color:var(--tinta);
+  font-family:var(--texto);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:var(--verde);text-decoration:none}
+a:hover{color:var(--tinta-forte)}
+
+:focus-visible{outline:2px solid var(--verde);outline-offset:2px}
+
+img{max-width:100%;height:auto}
+
+/* --------------------------------------------------------------------------
+   Marca
+   -------------------------------------------------------------------------- */
+
+.marca{
+  display:flex;align-items:center;gap:12px;
+  color:var(--tinta);
+}
+.marca:hover{color:var(--tinta)}
+.marca svg{flex:none}
+
+.marca-texto{
+  display:flex;flex-direction:column;gap:1px;
+  font-family:var(--mono);
+  font-size:17px;font-weight:600;letter-spacing:.01em;
+  color:var(--tinta);
+}
+.marca-texto span{line-height:1.1}
+.marca-linha2{display:flex;align-items:center;gap:5px}
+.marca-cursor{
+  width:2px;height:1.05em;
+  background:var(--verde-vivo);
+}
+
+/* --------------------------------------------------------------------------
+   Cabeçalho
+   -------------------------------------------------------------------------- */
+
+.topo{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:20px;
+  padding:18px var(--respiro);
+  background:var(--branco);
+  border-bottom:1px solid var(--linha);
+}
+
+.menu{
+  display:flex;flex-wrap:wrap;align-items:center;gap:24px;
+  font-size:15px;font-weight:500;
+}
+.menu a{color:var(--grafite)}
+.menu a:hover{color:var(--tinta-forte)}
+
+.busca{
+  display:flex;align-items:center;gap:8px;
+  padding:9px 14px;
+  background:var(--fundo);
+  border:1px solid var(--borda-campo);
+  min-width:200px;
+}
+.busca input{
+  flex:1;min-width:0;border:none;outline:none;background:transparent;
+  font-family:var(--texto);font-size:14px;color:var(--tinta);
+}
+
+/* --------------------------------------------------------------------------
+   Botões
+   -------------------------------------------------------------------------- */
+
+.botao{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 22px;
+  font-family:var(--texto);font-size:15px;font-weight:600;
+  border:1px solid transparent;cursor:pointer;
+  transition:opacity .14s ease;
+}
+.botao:hover{opacity:.88}
+
+.botao-verde{background:var(--verde);border-color:var(--verde);color:var(--branco)}
+.botao-verde:hover{color:var(--branco)}
+
+.botao-escuro{background:var(--tinta);border-color:var(--tinta);color:var(--branco)}
+.botao-escuro:hover{color:var(--branco)}
+
+.botao-claro{background:var(--branco);border-color:var(--borda-campo);color:var(--tinta)}
+.botao-claro:hover{color:var(--tinta)}
+
+/* --------------------------------------------------------------------------
+   Estrutura de seções
+   -------------------------------------------------------------------------- */
+
+.faixa-conteudo{
+  max-width:var(--largura);
+  margin:0 auto;
+  padding:0 var(--respiro) 64px;
+}
+
+.cabecalho-secao{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  gap:16px;
+  padding-bottom:16px;
+  border-bottom:2px solid var(--tinta);
+}
+.cabecalho-secao h2{
+  margin:0;
+  font-size:clamp(24px,2.6vw,32px);
+  font-weight:700;letter-spacing:-.03em;
+}
+
+.etiqueta{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cinza);
+}
+.etiqueta-verde{color:var(--verde)}
+.ponto{width:8px;height:8px;background:var(--verde-vivo);flex:none}
+.ponto-escuro{width:8px;height:8px;background:var(--tinta);flex:none}
+
+.sobrelinha{
+  font-family:var(--mono);font-size:13px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--verde);
+}
+
+/* --------------------------------------------------------------------------
+   Grades e cartões
+   -------------------------------------------------------------------------- */
+
+.grade{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:16px;
+  padding-top:24px;
+}
+.grade-larga{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+
+.cartao{
+  display:flex;flex-direction:column;gap:8px;
+  padding:22px;
+  background:var(--branco);
+  border:1px solid var(--linha);
+  color:var(--tinta);
+}
+a.cartao:hover{border-color:var(--verde);color:var(--tinta)}
+
+.cartao-titulo{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.cartao-texto{font-size:14px;line-height:1.55;color:var(--grafite-2);text-wrap:pretty}
+
+.cartao-futuro{
+  background:var(--quase-branco);
+  border:1px dashed var(--borda-campo);
+}
+.cartao-futuro .cartao-titulo,
+.cartao-futuro .cartao-texto{color:var(--grafite-2)}
+
+.selo{
+  margin-top:auto;padding-top:10px;
+  font-family:var(--mono);font-size:12px;
+  letter-spacing:.08em;font-weight:600;
+  color:var(--cinza);
+}
+.selo-verde{color:var(--verde)}
+
+/* --------------------------------------------------------------------------
+   Rodapé
+   -------------------------------------------------------------------------- */
+
+.rodape{
+  background:var(--branco);
+  border-top:1px solid var(--linha);
+  padding:44px var(--respiro) 0;
+}
+.rodape-grade{
+  max-width:var(--largura);margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:36px 40px;
+}
+.rodape-sobre{
+  display:flex;flex-direction:column;gap:14px;
+  min-width:240px;
+}
+.rodape-sobre p{
+  margin:0;font-size:14px;line-height:1.55;
+  color:var(--grafite-2);max-width:42ch;text-wrap:pretty;
+}
+.rodape-coluna{display:flex;flex-direction:column;gap:9px}
+.rodape-coluna a{font-size:14px;color:var(--grafite)}
+.rodape-coluna a:hover{color:var(--tinta-forte)}
+.rodape-titulo{
+  font-family:var(--mono);font-size:12px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cinza);font-weight:700;
+}
+.nota-membros{
+  font-size:10px;color:var(--cinza);
+  font-family:var(--mono);
+}
+
+.assinatura{
+  max-width:var(--largura);margin:0 auto;
+  padding:36px var(--respiro) 20px;
+}
+.assinatura div{
+  padding-top:12px;
+  border-top:1px solid var(--linha-clara);
+  text-align:center;
+  font-family:var(--mono);font-size:12px;
+  letter-spacing:.06em;color:var(--cinza);
+}
+
+/* --------------------------------------------------------------------------
+   Aviso técnico
+   -------------------------------------------------------------------------- */
+
+.alerta{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:16px 18px;
+  background:var(--verde-fundo);
+  border:1px solid var(--verde-linha);
+  border-left:4px solid var(--verde);
+}
+.alerta svg{flex:none;margin-top:2px}
+.alerta p{margin:0;font-size:13.5px;line-height:1.6;color:var(--grafite)}
+.alerta strong{color:var(--verde);font-weight:700}
+
+/* --------------------------------------------------------------------------
+   Páginas de documento (termos, privacidade)
+   -------------------------------------------------------------------------- */
+
+.documento{
+  max-width:760px;margin:0 auto;
+  padding:52px var(--respiro) 72px;
+}
+.documento h1{
+  font-size:clamp(28px,5vw,40px);font-weight:700;
+  letter-spacing:-.03em;line-height:1.12;margin:0 0 10px;
+}
+.documento h2{
+  font-size:18px;font-weight:700;letter-spacing:-.015em;
+  margin:40px 0 12px;padding-top:20px;
+  border-top:1px solid var(--linha);
+}
+.documento h3{font-size:15px;font-weight:600;margin:24px 0 8px;color:var(--verde)}
+.documento p,.documento li{font-size:15.5px;color:var(--grafite);margin:0 0 14px}
+.documento strong{color:var(--tinta);font-weight:600}
+.documento ul{padding-left:22px;margin:0 0 18px}
+.documento li{margin-bottom:8px}
+.documento a{border-bottom:1px solid var(--verde-linha)}
+
+.documento table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:14px}
+.documento th,.documento td{
+  text-align:left;padding:10px 12px;
+  border:1px solid var(--linha);vertical-align:top;color:var(--grafite);
+}
+.documento th{color:var(--tinta);font-weight:600;background:var(--quase-branco)}
+
+.data-doc{
+  font-family:var(--mono);font-size:11.5px;
+  color:var(--cinza);margin:0 0 40px;
+}
+
+.preencher{
+  background:rgba(0,121,90,.1);
+  color:var(--verde);
+  padding:1px 6px;
+  font-family:var(--mono);font-size:13px;font-weight:500;
+}
+
+/* --------------------------------------------------------------------------
+   Responsivo
+   -------------------------------------------------------------------------- */
+
+@media (max-width:820px){
+  .topo{gap:14px}
+  .busca{order:3;width:100%;min-width:0}
+  .menu{gap:18px;font-size:14px}
+}
+
+@media (max-width:560px){
+  :root{--respiro:18px}
+  .documento table{font-size:13px}
+  .documento th,.documento td{padding:8px 9px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
