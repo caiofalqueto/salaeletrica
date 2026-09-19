@@ -3,254 +3,317 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ferramentas — Sala Elétrica</title>
-<meta name="robots" content="noindex">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23101820'/><path d='M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z' fill='%23f2b705'/></svg>">
+<title>Sala Elétrica — ferramentas para projeto elétrico industrial</title>
+<meta name="description" content="Calculadoras abertas e ferramentas para projeto elétrico industrial: estudo de demanda, dimensional de painéis, diagrama de blocos e cálculo de cabos.">
+<meta property="og:title" content="Sala Elétrica">
+<meta property="og:description" content="Ferramentas de apoio ao projeto elétrico industrial.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://salaeletrica.com.br">
+<meta name="theme-color" content="#00795A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
 <style>
-  :root{
-    --tinta:#101820;
-    --tinta-2:#18222c;
-    --linha:#2a3743;
-    --papel:#eef1f4;
-    --grafite:#9fb0bd;
-    --sinal:#f2b705;
-    --faixa-altura:8px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;min-height:100%}
-  body{
-    background:var(--tinta);
-    color:var(--papel);
-    font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  .faixa{
-    position:fixed;left:0;right:0;height:var(--faixa-altura);
-    background:repeating-linear-gradient(135deg,var(--sinal) 0 14px,var(--tinta) 14px 28px);
-    z-index:10;
-  }
-  .faixa-topo{top:0}
-  .faixa-base{bottom:0}
-
-  /* Enquanto a sessao nao e verificada, nada e mostrado */
-  #conteudo{display:none}
-
-  #carregando{
-    position:fixed;inset:0;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:12.5px;color:var(--grafite);
-  }
-
-  .barra{
-    border-bottom:1px solid var(--linha);
-    padding:18px clamp(20px,4vw,40px);
-    display:flex;align-items:center;justify-content:space-between;
-    gap:16px;flex-wrap:wrap;
-  }
-  .marca{
-    display:flex;align-items:center;gap:10px;
-    font-size:17px;font-weight:700;letter-spacing:-.02em;
-  }
-  .marca svg{flex:none}
-  .usuario{
-    display:flex;align-items:center;gap:12px;
-    font-size:13.5px;color:var(--grafite);
-  }
-  .usuario img{
-    width:30px;height:30px;border-radius:50%;
-    border:1px solid var(--linha);
-  }
-  .sair{
-    background:none;border:1px solid var(--linha);
-    color:var(--grafite);
-    padding:7px 14px;border-radius:6px;
-    font-family:inherit;font-size:13px;cursor:pointer;
-  }
-  .sair:hover{border-color:var(--sinal);color:var(--sinal)}
-
-  main{
-    max-width:1180px;margin:0 auto;
-    padding:clamp(32px,6vh,64px) clamp(20px,4vw,40px) 60px;
-  }
-  h1{
-    font-size:clamp(26px,4vw,40px);
-    font-weight:700;letter-spacing:-.025em;
-    margin:0 0 12px;
-  }
+  /* Blocos exclusivos da home */
   .abertura{
-    color:var(--grafite);
-    font-size:clamp(14.5px,1.5vw,17px);
-    max-width:62ch;margin:0 0 40px;
-  }
-
-  .grade{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-    gap:18px;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:40px;align-items:start;
+    max-width:var(--largura);margin:0 auto;
+    padding:64px var(--respiro);
   }
-  .ferramenta{
-    border:1px solid var(--linha);
-    border-radius:10px;
-    padding:22px;
-    background:var(--tinta-2);
+  .abertura-texto{display:flex;flex-direction:column;gap:22px}
+  .abertura h1{
+    margin:0;
+    font-size:clamp(32px,4.4vw,52px);
+    font-weight:700;letter-spacing:-.04em;line-height:1.05;
+    text-wrap:pretty;
   }
-  .ferramenta h2{
-    font-size:16.5px;font-weight:700;margin:0 0 6px;
+  .abertura p{
+    margin:0;font-size:18px;line-height:1.6;
+    color:var(--grafite);text-wrap:pretty;
   }
-  .ferramenta p{
-    margin:0;font-size:14px;color:var(--grafite);
+  .abertura-acoes{display:flex;flex-wrap:wrap;gap:10px;padding-top:4px}
+  .abertura-acoes .botao{min-width:118px;padding:14px 16px}
+
+  /* Painel de links externos */
+  .painel{
+    display:flex;flex-direction:column;
+    background:var(--branco);border:1px solid var(--linha);
   }
-  .selo{
-    display:inline-block;
-    font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:10.5px;color:var(--sinal);
-    margin-bottom:8px;
+  .painel-topo{
+    display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+    padding:18px 22px;border-bottom:1px solid var(--linha);
+  }
+  .painel-topo strong{font-size:17px;font-weight:700;letter-spacing:-.02em}
+  .painel-item{
+    display:flex;align-items:stretch;gap:14px;
+    padding:16px 22px;
+    border-bottom:1px solid var(--linha-clara);
+    color:var(--tinta);
+  }
+  .painel-item:last-child{border-bottom:none}
+  .painel-item:hover{background:var(--quase-branco);color:var(--tinta)}
+  .painel-barra{width:4px;background:var(--verde-vivo);flex:none}
+  .painel-item span.corpo{display:flex;flex-direction:column;gap:2px}
+  .painel-item b{font-size:15px;font-weight:600}
+  .painel-item small{font-size:13px;color:var(--grafite-2)}
+
+  /* Chamada de cadastro */
+  .cartao-membros{
+    display:flex;flex-direction:column;gap:14px;
+    padding:24px;background:var(--tinta-forte);
+  }
+  .cartao-membros span{
+    font-size:19px;font-weight:700;letter-spacing:-.025em;
+    line-height:1.25;color:var(--branco);text-wrap:pretty;
+  }
+  .cartao-membros .botao{align-self:flex-start;margin-top:auto}
+
+  /* Downloads */
+  .downloads{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:40px;align-items:start;
+    padding:40px;background:var(--branco);border:1px solid var(--linha);
+  }
+  .downloads h2{margin:0;font-size:clamp(22px,2.2vw,28px);font-weight:700;letter-spacing:-.03em}
+  .downloads p{margin:0;font-size:16px;line-height:1.6;color:var(--grafite);text-wrap:pretty}
+  .downloads-lado{display:flex;flex-direction:column;gap:14px}
+  .lista-arquivos{display:flex;flex-direction:column;border-top:1px solid var(--linha)}
+  .lista-arquivos a{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:11px 0;border-bottom:1px solid var(--linha-clara);
+    color:var(--tinta);font-size:15px;font-weight:600;
+  }
+  .lista-arquivos a:last-child{border-bottom:none}
+  .lista-arquivos a:hover{color:var(--verde)}
+  .lista-arquivos em{
+    font-family:var(--mono);font-size:12px;font-style:normal;
+    color:var(--cinza);font-weight:400;flex:none;
   }
 
-  /* Aviso tecnico permanente */
-  .alerta{
-    display:flex;gap:14px;align-items:flex-start;
-    border:1px solid rgba(242,183,5,.45);
-    border-left:4px solid var(--sinal);
-    border-radius:8px;
-    background:rgba(242,183,5,.07);
-    padding:16px 18px;
-    margin:0 0 34px;
+  @media (max-width:560px){
+    .abertura{padding:44px var(--respiro)}
+    .downloads{padding:26px}
   }
-  .alerta svg{flex:none;margin-top:2px}
-  .alerta p{
-    margin:0;font-size:13.5px;line-height:1.6;
-    color:var(--papel);
-  }
-  .alerta strong{color:var(--sinal);font-weight:700}
-  .alerta a{color:var(--grafite);border-bottom:1px solid var(--linha);text-decoration:none}
-  .alerta a:hover{color:var(--sinal)}
-
-  .rodape-app{
-    max-width:1180px;margin:0 auto;
-    padding:0 clamp(20px,4vw,40px) 48px;
-    font-family:'IBM Plex Mono',ui-monospace,monospace;
-    font-size:11px;color:var(--grafite);opacity:.75;
-  }
-  .rodape-app a{color:inherit;text-decoration:none;border-bottom:1px solid var(--linha)}
-  .rodape-app a:hover{color:var(--sinal)}
-
-  :focus-visible{outline:2px solid var(--sinal);outline-offset:3px}
 </style>
 </head>
 <body>
 
-<div id="carregando">verificando acesso…</div>
+<header class="topo">
+  <a class="marca" href="/">
+    <svg width="42" height="42" viewBox="0 0 100 100" role="img" aria-label="Sala Elétrica">
+      <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+    </svg>
+    <span class="marca-texto">
+      <span>Sala</span>
+      <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+    </span>
+  </a>
 
-<div id="conteudo">
-  <div class="faixa faixa-topo" role="presentation"></div>
-
-  <div class="barra" style="margin-top:var(--faixa-altura)">
-    <div class="marca">
-      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
-        <rect width="32" height="32" rx="4" fill="#18222c" stroke="#2a3743"/>
-        <path d="M13 4 L8 18 h6 l-2 10 L24 13 h-7 l3-9z" fill="#f2b705"/>
+  <nav class="menu">
+    <label class="busca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6E7074" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M16.5 16.5 L21 21" stroke-linecap="round"/>
       </svg>
-      Sala Elétrica
-    </div>
-    <div class="usuario">
-      <img id="foto" alt="" hidden>
-      <span id="nome"></span>
-      <button class="sair" id="btnSair">Sair</button>
-    </div>
-  </div>
+      <input type="search" placeholder="Buscar no site" aria-label="Buscar no site">
+    </label>
+    <a href="#calculadoras">Calculadoras</a>
+    <a href="#ferramentas">Ferramentas</a>
+    <a href="#downloads">Downloads</a>
+    <a href="/sobre">Sobre</a>
+    <a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a>
+  </nav>
+</header>
 
-  <main>
-    <h1>Ferramentas</h1>
-    <p class="abertura">
-      Esta é a área de ferramentas. Nenhuma rotina está publicada ainda —
-      as primeiras entram conforme forem ficando prontas.
+<section class="abertura">
+  <div class="abertura-texto">
+    <div class="sobrelinha">Apoio ao projeto elétrico industrial</div>
+    <h1>As contas que refazemos toda semana, resolvidas em um lugar só.</h1>
+    <p>
+      Calculadoras abertas para a conta rápida do dia a dia e ferramentas completas
+      para o projeto inteiro: estudo de demanda, dimensional de painéis, diagrama de blocos.
     </p>
-
-    <div class="alerta" role="note">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 3 L22 20 H2 Z" stroke="#f2b705" stroke-width="1.8" stroke-linejoin="round"/>
-        <path d="M12 10 v4" stroke="#f2b705" stroke-width="1.8" stroke-linecap="round"/>
-        <circle cx="12" cy="17" r="1.1" fill="#f2b705"/>
-      </svg>
-      <p>
-        <strong>Resultados preliminares.</strong>
-        As ferramentas deste site s&atilde;o instrumentos de apoio e est&atilde;o em
-        desenvolvimento cont&iacute;nuo. Todo resultado deve ser conferido pelo
-        profissional habilitado antes de ser incorporado a projeto, mem&oacute;ria de
-        c&aacute;lculo ou qualquer entreg&aacute;vel t&eacute;cnico. A responsabilidade
-        t&eacute;cnica permanece de quem assina a ART.
-        <a href="/termos">Ver termos de uso</a>
-      </p>
+    <div class="abertura-acoes">
+      <a class="botao botao-verde" href="#calculadoras">Calculadoras</a>
+      <a class="botao botao-claro" href="#ferramentas">Ferramentas</a>
+      <a class="botao botao-escuro" href="#downloads">Downloads</a>
     </div>
-
-    <div class="grade">
-      <div class="ferramenta">
-        <span class="selo">em desenvolvimento</span>
-        <h2>Estudo de demanda</h2>
-        <p>Leitura da lista de cargas, classificação, distribuição em salas elétricas e painéis.</p>
-      </div>
-      <div class="ferramenta">
-        <span class="selo">a seguir</span>
-        <h2>Memória de cálculo</h2>
-        <p>Painéis, transformadores, geradores e cabos.</p>
-      </div>
-      <div class="ferramenta">
-        <span class="selo">a seguir</span>
-        <h2>Dimensionais de painéis</h2>
-        <p>Cálculo dimensional e geração do documento.</p>
-      </div>
-    </div>
-  </main>
-
-  <div class="rodape-app">
-    Sala El&eacute;trica &nbsp;&middot;&nbsp;
-    <a href="/termos">termos de uso</a> &nbsp;&middot;&nbsp;
-    <a href="/privacidade">privacidade</a>
   </div>
 
-  <div class="faixa faixa-base" role="presentation"></div>
-</div>
+  <div class="painel">
+    <div class="painel-topo">
+      <strong>Acesso rápido</strong>
+      <span class="etiqueta">links externos</span>
+    </div>
+    <a class="painel-item" href="https://www.confea.org.br" target="_blank" rel="noopener">
+      <span class="painel-barra"></span>
+      <span class="corpo"><b>CREA</b><small>Consulta de registro e ART</small></span>
+    </a>
+    <a class="painel-item" href="https://www.abntcolecao.com.br" target="_blank" rel="noopener">
+      <span class="painel-barra"></span>
+      <span class="corpo"><b>Catálogo de normas</b><small>NBR 5410, 5419, 14039</small></span>
+    </a>
+    <a class="painel-item" href="https://www.abntcatalogo.com.br" target="_blank" rel="noopener">
+      <span class="painel-barra"></span>
+      <span class="corpo"><b>Situação da norma</b><small>Verificar se está em vigor ou em revisão</small></span>
+    </a>
+    <a class="painel-item" href="https://www.gov.br/aneel/pt-br" target="_blank" rel="noopener">
+      <span class="painel-barra"></span>
+      <span class="corpo"><b>Concessionárias</b><small>Normas técnicas de ligação por distribuidora</small></span>
+    </a>
+    <a class="painel-item" href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">
+      <span class="painel-barra"></span>
+      <span class="corpo"><b>Normas Regulamentadoras</b><small>NRs do Ministério do Trabalho e Emprego</small></span>
+    </a>
+  </div>
+</section>
 
-<script type="module">
-  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+<section class="faixa-conteudo" id="calculadoras">
+  <div class="cabecalho-secao">
+    <h2>Calculadoras</h2>
+    <span class="etiqueta etiqueta-verde"><span class="ponto"></span>abertas, sem cadastro</span>
+  </div>
+  <div class="grade">
+    <a class="cartao" href="/calculadoras/queda-de-tensao">
+      <span class="cartao-titulo">Queda de tensão</span>
+      <span class="cartao-texto">Percentual no trecho a partir de carga, distância e seção. Monofásico e trifásico.</span>
+    </a>
+    <a class="cartao" href="/calculadoras/secao-de-condutor">
+      <span class="cartao-titulo">Seção de condutor</span>
+      <span class="cartao-texto">Bitola mínima pelos três critérios, com fator de agrupamento e temperatura.</span>
+    </a>
+    <a class="cartao" href="/calculadoras/corrente-de-projeto">
+      <span class="cartao-titulo">Corrente de projeto</span>
+      <span class="cartao-texto">Corrente a partir de potência, tensão, fator de potência e número de fases.</span>
+    </a>
+    <a class="cartao" href="/calculadoras/disjuntor">
+      <span class="cartao-titulo">Disjuntor e proteção</span>
+      <span class="cartao-texto">Corrente nominal comercial compatível com o condutor e com a carga.</span>
+    </a>
+    <a class="cartao" href="/calculadoras/conversao-de-potencia">
+      <span class="cartao-titulo">Conversão de potência</span>
+      <span class="cartao-texto">Entre kW, kVA e cv, com fator de potência e rendimento.</span>
+    </a>
+    <a class="cartao" href="/calculadoras/eletroduto">
+      <span class="cartao-titulo">Eletroduto</span>
+      <span class="cartao-texto">Taxa de ocupação por número e seção de condutores no mesmo conduto.</span>
+    </a>
+    <a class="cartao" href="/calculadoras/geometria">
+      <span class="cartao-titulo">Geometria</span>
+      <span class="cartao-texto">Área, perímetro e volume de ambientes e trechos, para cálculo de carga e de material.</span>
+    </a>
+  </div>
+</section>
 
-  const SUPABASE_URL = 'https://kahbgjwwqsejocmseegc.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_g2opUBjSqj6hXZ2HDsAMhQ_jfMVARqX';
+<section class="faixa-conteudo" id="ferramentas">
+  <div class="cabecalho-secao">
+    <h2>Ferramentas</h2>
+    <span class="etiqueta"><span class="ponto-escuro"></span>área de membros</span>
+  </div>
+  <div class="grade grade-larga">
+    <div class="cartao cartao-futuro">
+      <span class="cartao-titulo">Estudo de demanda</span>
+      <span class="cartao-texto">Separação das cargas elétricas a partir da lista de equipamentos mecânicos em Excel. Traz clareza sobre o sistema elétrico de forma rápida e prática.</span>
+      <span class="selo">em desenvolvimento</span>
+    </div>
+    <div class="cartao cartao-futuro">
+      <span class="cartao-titulo">Dimensional de painéis</span>
+      <span class="cartao-texto">Ferramenta individual ou integrada ao estudo de demanda, com o dimensional dos painéis dos principais fornecedores: ABB, Schneider, Siemens e WEG.</span>
+      <span class="selo">em desenvolvimento</span>
+    </div>
+    <div class="cartao cartao-futuro">
+      <span class="cartao-titulo">Diagrama de blocos e dashboard</span>
+      <span class="cartao-texto">Ferramenta individual ou integrada ao estudo de demanda, em diagrama de blocos, com a interligação dos principais equipamentos e painéis do projeto.</span>
+      <span class="selo">em desenvolvimento</span>
+    </div>
+    <div class="cartao cartao-futuro">
+      <span class="cartao-titulo">Cálculo de cabos</span>
+      <span class="cartao-texto">Dimensionamento de cabos conforme as normas NBR 5410 e NBR 14039, para a especificação correta dos condutores em cobre ou alumínio.</span>
+      <span class="selo">em desenvolvimento</span>
+    </div>
+    <div class="cartao cartao-futuro">
+      <span class="cartao-titulo">Cronograma de projeto</span>
+      <span class="cartao-texto">Visualização mais clara do cronograma de projeto, a partir do arquivo em Excel gerado pelo MS Project.</span>
+      <span class="selo">em desenvolvimento</span>
+    </div>
+    <div class="cartao-membros" id="membros">
+      <span>Seja membro e use todas as ferramentas nos seus projetos elétricos.</span>
+      <a class="botao botao-verde" href="/login">Criar conta</a>
+    </div>
+  </div>
+</section>
 
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+<section class="faixa-conteudo" id="downloads">
+  <div class="downloads">
+    <div class="downloads-lado">
+      <h2>Downloads</h2>
+      <p>
+        Planilhas e modelos que utilizamos na elaboração de projeto elétrico industrial.
+        Abertos, editáveis e sem marca d'água.
+      </p>
+      <a class="botao botao-claro" href="/downloads" style="align-self:flex-start;margin-top:6px;padding:12px 20px">Ver todos</a>
+    </div>
+    <div class="lista-arquivos">
+      <a href="/downloads">Quadro de cargas — painel de iluminação <em>XLSX</em></a>
+      <a href="/downloads">Memória de rede de dutos <em>XLSX</em></a>
+      <a href="/downloads">Memória de leito para cabos <em>XLSX</em></a>
+      <a href="/downloads">Planilha de tags para condutos <em>XLSX</em></a>
+      <a href="https://www.prysmian.com.br" target="_blank" rel="noopener">Guias técnicos Prysmian <em>site oficial</em></a>
+    </div>
+  </div>
+</section>
 
-  // Porteiro: sem sessao ativa, volta para o login sem mostrar nada
-  const { data: { session } } = await supabase.auth.getSession();
+<footer class="rodape">
+  <div class="rodape-grade">
 
-  if (!session) {
-    window.location.replace('/login');
-  } else {
-    const u = session.user.user_metadata || {};
+    <div class="rodape-sobre">
+      <a class="marca" href="/">
+        <svg width="32" height="32" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+        </svg>
+        <span class="marca-texto" style="font-size:13px">
+          <span>Sala</span>
+          <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+        </span>
+      </a>
+      <p>Ferramentas de apoio ao projeto elétrico industrial, mantidas pela comunidade projetista.</p>
+    </div>
 
-    document.getElementById('nome').textContent =
-      u.full_name || u.name || session.user.email;
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Usar</span>
+      <a href="#calculadoras">Calculadoras</a>
+      <a href="#ferramentas">Ferramentas <span class="nota-membros">∗ área de membros</span></a>
+      <a href="#downloads">Downloads</a>
+    </div>
 
-    if (u.avatar_url) {
-      const foto = document.getElementById('foto');
-      foto.src = u.avatar_url;
-      foto.hidden = false;
-    }
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Consultar</span>
+      <a href="https://www.confea.org.br" target="_blank" rel="noopener">CREA</a>
+      <a href="https://www.abntcolecao.com.br" target="_blank" rel="noopener">Catálogo de normas</a>
+      <a href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">Normas Regulamentadoras</a>
+      <a href="https://www.gov.br/aneel/pt-br" target="_blank" rel="noopener">Concessionárias</a>
+    </div>
 
-    document.getElementById('carregando').remove();
-    document.getElementById('conteudo').style.display = 'block';
-  }
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Site</span>
+      <a href="/sobre">Sobre</a>
+      <a href="/login">Área de membros</a>
+      <a href="mailto:contato@salaeletrica.com.br">Contato</a>
+      <a href="/termos">Termos de uso</a>
+      <a href="/privacidade">Privacidade</a>
+    </div>
 
-  document.getElementById('btnSair').addEventListener('click', async () => {
-    await supabase.auth.signOut();
-    window.location.replace('/');
-  });
-</script>
+  </div>
+
+  <div class="assinatura">
+    <div>Desenvolvido por Caio Falqueto e IAs</div>
+  </div>
+</footer>
 
 </body>
 </html>
