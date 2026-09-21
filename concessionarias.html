@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Concessionárias por região — Sala Elétrica</title>
-<meta name="description" content="Distribuidoras de energia elétrica por estado e região do Brasil, com acesso às normas técnicas de ligação.">
+<meta name="description" content="Distribuidoras de energia elétrica por estado e região do Brasil, com acesso direto ao site de cada concessionária.">
 <meta name="theme-color" content="#00795A">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,57 +12,110 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/estilo.css">
 <style>
-  .seletor{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-    gap:12px;margin-bottom:28px;
+  .mapa{
+    background:var(--branco);border:1px solid var(--linha);
+    padding:22px;
+  }
+  .mapa-cabeca{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    flex-wrap:wrap;margin-bottom:18px;
+  }
+  .mapa-cabeca strong{font-size:17px;font-weight:700;letter-spacing:-.02em}
+  .voltar-mapa{
+    display:none;align-items:center;gap:7px;
+    background:none;border:1px solid var(--borda-campo);
+    padding:7px 14px;font-family:var(--texto);font-size:13.5px;font-weight:500;
+    color:var(--grafite);cursor:pointer;
+  }
+  .voltar-mapa:hover{border-color:var(--verde);color:var(--verde)}
+  .voltar-mapa.visivel{display:inline-flex}
+
+  /* Vista das regiões — blocos dispostos na forma aproximada do país */
+  .vista-regioes{
+    display:grid;gap:10px;
+    grid-template-columns:repeat(5,1fr);
+    grid-template-rows:repeat(5,minmax(58px,auto));
+    grid-template-areas:
+      "norte norte norte nordeste nordeste"
+      "norte norte norte nordeste nordeste"
+      "centrooeste centrooeste centrooeste nordeste nordeste"
+      "centrooeste centrooeste sudeste sudeste sudeste"
+      "sul sul sudeste sudeste sudeste";
+    transition:opacity .22s ease,transform .22s ease;
   }
   .regiao{
-    display:flex;flex-direction:column;gap:3px;align-items:flex-start;
-    padding:16px 18px;
-    background:var(--branco);
-    border:1px solid var(--linha);
+    display:flex;flex-direction:column;justify-content:center;gap:3px;
+    padding:14px 16px;
+    background:var(--verde-fundo);
+    border:1px solid var(--verde-linha);
     font-family:var(--texto);cursor:pointer;text-align:left;
-    transition:border-color .14s ease;
+    transition:background .14s ease,border-color .14s ease,transform .14s ease;
   }
-  .regiao b{font-size:16px;font-weight:700;color:var(--tinta);letter-spacing:-.02em}
-  .regiao small{font-family:var(--mono);font-size:11.5px;color:var(--cinza)}
-  .regiao:hover{border-color:var(--verde)}
-  .regiao.ativa{border-color:var(--verde);border-width:2px;background:var(--verde-fundo)}
-  .regiao.ativa b{color:var(--verde)}
+  .regiao b{font-size:16px;font-weight:700;color:var(--verde);letter-spacing:-.02em}
+  .regiao small{font-family:var(--mono);font-size:11px;color:var(--grafite-2)}
+  .regiao:hover{background:var(--verde);border-color:var(--verde);transform:scale(1.015)}
+  .regiao:hover b,.regiao:hover small{color:var(--branco)}
 
-  .tabela-uf{
-    width:100%;border-collapse:collapse;
+  /* Vista dos estados — aparece com o "zoom" na região escolhida */
+  .vista-estados{display:none;animation:aproxima .24s ease}
+  .vista-estados.visivel{display:block}
+  @keyframes aproxima{
+    from{opacity:0;transform:scale(.965)}
+    to{opacity:1;transform:scale(1)}
+  }
+  .grade-uf{
+    display:grid;gap:10px;
+    grid-template-columns:repeat(auto-fill,minmax(112px,1fr));
+  }
+  .uf-bloco{
+    display:flex;flex-direction:column;gap:2px;align-items:flex-start;
+    padding:14px;
+    background:var(--fundo);border:1px solid var(--linha);
+    font-family:var(--texto);cursor:pointer;text-align:left;
+    transition:border-color .14s ease,background .14s ease;
+  }
+  .uf-bloco b{font-family:var(--mono);font-size:17px;font-weight:600;color:var(--verde)}
+  .uf-bloco small{font-size:12px;color:var(--grafite-2);line-height:1.3}
+  .uf-bloco:hover{background:var(--verde-fundo);border-color:var(--verde)}
+  .uf-bloco.ativa{background:var(--verde-fundo);border-color:var(--verde);border-width:2px}
+
+  /* Painel do estado escolhido */
+  .painel-uf{display:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--linha)}
+  .painel-uf.visivel{display:block;animation:aproxima .2s ease}
+  .painel-uf h3{
+    margin:0 0 4px;font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--tinta);
+  }
+  .painel-uf .quantas{
+    font-family:var(--mono);font-size:11.5px;color:var(--cinza);
+    display:block;margin-bottom:14px;
+  }
+  .lista-dist{display:grid;gap:9px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .dist{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 16px;
     background:var(--branco);border:1px solid var(--linha);
+    color:var(--tinta);font-size:15px;font-weight:600;
   }
-  .tabela-uf th{
-    text-align:left;padding:13px 16px;
-    font-family:var(--mono);font-size:11.5px;font-weight:600;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--cinza);
-    border-bottom:1px solid var(--linha);
-  }
-  .tabela-uf td{
-    padding:15px 16px;border-bottom:1px solid var(--linha-clara);
-    vertical-align:top;
-  }
-  .tabela-uf tr:last-child td{border-bottom:none}
-  .tabela-uf tr.oculta{display:none}
-  .uf{
-    font-family:var(--mono);font-size:15px;font-weight:600;
-    color:var(--verde);width:56px;
-  }
-  .estado{font-size:15px;font-weight:600;color:var(--tinta)}
-  .distribuidoras{margin:5px 0 0;padding-left:16px}
-  .distribuidoras li{font-size:14px;color:var(--grafite-2);margin-bottom:2px}
-  .norma{width:150px}
-  .pendente{
-    font-family:var(--mono);font-size:11.5px;
-    color:var(--cinza);
+  .dist:hover{border-color:var(--verde);color:var(--verde)}
+  .dist svg{flex:none;opacity:.55}
+  .dist:hover svg{opacity:1}
+
+  .instrucao{
+    font-family:var(--mono);font-size:11.5px;color:var(--cinza);
+    letter-spacing:.05em;
   }
 
-  @media (max-width:600px){
-    .tabela-uf th:last-child,.tabela-uf td.norma{display:none}
-    .tabela-uf td{padding:12px 11px}
+  @media (max-width:560px){
+    .mapa{padding:16px}
+    .vista-regioes{grid-template-rows:repeat(5,minmax(52px,auto));gap:8px}
+    .regiao{padding:10px 12px}
+    .regiao b{font-size:14px}
+    .grade-uf{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .vista-estados,.painel-uf.visivel{animation:none}
+    .regiao:hover{transform:none}
   }
 </style>
 </head>
@@ -99,15 +152,15 @@
   <div class="trilha"><a href="/">Início</a> / Concessionárias</div>
   <h1>Concessionárias por região</h1>
   <p>
-    Quem distribui energia em cada estado do Brasil, e onde encontrar a norma técnica
-    de ligação de cada uma — o documento que define os padrões de entrada, medição e
-    proteção que o projeto precisa atender.
+    Quem distribui energia em cada estado do Brasil. Escolha a região, depois o estado,
+    e vá direto ao site da concessionária — onde ficam as normas técnicas de ligação
+    que o projeto precisa atender.
   </p>
 </div>
 
 <section class="faixa-conteudo">
 
-  <div class="alerta" role="note" style="margin-bottom:30px">
+  <div class="alerta" role="note" style="margin-bottom:28px">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M12 3 L22 20 H2 Z" stroke="#00795A" stroke-width="1.8" stroke-linejoin="round"/>
       <path d="M12 10 v4" stroke="#00795A" stroke-width="1.8" stroke-linecap="round"/>
@@ -115,328 +168,122 @@
     </svg>
     <p>
       <strong>Confira antes de usar.</strong>
-      As áreas de concessão mudam por fusões, aquisições e renovações de contrato.
-      Esta lista é uma referência de partida — a fonte oficial é o mapa de áreas de
-      concessão da <a href="https://www.gov.br/aneel/pt-br" target="_blank" rel="noopener">ANEEL</a>,
-      e a <a href="https://www.abradee.org.br" target="_blank" rel="noopener">ABRADEE</a>
+      As áreas de concessão mudam por fusões, aquisições e renovações de contrato, e
+      alguns estados têm mais de uma distribuidora atendendo regiões distintas. A fonte
+      oficial é o mapa de áreas de concessão da
+      <a href="https://www.gov.br/aneel/pt-br" target="_blank" rel="noopener">ANEEL</a>;
+      a <a href="https://www.abradee.org.br" target="_blank" rel="noopener">ABRADEE</a>
       mantém o mapa das associadas por estado.
     </p>
   </div>
 
-  <div class="cabecalho-secao" style="margin-bottom:24px">
-    <h2>Por região</h2>
-    <span class="etiqueta etiqueta-verde"><span class="ponto"></span>clique para filtrar</span>
-  </div>
+  <div class="mapa">
+    <div class="mapa-cabeca">
+      <strong id="tituloMapa">Escolha a região</strong>
+      <button class="voltar-mapa" id="btnVoltar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M19 12H6M12 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Todas as regiões
+      </button>
+      <span class="instrucao" id="instrucao">clique numa região para aproximar</span>
+    </div>
 
-  <div class="seletor" id="seletor">
-    <button class="regiao ativa" data-regiao="todas"><b>Brasil</b><small>todos os estados</small></button>
-    <button class="regiao" data-regiao="norte"><b>Norte</b><small>7 estados</small></button>
-    <button class="regiao" data-regiao="nordeste"><b>Nordeste</b><small>9 estados</small></button>
-    <button class="regiao" data-regiao="centro-oeste"><b>Centro-Oeste</b><small>3 estados e o DF</small></button>
-    <button class="regiao" data-regiao="sudeste"><b>Sudeste</b><small>4 estados</small></button>
-    <button class="regiao" data-regiao="sul"><b>Sul</b><small>3 estados</small></button>
-  </div>
+    <div class="vista-regioes" id="vistaRegioes">
+      <button class="regiao r-norte" data-regiao="norte" style="grid-area:norte">
+        <b>Norte</b><small>7 estados</small>
+      </button>
+      <button class="regiao r-nordeste" data-regiao="nordeste" style="grid-area:nordeste">
+        <b>Nordeste</b><small>9 estados</small>
+      </button>
+      <button class="regiao r-centro-oeste" data-regiao="centro-oeste" style="grid-area:centrooeste">
+        <b>Centro-Oeste</b><small>4 unidades</small>
+      </button>
+      <button class="regiao r-sudeste" data-regiao="sudeste" style="grid-area:sudeste">
+        <b>Sudeste</b><small>4 estados</small>
+      </button>
+      <button class="regiao r-sul" data-regiao="sul" style="grid-area:sul">
+        <b>Sul</b><small>3 estados</small>
+      </button>
+    </div>
 
-  <table class="tabela-uf">
-    <thead>
-      <tr><th>UF</th><th>Estado e distribuidoras</th><th>Norma de ligação</th></tr>
-    </thead>
-    <tbody id="corpo">
-      <tr data-regiao="norte">
-        <td class="uf">AC</td>
-        <td>
-          <span class="estado">Acre</span>
-          <ul class="distribuidoras">
-          <li>Energisa Acre</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="norte">
-        <td class="uf">AP</td>
-        <td>
-          <span class="estado">Amapá</span>
-          <ul class="distribuidoras">
-          <li>Equatorial CEA</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="norte">
-        <td class="uf">AM</td>
-        <td>
-          <span class="estado">Amazonas</span>
-          <ul class="distribuidoras">
-          <li>Amazonas Energia</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="norte">
-        <td class="uf">PA</td>
-        <td>
-          <span class="estado">Pará</span>
-          <ul class="distribuidoras">
-          <li>Equatorial Pará</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="norte">
-        <td class="uf">RO</td>
-        <td>
-          <span class="estado">Rondônia</span>
-          <ul class="distribuidoras">
-          <li>Energisa Rondônia</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="norte">
-        <td class="uf">RR</td>
-        <td>
-          <span class="estado">Roraima</span>
-          <ul class="distribuidoras">
-          <li>Roraima Energia</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="norte">
-        <td class="uf">TO</td>
-        <td>
-          <span class="estado">Tocantins</span>
-          <ul class="distribuidoras">
-          <li>Energisa Tocantins</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">AL</td>
-        <td>
-          <span class="estado">Alagoas</span>
-          <ul class="distribuidoras">
-          <li>Equatorial Alagoas</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">BA</td>
-        <td>
-          <span class="estado">Bahia</span>
-          <ul class="distribuidoras">
-          <li>Neoenergia Coelba</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">CE</td>
-        <td>
-          <span class="estado">Ceará</span>
-          <ul class="distribuidoras">
-          <li>Enel Ceará</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">MA</td>
-        <td>
-          <span class="estado">Maranhão</span>
-          <ul class="distribuidoras">
-          <li>Equatorial Maranhão</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">PB</td>
-        <td>
-          <span class="estado">Paraíba</span>
-          <ul class="distribuidoras">
-          <li>Energisa Paraíba</li>
-          <li>Energisa Borborema</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">PE</td>
-        <td>
-          <span class="estado">Pernambuco</span>
-          <ul class="distribuidoras">
-          <li>Neoenergia Pernambuco</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">PI</td>
-        <td>
-          <span class="estado">Piauí</span>
-          <ul class="distribuidoras">
-          <li>Equatorial Piauí</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">RN</td>
-        <td>
-          <span class="estado">Rio Grande do Norte</span>
-          <ul class="distribuidoras">
-          <li>Neoenergia Cosern</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="nordeste">
-        <td class="uf">SE</td>
-        <td>
-          <span class="estado">Sergipe</span>
-          <ul class="distribuidoras">
-          <li>Energisa Sergipe</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="centro-oeste">
-        <td class="uf">DF</td>
-        <td>
-          <span class="estado">Distrito Federal</span>
-          <ul class="distribuidoras">
-          <li>Neoenergia Brasília</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="centro-oeste">
-        <td class="uf">GO</td>
-        <td>
-          <span class="estado">Goiás</span>
-          <ul class="distribuidoras">
-          <li>Equatorial Goiás</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="centro-oeste">
-        <td class="uf">MT</td>
-        <td>
-          <span class="estado">Mato Grosso</span>
-          <ul class="distribuidoras">
-          <li>Energisa Mato Grosso</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="centro-oeste">
-        <td class="uf">MS</td>
-        <td>
-          <span class="estado">Mato Grosso do Sul</span>
-          <ul class="distribuidoras">
-          <li>Energisa Mato Grosso do Sul</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="sudeste">
-        <td class="uf">ES</td>
-        <td>
-          <span class="estado">Espírito Santo</span>
-          <ul class="distribuidoras">
-          <li>EDP Espírito Santo</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="sudeste">
-        <td class="uf">MG</td>
-        <td>
-          <span class="estado">Minas Gerais</span>
-          <ul class="distribuidoras">
-          <li>Cemig Distribuição</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="sudeste">
-        <td class="uf">RJ</td>
-        <td>
-          <span class="estado">Rio de Janeiro</span>
-          <ul class="distribuidoras">
-          <li>Light</li>
-          <li>Enel Rio</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="sudeste">
-        <td class="uf">SP</td>
-        <td>
-          <span class="estado">São Paulo</span>
-          <ul class="distribuidoras">
-          <li>Enel São Paulo</li>
-          <li>CPFL Paulista</li>
-          <li>CPFL Piratininga</li>
-          <li>EDP São Paulo</li>
-          <li>Neoenergia Elektro</li>
-          <li>Energisa Sul-Sudeste</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="sul">
-        <td class="uf">PR</td>
-        <td>
-          <span class="estado">Paraná</span>
-          <ul class="distribuidoras">
-          <li>Copel Distribuição</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="sul">
-        <td class="uf">SC</td>
-        <td>
-          <span class="estado">Santa Catarina</span>
-          <ul class="distribuidoras">
-          <li>Celesc Distribuição</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-      <tr data-regiao="sul">
-        <td class="uf">RS</td>
-        <td>
-          <span class="estado">Rio Grande do Sul</span>
-          <ul class="distribuidoras">
-          <li>Equatorial CEEE</li>
-          <li>RGE</li>
-          </ul>
-        </td>
-        <td class="norma"><span class="pendente">a levantar</span></td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="vista-estados" id="vistaEstados">
+      <div class="grade-uf" id="gradeUf"></div>
+      <div class="painel-uf" id="painelUf">
+        <h3 id="nomeUf"></h3>
+        <span class="quantas" id="quantasUf"></span>
+        <div class="lista-dist" id="listaDist"></div>
+      </div>
+    </div>
+  </div>
 
 </section>
 
 <script>
-  const botoes = document.querySelectorAll('.regiao');
-  const linhas = document.querySelectorAll('#corpo tr');
+  const UF = {"norte": [{"uf": "RR", "nome": "Roraima", "dist": [{"n": "Roraima Energia", "u": "https://www.roraimaenergia.com.br"}]}, {"uf": "AP", "nome": "Amapá", "dist": [{"n": "Equatorial CEA", "u": "https://www.equatorialenergia.com.br"}]}, {"uf": "AM", "nome": "Amazonas", "dist": [{"n": "Amazonas Energia", "u": "https://www.amazonasenergia.com"}]}, {"uf": "PA", "nome": "Pará", "dist": [{"n": "Equatorial Pará", "u": "https://www.equatorialenergia.com.br"}]}, {"uf": "AC", "nome": "Acre", "dist": [{"n": "Energisa Acre", "u": "https://www.energisa.com.br"}]}, {"uf": "RO", "nome": "Rondônia", "dist": [{"n": "Energisa Rondônia", "u": "https://www.energisa.com.br"}]}, {"uf": "TO", "nome": "Tocantins", "dist": [{"n": "Energisa Tocantins", "u": "https://www.energisa.com.br"}]}], "nordeste": [{"uf": "MA", "nome": "Maranhão", "dist": [{"n": "Equatorial Maranhão", "u": "https://www.equatorialenergia.com.br"}]}, {"uf": "PI", "nome": "Piauí", "dist": [{"n": "Equatorial Piauí", "u": "https://www.equatorialenergia.com.br"}]}, {"uf": "CE", "nome": "Ceará", "dist": [{"n": "Enel Ceará", "u": "https://www.enel.com.br"}]}, {"uf": "RN", "nome": "Rio Grande do Norte", "dist": [{"n": "Neoenergia Cosern", "u": "https://www.neoenergia.com"}]}, {"uf": "PB", "nome": "Paraíba", "dist": [{"n": "Energisa Paraíba", "u": "https://www.energisa.com.br"}, {"n": "Energisa Borborema", "u": "https://www.energisa.com.br"}]}, {"uf": "PE", "nome": "Pernambuco", "dist": [{"n": "Neoenergia Pernambuco", "u": "https://www.neoenergia.com"}]}, {"uf": "AL", "nome": "Alagoas", "dist": [{"n": "Equatorial Alagoas", "u": "https://www.equatorialenergia.com.br"}]}, {"uf": "SE", "nome": "Sergipe", "dist": [{"n": "Energisa Sergipe", "u": "https://www.energisa.com.br"}]}, {"uf": "BA", "nome": "Bahia", "dist": [{"n": "Neoenergia Coelba", "u": "https://www.neoenergia.com"}]}], "centro-oeste": [{"uf": "MT", "nome": "Mato Grosso", "dist": [{"n": "Energisa Mato Grosso", "u": "https://www.energisa.com.br"}]}, {"uf": "GO", "nome": "Goiás", "dist": [{"n": "Equatorial Goiás", "u": "https://www.equatorialenergia.com.br"}]}, {"uf": "DF", "nome": "Distrito Federal", "dist": [{"n": "Neoenergia Brasília", "u": "https://www.neoenergia.com"}]}, {"uf": "MS", "nome": "Mato Grosso do Sul", "dist": [{"n": "Energisa Mato Grosso do Sul", "u": "https://www.energisa.com.br"}]}], "sudeste": [{"uf": "MG", "nome": "Minas Gerais", "dist": [{"n": "Cemig Distribuição", "u": "https://www.cemig.com.br"}]}, {"uf": "ES", "nome": "Espírito Santo", "dist": [{"n": "EDP Espírito Santo", "u": "https://www.edp.com.br"}]}, {"uf": "RJ", "nome": "Rio de Janeiro", "dist": [{"n": "Light", "u": "https://www.light.com.br"}, {"n": "Enel Rio", "u": "https://www.enel.com.br"}]}, {"uf": "SP", "nome": "São Paulo", "dist": [{"n": "Enel São Paulo", "u": "https://www.enel.com.br"}, {"n": "CPFL Paulista", "u": "https://www.cpfl.com.br"}, {"n": "CPFL Piratininga", "u": "https://www.cpfl.com.br"}, {"n": "EDP São Paulo", "u": "https://www.edp.com.br"}, {"n": "Neoenergia Elektro", "u": "https://www.neoenergia.com"}, {"n": "Energisa Sul-Sudeste", "u": "https://www.energisa.com.br"}]}], "sul": [{"uf": "PR", "nome": "Paraná", "dist": [{"n": "Copel Distribuição", "u": "https://www.copel.com"}]}, {"uf": "SC", "nome": "Santa Catarina", "dist": [{"n": "Celesc Distribuição", "u": "https://www.celesc.com.br"}]}, {"uf": "RS", "nome": "Rio Grande do Sul", "dist": [{"n": "Equatorial CEEE", "u": "https://www.equatorialenergia.com.br"}, {"n": "RGE", "u": "https://www.rge-rs.com.br"}]}]};
+  const NOMES = {"norte": "Norte", "nordeste": "Nordeste", "centro-oeste": "Centro-Oeste", "sudeste": "Sudeste", "sul": "Sul"};
 
-  botoes.forEach(b => b.addEventListener('click', () => {
-    const alvo = b.dataset.regiao;
-    botoes.forEach(o => o.classList.toggle('ativa', o === b));
-    linhas.forEach(l => {
-      const mostra = alvo === 'todas' || l.dataset.regiao === alvo;
-      l.classList.toggle('oculta', !mostra);
+  const vistaRegioes = document.getElementById('vistaRegioes');
+  const vistaEstados = document.getElementById('vistaEstados');
+  const gradeUf      = document.getElementById('gradeUf');
+  const painelUf     = document.getElementById('painelUf');
+  const btnVoltar    = document.getElementById('btnVoltar');
+  const tituloMapa   = document.getElementById('tituloMapa');
+  const instrucao    = document.getElementById('instrucao');
+
+  const SETA_EXTERNA = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 16 L16 8 M9 8h7v7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function abrirRegiao(regiao) {
+    vistaRegioes.style.display = 'none';
+    vistaEstados.classList.add('visivel');
+    painelUf.classList.remove('visivel');
+    btnVoltar.classList.add('visivel');
+    tituloMapa.textContent = 'Região ' + NOMES[regiao];
+    instrucao.textContent = 'clique num estado';
+
+    gradeUf.innerHTML = '';
+    UF[regiao].forEach(e => {
+      const b = document.createElement('button');
+      b.className = 'uf-bloco';
+      b.innerHTML = '<b>' + e.uf + '</b><small>' + e.nome + '</small>';
+      b.addEventListener('click', () => {
+        gradeUf.querySelectorAll('.uf-bloco').forEach(o => o.classList.toggle('ativa', o === b));
+        mostrarEstado(e);
+      });
+      gradeUf.appendChild(b);
     });
-  }));
+  }
+
+  function mostrarEstado(e) {
+    document.getElementById('nomeUf').textContent = e.nome;
+    document.getElementById('quantasUf').textContent =
+      e.dist.length === 1 ? '1 distribuidora' : e.dist.length + ' distribuidoras';
+
+    const lista = document.getElementById('listaDist');
+    lista.innerHTML = '';
+    e.dist.forEach(d => {
+      const a = document.createElement('a');
+      a.className = 'dist';
+      a.href = d.u;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.innerHTML = '<span>' + d.n + '</span>' + SETA_EXTERNA;
+      lista.appendChild(a);
+    });
+
+    painelUf.classList.add('visivel');
+  }
+
+  function voltar() {
+    vistaEstados.classList.remove('visivel');
+    painelUf.classList.remove('visivel');
+    btnVoltar.classList.remove('visivel');
+    vistaRegioes.style.display = 'grid';
+    tituloMapa.textContent = 'Escolha a região';
+    instrucao.textContent = 'clique numa região para aproximar';
+  }
+
+  document.querySelectorAll('.regiao').forEach(b =>
+    b.addEventListener('click', () => abrirRegiao(b.dataset.regiao)));
+  btnVoltar.addEventListener('click', voltar);
 </script>
 
 <footer class="rodape">
