@@ -4,13 +4,120 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calculadoras — Sala Elétrica</title>
-<meta name="description" content="Calculadoras abertas para projeto elétrico industrial: queda de tensão, seção de condutor, corrente de projeto, disjuntor, eletroduto e mais.">
+<meta name="description" content="Calculadoras abertas para projeto elétrico: seção de condutor e queda de tensão pela NBR 5410, corrente de projeto, disjuntor, eletroduto, fator de potência, transformador, iluminação e mais.">
 <meta name="theme-color" content="#00795A">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/estilo.css">
+<style>
+  .calc-layout{
+    max-width:var(--largura);margin:0 auto;padding:0 var(--respiro) 72px;
+    display:grid;grid-template-columns:250px minmax(0,1fr);gap:28px;align-items:start;
+  }
+  /* Navegacao lateral */
+  .calc-nav{position:sticky;top:20px;display:flex;flex-direction:column;gap:18px}
+  .nav-grupo{display:flex;flex-direction:column;gap:2px}
+  .nav-grupo > span{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--cinza);padding:0 12px 6px;
+  }
+  .nav-item{
+    display:block;padding:8px 12px;border-left:2px solid transparent;
+    color:var(--grafite);font-size:14.5px;font-weight:500;
+  }
+  .nav-item:hover{color:var(--tinta-forte);background:var(--branco)}
+  .nav-item.ativo{border-left-color:var(--verde);background:var(--branco);color:var(--verde);font-weight:600}
+  .nav-inicio{font-family:var(--mono);font-size:12px;color:var(--cinza);padding:0 12px}
+  .nav-inicio:hover{color:var(--verde)}
+  .seletor-movel{display:none}
+
+  /* Painel */
+  .painel-calc{background:var(--branco);border:1px solid var(--linha);padding:30px}
+  .painel-calc h2{margin:0;font-size:clamp(22px,2.6vw,30px);font-weight:700;letter-spacing:-.03em}
+  .cabeca-calc{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:8px}
+  .selo-norma{
+    font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;
+    color:var(--verde);background:var(--verde-fundo);border:1px solid var(--verde-linha);
+    padding:3px 8px;
+  }
+  .resumo-calc{margin:0 0 26px;font-size:15.5px;color:var(--grafite);max-width:68ch;text-wrap:pretty}
+
+  .form-calc{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px 20px}
+  .campo{display:flex;flex-direction:column;gap:6px}
+  .campo.largo{grid-column:1/-1}
+  .campo[hidden]{display:none}
+  .campo label{
+    font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--grafite-2);
+  }
+  .entrada{display:flex;align-items:stretch;border:1px solid var(--borda-campo);background:var(--branco)}
+  .entrada:focus-within{border-color:var(--verde);box-shadow:0 0 0 1px var(--verde)}
+  .entrada input,.entrada select{
+    flex:1;min-width:0;border:none;outline:none;background:transparent;
+    padding:11px 12px;font-family:var(--texto);font-size:15px;color:var(--tinta);
+  }
+  .entrada select{cursor:pointer}
+  .entrada .un{
+    display:flex;align-items:center;padding:0 12px;
+    background:var(--fundo);border-left:1px solid var(--linha);
+    font-family:var(--mono);font-size:12.5px;color:var(--grafite-2);white-space:nowrap;
+  }
+  .campo small{font-size:12.5px;line-height:1.45;color:var(--cinza)}
+
+  /* Resultado */
+  .resultado{
+    margin-top:28px;padding:22px 24px;
+    background:var(--verde-fundo);border:1px solid var(--verde-linha);border-left:4px solid var(--verde);
+  }
+  .res-rotulo{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--grafite-2)}
+  .res-valor{
+    display:flex;align-items:baseline;gap:8px;margin:4px 0 0;
+    font-size:clamp(30px,4vw,40px);font-weight:700;letter-spacing:-.03em;color:var(--tinta-forte);
+  }
+  .res-valor small{font-size:18px;font-weight:600;color:var(--grafite)}
+  .res-linhas{width:100%;border-collapse:collapse;margin-top:16px}
+  .res-linhas td{padding:8px 0;border-top:1px solid var(--verde-linha);font-size:14.5px;vertical-align:top}
+  .res-linhas td:first-child{color:var(--grafite);padding-right:16px}
+  .res-linhas td:last-child{text-align:right;font-weight:600;color:var(--tinta);font-variant-numeric:tabular-nums}
+  .situacao{margin:14px 0 0;padding:11px 14px;font-size:14px;line-height:1.5;font-weight:500}
+  .situacao.ok{background:var(--branco);color:var(--verde);border:1px solid var(--verde-linha)}
+  .situacao.alerta{background:#FFF7E6;color:#8A5A00;border:1px solid #F0D9A8}
+  .situacao.erro{background:#FDF1F0;color:#9B322B;border:1px solid #E7B9B5}
+  .situacao.espera{background:transparent;color:var(--grafite-2);padding:0;font-weight:400}
+  .resultado.vazio{background:var(--quase-branco);border-color:var(--linha);border-left-color:var(--borda-campo)}
+
+  details.formula{margin-top:22px;border-top:1px solid var(--linha);padding-top:14px}
+  details.formula summary{
+    cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--grafite-2);
+  }
+  details.formula summary:hover{color:var(--verde)}
+  details.formula p{margin:10px 0 0;font-size:14px;line-height:1.6;color:var(--grafite)}
+  .aviso-calc{margin:18px 0 0;font-size:12.5px;line-height:1.55;color:var(--cinza)}
+  .aviso-calc a{border-bottom:1px solid var(--verde-linha)}
+
+  /* Visao geral */
+  .visao h2{margin:0 0 6px;font-size:22px;font-weight:700;letter-spacing:-.025em}
+  .visao > p{margin:0 0 22px;color:var(--grafite);font-size:15px}
+  .visao-grupo{margin-top:26px}
+  .visao-grupo:first-of-type{margin-top:0}
+  .visao-grupo h3{
+    margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--linha);
+    font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--grafite-2);font-weight:500;
+  }
+  .visao .grade{padding-top:0;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+  .visao .cartao{background:var(--quase-branco)}
+
+  @media (max-width:860px){
+    .calc-layout{grid-template-columns:1fr;gap:16px}
+    .calc-nav{display:none}
+    .seletor-movel{display:block}
+    .painel-calc{padding:22px 18px}
+  }
+</style>
 </head>
 <body>
 
@@ -44,43 +151,21 @@
 <div class="capa">
   <div class="trilha"><a href="/">Início</a> / Calculadoras</div>
   <h1>Calculadoras</h1>
-  <p>As contas rápidas do dia a dia de projeto, abertas e sem cadastro. Cada uma resolve uma pergunta única, com os parâmetros que importam e nada além disso.</p>
+  <p>
+    As contas rápidas do dia a dia de projeto, abertas e sem cadastro. O resultado
+    aparece enquanto você digita, e cada calculadora mostra como a conta é feita.
+  </p>
 </div>
 
-<section class="faixa-conteudo">
-  <div class="cabecalho-secao">
-    <h2>Todas as calculadoras</h2>
-    <span class="etiqueta etiqueta-verde"><span class="ponto"></span>abertas, sem cadastro</span>
-  </div>
-  <div class="grade grade-larga">
-  <a class="cartao" href="/calculadoras/queda-de-tensao">
-    <span class="cartao-titulo">Queda de tensão</span>
-    <span class="cartao-texto">Percentual de queda no trecho a partir da carga, da distância e da seção do condutor. Atende circuitos monofásicos e trifásicos, com escolha do material e do fator de potência.</span>
-  </a>
-  <a class="cartao" href="/calculadoras/secao-de-condutor">
-    <span class="cartao-titulo">Seção de condutor</span>
-    <span class="cartao-texto">Bitola mínima pelos três critérios da NBR 5410: capacidade de condução, queda de tensão e proteção contra sobrecarga. Considera agrupamento, temperatura e método de instalação.</span>
-  </a>
-  <a class="cartao" href="/calculadoras/corrente-de-projeto">
-    <span class="cartao-titulo">Corrente de projeto</span>
-    <span class="cartao-texto">Corrente a partir da potência, da tensão, do fator de potência e do número de fases. Aceita entrada em kW, kVA ou cv, com rendimento do motor.</span>
-  </a>
-  <a class="cartao" href="/calculadoras/disjuntor">
-    <span class="cartao-titulo">Disjuntor e proteção</span>
-    <span class="cartao-texto">Corrente nominal comercial compatível com o condutor e com a carga, verificando a coordenação entre proteção e condutor.</span>
-  </a>
-  <a class="cartao" href="/calculadoras/conversao-de-potencia">
-    <span class="cartao-titulo">Conversão de potência</span>
-    <span class="cartao-texto">Conversão entre kW, kVA e cv, aplicando fator de potência e rendimento. Útil para transformar dado de placa em dado de projeto.</span>
-  </a>
-  <a class="cartao" href="/calculadoras/eletroduto">
-    <span class="cartao-titulo">Eletroduto</span>
-    <span class="cartao-texto">Taxa de ocupação do conduto pelo número e pela seção dos condutores, conforme os limites da NBR 5410.</span>
-  </a>
-  <a class="cartao" href="/calculadoras/geometria">
-    <span class="cartao-titulo">Geometria</span>
-    <span class="cartao-texto">Área, perímetro e volume de ambientes e trechos, para estimativa de carga de iluminação e de quantitativo de material.</span>
-  </a>
+<section class="calc-layout" id="calculadoras">
+  <nav class="calc-nav" id="navCalc" aria-label="Calculadoras">
+    <a class="nav-inicio" href="#">← todas as calculadoras</a>
+  </nav>
+  <div>
+    <div class="seletor-movel">
+      <div class="entrada"><select id="seletorCalc" aria-label="Escolha a calculadora"><option value="">Todas as calculadoras</option></select></div>
+    </div>
+    <div class="painel-calc" id="painel"></div>
   </div>
 </section>
 
@@ -110,7 +195,7 @@
     <div class="rodape-coluna">
       <span class="rodape-titulo">Consultar</span>
       <a href="https://www.confea.org.br/sistema-profissional/creas" target="_blank" rel="noopener">CREA</a>
-      <a href="https://www.abntcolecao.com.br" target="_blank" rel="noopener">Catálogo de normas</a>
+      <a href="https://www.abntcatalogo.com.br/confea/" target="_blank" rel="noopener">Consulta de normas (CREA)</a>
       <a href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">Normas Regulamentadoras</a>
       <a href="/concessionarias">Concessionárias</a>
     </div>
@@ -130,6 +215,109 @@
     <div>Desenvolvido por Caio Falqueto e IAs</div>
   </div>
 </footer>
+
+<script src="/calculadoras.js"></script>
+<script>
+(() => {
+  const { CALCULADORAS, num } = window.SalaCalc;
+  const painel = document.getElementById('painel');
+  const nav = document.getElementById('navCalc');
+  const seletor = document.getElementById('seletorCalc');
+  const grupos = [...new Set(CALCULADORAS.map(c => c.grupo))];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  /* Navegacao lateral e seletor do celular */
+  nav.insertAdjacentHTML('beforeend', grupos.map(g => `
+    <div class="nav-grupo"><span>${esc(g)}</span>
+      ${CALCULADORAS.filter(c => c.grupo === g).map(c =>
+        `<a class="nav-item" href="#${c.id}" data-id="${c.id}">${esc(c.titulo)}</a>`).join('')}
+    </div>`).join(''));
+  seletor.insertAdjacentHTML('beforeend', grupos.map(g => `
+    <optgroup label="${esc(g)}">
+      ${CALCULADORAS.filter(c => c.grupo === g).map(c => `<option value="${c.id}">${esc(c.titulo)}</option>`).join('')}
+    </optgroup>`).join(''));
+  seletor.addEventListener('change', () => { location.hash = seletor.value || ''; });
+
+  function visaoGeral() {
+    painel.innerHTML = `<div class="visao">
+      <h2>Escolha uma calculadora</h2>
+      <p>${CALCULADORAS.length} calculadoras abertas, sem cadastro. O cálculo roda no seu navegador.</p>
+      ${grupos.map(g => `<div class="visao-grupo"><h3>${esc(g)}</h3><div class="grade">
+        ${CALCULADORAS.filter(c => c.grupo === g).map(c => `
+          <a class="cartao" href="#${c.id}">
+            <span class="cartao-titulo">${esc(c.titulo)}</span>
+            <span class="cartao-texto">${esc(c.resumo)}</span>
+          </a>`).join('')}
+      </div></div>`).join('')}
+    </div>`;
+  }
+
+  function campoHTML(f) {
+    const ctrl = f.tipo === 'opcao'
+      ? `<select id="f-${f.id}">${f.opcoes.map(([v, r]) =>
+          `<option value="${esc(v)}"${String(f.padrao) === String(v) ? ' selected' : ''}>${esc(r)}</option>`).join('')}</select>`
+      : `<input id="f-${f.id}" type="text" inputmode="decimal" autocomplete="off" value="${esc(f.padrao ?? '')}">`;
+    return `<div class="campo${f.largo ? ' largo' : ''}" data-campo="${f.id}">
+      <label for="f-${f.id}">${esc(f.rotulo)}</label>
+      <div class="entrada">${ctrl}${f.unidade ? `<span class="un">${esc(f.unidade)}</span>` : ''}</div>
+      ${f.dica ? `<small>${esc(f.dica)}</small>` : ''}
+    </div>`;
+  }
+
+  function mostrar(calc) {
+    painel.innerHTML = `
+      <div class="cabeca-calc"><h2>${esc(calc.titulo)}</h2>${calc.norma ? `<span class="selo-norma">${esc(calc.norma)}</span>` : ''}</div>
+      <p class="resumo-calc">${esc(calc.resumo)}</p>
+      <form class="form-calc" id="form" novalidate onsubmit="return false">${calc.campos.map(campoHTML).join('')}</form>
+      <div class="resultado" id="res" aria-live="polite"></div>
+      <details class="formula"><summary>Como é calculado</summary>${calc.formula}</details>
+      <p class="aviso-calc">Resultado preliminar, para apoio ao projeto. Confira antes de usar em qualquer entregável técnico — a responsabilidade técnica é do profissional que assina a ART. <a href="/termos">Termos de uso</a>.</p>`;
+    const form = document.getElementById('form');
+    const atualizar = () => {
+      const v = {};
+      for (const f of calc.campos) {
+        const el = document.getElementById('f-' + f.id);
+        v[f.id] = f.tipo === 'opcao' ? el.value : num(el.value);
+      }
+      for (const f of calc.campos)
+        form.querySelector(`[data-campo="${f.id}"]`).hidden = f.visivel ? !f.visivel(v) : false;
+      render(calc.calcular(v));
+    };
+    form.addEventListener('input', atualizar);
+    form.addEventListener('change', atualizar);
+    atualizar();
+  }
+
+  function render(r) {
+    const caixa = document.getElementById('res');
+    let h = '';
+    if (r.principal) {
+      const [rot, val, un] = r.principal;
+      h += `<div class="res-rotulo">${esc(rot)}</div><div class="res-valor">${esc(val)}${un ? `<small>${esc(un)}</small>` : ''}</div>`;
+    }
+    if (r.linhas && r.linhas.length)
+      h += `<table class="res-linhas">${r.linhas.map(([a, b]) => `<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join('')}</table>`;
+    if (r.situacao) h += `<p class="situacao ${r.situacao.tipo}">${esc(r.situacao.texto)}</p>`;
+    caixa.className = 'resultado' + (r.principal ? '' : ' vazio');
+    caixa.innerHTML = h;
+  }
+
+  function rota() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    const calc = CALCULADORAS.find(c => c.id === id);
+    nav.querySelectorAll('.nav-item').forEach(a => a.classList.toggle('ativo', a.dataset.id === id));
+    seletor.value = calc ? id : '';
+    if (calc) { mostrar(calc); document.title = calc.titulo + ' — Calculadoras — Sala Elétrica'; }
+    else { visaoGeral(); document.title = 'Calculadoras — Sala Elétrica'; }
+  }
+  window.addEventListener('hashchange', () => {
+    rota();
+    const topo = document.getElementById('calculadoras').getBoundingClientRect().top + scrollY - 12;
+    if (scrollY > topo) scrollTo({ top: topo, behavior: 'smooth' });
+  });
+  rota();
+})();
+</script>
 
 </body>
 </html>

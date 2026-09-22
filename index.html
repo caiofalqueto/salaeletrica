@@ -135,14 +135,15 @@
   }
   .manchete{display:flex;gap:12px;color:var(--tinta)}
   .manchete:hover{color:var(--verde)}
-  .manchete span:last-child{font-size:15px;font-weight:600;line-height:1.45;text-wrap:pretty}
+  .manchete > span:last-child{font-size:15px;font-weight:600;line-height:1.45;text-wrap:pretty}
   .quando{
     font-family:var(--mono);font-size:12px;color:var(--grafite-2);
     flex:none;width:64px;padding-top:3px;white-space:nowrap;
   }
   .quando.vivo{color:var(--verde);font-weight:600}
+  .quando .sigla{display:block;margin-top:3px;font-size:10px;letter-spacing:.04em;color:var(--verde);white-space:normal}
   .registro{display:flex;gap:12px}
-  .registro span:last-child{font-size:15px;line-height:1.45;color:var(--tinta);text-wrap:pretty}
+  .registro > span:last-child{font-size:15px;line-height:1.45;color:var(--tinta);text-wrap:pretty}
   .registro strong{font-weight:600}
   .fonte{font-family:var(--mono);font-size:11px;color:var(--grafite-2)}
   .fonte a{color:var(--grafite-2);border-bottom:1px solid var(--verde-linha)}
@@ -209,9 +210,9 @@
       <span class="painel-barra"></span>
       <span class="corpo"><b>CREA</b><small>Consulta de registro e ART</small></span>
     </a>
-    <a class="painel-item" href="https://www.abntcolecao.com.br" target="_blank" rel="noopener">
+    <a class="painel-item" href="https://www.abntcatalogo.com.br/confea/" target="_blank" rel="noopener">
       <span class="painel-barra"></span>
-      <span class="corpo"><b>Catálogo de normas</b><small>NBR 5410, 5419, 14039</small></span>
+      <span class="corpo"><b>Consulta de normas (CREA)</b><small>Visualização gratuita para profissionais registrados</small></span>
     </a>
     <a class="painel-item" href="https://www.abntcatalogo.com.br" target="_blank" rel="noopener">
       <span class="painel-barra"></span>
@@ -237,31 +238,31 @@
     </div>
   </div>
   <div class="grade">
-    <a class="cartao" href="/calculadoras/queda-de-tensao">
+    <a class="cartao" href="/calculadoras#queda-de-tensao">
       <span class="cartao-titulo">Queda de tensão</span>
       <span class="cartao-texto">Percentual no trecho a partir de carga, distância e seção. Monofásico e trifásico.</span>
     </a>
-    <a class="cartao" href="/calculadoras/secao-de-condutor">
+    <a class="cartao" href="/calculadoras#secao-de-condutor">
       <span class="cartao-titulo">Seção de condutor</span>
       <span class="cartao-texto">Bitola mínima pelos três critérios, com fator de agrupamento e temperatura.</span>
     </a>
-    <a class="cartao" href="/calculadoras/corrente-de-projeto">
+    <a class="cartao" href="/calculadoras#corrente-de-projeto">
       <span class="cartao-titulo">Corrente de projeto</span>
       <span class="cartao-texto">Corrente a partir de potência, tensão, fator de potência e número de fases.</span>
     </a>
-    <a class="cartao" href="/calculadoras/disjuntor">
+    <a class="cartao" href="/calculadoras#disjuntor">
       <span class="cartao-titulo">Disjuntor e proteção</span>
       <span class="cartao-texto">Corrente nominal comercial compatível com o condutor e com a carga.</span>
     </a>
-    <a class="cartao" href="/calculadoras/conversao-de-potencia">
+    <a class="cartao" href="/calculadoras#conversao-de-potencia">
       <span class="cartao-titulo">Conversão de potência</span>
       <span class="cartao-texto">Entre kW, kVA e cv, com fator de potência e rendimento.</span>
     </a>
-    <a class="cartao" href="/calculadoras/eletroduto">
+    <a class="cartao" href="/calculadoras#eletroduto">
       <span class="cartao-titulo">Eletroduto</span>
       <span class="cartao-texto">Taxa de ocupação por número e seção de condutores no mesmo conduto.</span>
     </a>
-    <a class="cartao" href="/calculadoras/geometria">
+    <a class="cartao" href="/calculadoras#geometria">
       <span class="cartao-titulo">Geometria</span>
       <span class="cartao-texto">Área, perímetro e volume de ambientes e trechos, para cálculo de carga e de material.</span>
     </a>
@@ -354,7 +355,10 @@
       <div class="boletim-coluna">
         <div class="rotulo-col">No setor</div>
         <div id="listaNoticias"><span class="carregando">buscando as últimas notícias…</span></div>
-        <span class="fonte">Fonte: <a href="https://www.osetoreletrico.com.br/category/noticias-do-setor" target="_blank" rel="noopener">O Setor Elétrico</a></span>
+        <span class="fonte">Fontes:
+          <a href="https://www.osetoreletrico.com.br/category/noticias-do-setor" target="_blank" rel="noopener">O Setor Elétrico</a> ·
+          <a href="https://www.arandanet.com.br/revista/em/noticias" target="_blank" rel="noopener">Eletricidade Moderna</a> ·
+          <a href="https://revistapotencia.com.br/ultimas-noticias/" target="_blank" rel="noopener">Potência</a></span>
       </div>
 
       <div class="boletim-coluna">
@@ -406,7 +410,7 @@
     <div class="rodape-coluna">
       <span class="rodape-titulo">Consultar</span>
       <a href="https://www.confea.org.br/sistema-profissional/creas" target="_blank" rel="noopener">CREA</a>
-      <a href="https://www.abntcolecao.com.br" target="_blank" rel="noopener">Catálogo de normas</a>
+      <a href="https://www.abntcatalogo.com.br/confea/" target="_blank" rel="noopener">Consulta de normas (CREA)</a>
       <a href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">Normas Regulamentadoras</a>
       <a href="/concessionarias">Concessionárias</a>
     </div>
@@ -431,28 +435,29 @@
 /* Manchetes do quadro "No setor", servidas por /api/noticias */
 (async () => {
   const caixa = document.getElementById('listaNoticias');
-  const SITE = 'https://www.osetoreletrico.com.br/category/noticias-do-setor';
+  const PERMITIDOS = /^https:\/\/(www\.osetoreletrico\.com\.br|www\.arandanet\.com\.br|revistapotencia\.com\.br)\//;
+  const MAXIMO = 5;
+  function fallback() {
+    caixa.innerHTML = '<span class="carregando">Não foi possível carregar as notícias agora. Veja nas fontes abaixo.</span>';
+  }
   try {
     const r = await fetch('/api/noticias');
     const dados = await r.json();
-    if (!dados.itens || !dados.itens.length) throw new Error('vazio');
+    const itens = (dados.itens || []).filter(n => PERMITIDOS.test(n.link)).slice(0, MAXIMO);
+    if (!itens.length) return fallback();
     caixa.innerHTML = '';
     caixa.style.cssText = 'display:flex;flex-direction:column;gap:16px';
-    dados.itens.forEach(n => {
-      if (!/^https:\/\/www\.osetoreletrico\.com\.br\//.test(n.link)) return;
+    itens.forEach(n => {
       const a = document.createElement('a');
       a.className = 'manchete'; a.href = n.link; a.target = '_blank'; a.rel = 'noopener';
-      const q = document.createElement('span'); q.className = 'quando'; q.textContent = n.data || '';
+      const q = document.createElement('span'); q.className = 'quando';
+      q.append(n.data || '');
+      const f = document.createElement('span'); f.className = 'sigla'; f.textContent = n.sigla || '';
+      q.append(f);
       const t = document.createElement('span'); t.textContent = n.titulo;
       a.append(q, t); caixa.appendChild(a);
     });
-  } catch (e) {
-    caixa.innerHTML = '';
-    const a = document.createElement('a');
-    a.className = 'manchete'; a.href = SITE; a.target = '_blank'; a.rel = 'noopener';
-    a.innerHTML = '<span>Ver as últimas notícias do setor em O Setor Elétrico →</span>';
-    caixa.appendChild(a);
-  }
+  } catch (e) { fallback(); }
 })();
 
 /* Inscricao na newsletter: grava o e-mail direto no Supabase */
