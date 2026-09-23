@@ -6,7 +6,9 @@
 <title>Downloads — Sala Elétrica</title>
 <meta name="description" content="Planilhas e modelos abertos para projeto elétrico industrial: quadro de cargas, rede de dutos, leito para cabos e tags de condutos.">
 <meta name="theme-color" content="#00795A">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -23,7 +25,6 @@
     display:block;font-size:13.5px;font-weight:400;
     color:var(--grafite-2);margin-top:3px;max-width:62ch;
   }
-  .intro-tabela{margin:22px 0 4px;font-size:15.5px;color:var(--grafite);max-width:68ch}
   .lista-arquivos em{
     font-family:var(--mono);font-size:12px;font-style:normal;
     color:var(--cinza);font-weight:400;flex:none;
@@ -117,65 +118,6 @@
       <em>PDF</em>
     </a>
   </div>
-</section>
-
-<section class="faixa-conteudo" id="tabela-isa">
-  <div class="cabecalho-secao">
-    <h2>Nomenclatura de instrumentos (ISA)</h2>
-    <span class="etiqueta etiqueta-verde"><span class="ponto"></span>tabela de consulta</span>
-  </div>
-  <p class="intro-tabela">Letras de identificação de instrumentos: a primeira indica a variável medida, as seguintes indicam a função.</p>
-  <div class="bloco-tabela">
-    <h3>Letras de identificação</h3>
-    <div class="rolagem"><table class="tabela-dados quebra">
-      <thead><tr><th>Letra</th><th>Variável medida ou inicial</th><th>Modificadora</th><th>Função de informação ou passiva</th><th>Função final</th><th>Modificadora</th></tr></thead>
-      <tbody>
-        <tr><td>A</td><td>Analisador</td><td>—</td><td>Alarme</td><td>—</td><td>—</td></tr>
-        <tr><td>B</td><td>Chama de queimador</td><td>—</td><td>Indefinida</td><td>Indefinida</td><td>Indefinida</td></tr>
-        <tr><td>C</td><td>Condutividade elétrica</td><td>—</td><td>—</td><td>Controlador</td><td>—</td></tr>
-        <tr><td>D</td><td>Densidade ou massa específica</td><td>Diferencial</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>E</td><td>Tensão elétrica</td><td>—</td><td>Elemento primário</td><td>—</td><td>—</td></tr>
-        <tr><td>F</td><td>Vazão</td><td>Razão (fração)</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>G</td><td>Medida dimensional</td><td>—</td><td>Visor</td><td>—</td><td>—</td></tr>
-        <tr><td>H</td><td>Comando manual</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>I</td><td>Corrente elétrica</td><td>—</td><td>Indicador</td><td>—</td><td>—</td></tr>
-        <tr><td>J</td><td>Potência</td><td>Varredura ou seletor</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>L</td><td>Nível</td><td>—</td><td>Lâmpada piloto</td><td>—</td><td>—</td></tr>
-        <tr><td>M</td><td>Umidade</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>N</td><td>Indefinida</td><td>—</td><td>Indefinida</td><td>Indefinida</td><td>Indefinida</td></tr>
-        <tr><td>O</td><td>Indefinida</td><td>—</td><td>Orifício de restrição</td><td>—</td><td>—</td></tr>
-        <tr><td>P</td><td>Pressão ou vácuo</td><td>—</td><td>Ponto de teste</td><td>—</td><td>—</td></tr>
-        <tr><td>Q</td><td>Quantidade ou evento</td><td>Integrador ou totalizador</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>R</td><td>Radioatividade</td><td>—</td><td>Registrador ou impressor</td><td>—</td><td>—</td></tr>
-        <tr><td>S</td><td>Velocidade ou frequência</td><td>Segurança</td><td>—</td><td>Chave</td><td>—</td></tr>
-        <tr><td>T</td><td>Temperatura</td><td>—</td><td>—</td><td>Transmissor</td><td>—</td></tr>
-        <tr><td>U</td><td>Multivariável</td><td>—</td><td>Multifunção</td><td>Multifunção</td><td>Multifunção</td></tr>
-        <tr><td>V</td><td>Viscosidade</td><td>—</td><td>—</td><td>Válvula</td><td>—</td></tr>
-        <tr><td>W</td><td>Peso ou força</td><td>—</td><td>Poço</td><td>—</td><td>—</td></tr>
-        <tr><td>X</td><td>Não classificada</td><td>—</td><td>Não classificada</td><td>Não classificada</td><td>Não classificada</td></tr>
-        <tr><td>Y</td><td>Indefinida</td><td>—</td><td>—</td><td>Relé ou computação</td><td>—</td></tr>
-        <tr><td>Z</td><td>Posição</td><td>—</td><td>—</td><td>Elemento final de controle não classificado</td><td>—</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-  <div class="bloco-tabela">
-    <h3>Exemplos de leitura</h3>
-    <div class="rolagem"><table class="tabela-dados">
-      <thead><tr><th>Tag</th><th>Significado</th></tr></thead>
-      <tbody>
-        <tr><td>TE</td><td>Elemento primário de temperatura — o sensor em campo</td></tr>
-        <tr><td>TIT</td><td>Transmissor indicador de temperatura</td></tr>
-        <tr><td>PDT</td><td>Transmissor de pressão diferencial</td></tr>
-        <tr><td>FIC</td><td>Controlador indicador de vazão</td></tr>
-        <tr><td>FQI</td><td>Indicador totalizador de vazão</td></tr>
-        <tr><td>LG</td><td>Visor de nível</td></tr>
-        <tr><td>LSH</td><td>Chave de nível alto</td></tr>
-        <tr><td>PSV</td><td>Válvula de segurança de pressão</td></tr>
-        <tr><td>ZSL</td><td>Chave de posição fechada</td></tr>
-      </tbody>
-    </table></div>
-  </div>
-  <p class="nota-tabela">Baseada na ISA 5.1. A primeira letra é a variável medida, podendo vir seguida de uma modificadora (D de diferencial, F de razão, S de segurança). As letras seguintes descrevem a função do instrumento, na ordem em que aparecem. Como sufixo de posição, H, L e M indicam alto, baixo e médio — é o que se lê em LSH ou PSLL —, e esse uso não aparece no quadro acima. A letra K não consta nesta versão da tabela. A norma tem revisões, e cada empresa costuma ter um padrão próprio de tagueamento: o documento de critérios de projeto prevalece.</p>
 </section>
 
 <footer class="rodape">

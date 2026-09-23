@@ -663,7 +663,60 @@
     [String(p), fmt(120 * 60 / p, 0), fmt(120 * 50 / p, 0)]);
 
 
+  /* ISA 5.1 — letras de identificação de instrumentos. */
+  const D = '—';
+  const linhasISA = [
+    ['A', 'Analisador', D, 'Alarme', D, D],
+    ['B', 'Chama de queimador', D, 'Indefinida', 'Indefinida', 'Indefinida'],
+    ['C', 'Condutividade elétrica', D, D, 'Controlador', D],
+    ['D', 'Densidade ou massa específica', 'Diferencial', D, D, D],
+    ['E', 'Tensão elétrica', D, 'Elemento primário', D, D],
+    ['F', 'Vazão', 'Razão (fração)', D, D, D],
+    ['G', 'Medida dimensional', D, 'Visor', D, D],
+    ['H', 'Comando manual', D, D, D, D],
+    ['I', 'Corrente elétrica', D, 'Indicador', D, D],
+    ['J', 'Potência', 'Varredura ou seletor', D, D, D],
+    ['L', 'Nível', D, 'Lâmpada piloto', D, D],
+    ['M', 'Umidade', D, D, D, D],
+    ['N', 'Indefinida', D, 'Indefinida', 'Indefinida', 'Indefinida'],
+    ['O', 'Indefinida', D, 'Orifício de restrição', D, D],
+    ['P', 'Pressão ou vácuo', D, 'Ponto de teste', D, D],
+    ['Q', 'Quantidade ou evento', 'Integrador ou totalizador', D, D, D],
+    ['R', 'Radioatividade', D, 'Registrador ou impressor', D, D],
+    ['S', 'Velocidade ou frequência', 'Segurança', D, 'Chave', D],
+    ['T', 'Temperatura', D, D, 'Transmissor', D],
+    ['U', 'Multivariável', D, 'Multifunção', 'Multifunção', 'Multifunção'],
+    ['V', 'Viscosidade', D, D, 'Válvula', D],
+    ['W', 'Peso ou força', D, 'Poço', D, D],
+    ['X', 'Não classificada', D, 'Não classificada', 'Não classificada', 'Não classificada'],
+    ['Y', 'Indefinida', D, D, 'Relé ou computação', D],
+    ['Z', 'Posição', D, D, 'Elemento final de controle não classificado', D]
+  ];
+  const exemplosISA = [
+    ['TE', 'Elemento primário de temperatura — o sensor em campo'],
+    ['TIT', 'Transmissor indicador de temperatura'],
+    ['PDT', 'Transmissor de pressão diferencial'],
+    ['FIC', 'Controlador indicador de vazão'],
+    ['FQI', 'Indicador totalizador de vazão'],
+    ['LG', 'Visor de nível'],
+    ['LSH', 'Chave de nível alto'],
+    ['PSV', 'Válvula de segurança de pressão'],
+    ['ZSL', 'Chave de posição fechada']
+  ];
+
   const TABELAS = [
+    {
+      id: 'tabela-isa', grupo: 'Tabelas', titulo: 'Nomenclatura de instrumentos (ISA)',
+      resumo: 'Letras de identificação de instrumentos: a primeira indica a variável medida, as seguintes indicam a função.',
+      busca: true,
+      blocos: [
+        { titulo: 'Letras de identificação', quebra: true,
+          colunas: ['Letra', 'Variável medida ou inicial', 'Modificadora', 'Função de informação ou passiva', 'Função final', 'Modificadora'],
+          linhas: linhasISA },
+        { titulo: 'Exemplos de leitura', colunas: ['Tag', 'Significado'], linhas: exemplosISA }
+      ],
+      nota: 'Baseada na ISA 5.1. A primeira letra é a variável medida, podendo vir seguida de uma modificadora (D de diferencial, F de razão, S de segurança). As letras seguintes descrevem a função do instrumento, na ordem em que aparecem. Como sufixo de posição, H, L e M indicam alto, baixo e médio — é o que se lê em LSH ou PSLL —, e esse uso não aparece no quadro acima. A letra K não consta nesta versão da tabela. A norma tem revisões, e cada empresa costuma ter um padrão próprio de tagueamento: o documento de critérios de projeto prevalece.'
+    },
     {
       id: 'tabela-bitolas', grupo: 'Tabelas', titulo: 'AWG, MCM e mm²',
       resumo: 'Equivalência entre as bitolas americanas e a seção em milímetros quadrados, para leitura de catálogos e projetos importados.',
