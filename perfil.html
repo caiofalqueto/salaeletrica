@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meu perfil — Sala Elétrica</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#00795A">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+  .form-perfil{
+    background:var(--branco);border:1px solid var(--linha);padding:30px;
+    max-width:760px;margin:0 auto;
+  }
+  .grupo-campos{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:18px 20px;margin-bottom:26px;
+  }
+  .grupo-campos.unico{grid-template-columns:1fr}
+  .titulo-grupo{
+    grid-column:1/-1;margin:0;padding-bottom:10px;border-bottom:1px solid var(--linha);
+    font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--grafite-2);font-weight:500;
+  }
+  .campo.largo{grid-column:1/-1}
+  .campo label{
+    font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--grafite-2);
+  }
+  .campo{display:flex;flex-direction:column;gap:6px}
+  .entrada{display:flex;align-items:stretch;border:1px solid var(--borda-campo);background:var(--branco)}
+  .entrada:focus-within{border-color:var(--verde);box-shadow:0 0 0 1px var(--verde)}
+  .entrada input,.entrada select,.entrada textarea{
+    flex:1;min-width:0;border:none;outline:none;background:transparent;resize:vertical;
+    padding:11px 12px;font-family:var(--texto);font-size:15px;color:var(--tinta);
+  }
+  .entrada input:disabled{color:var(--cinza)}
+  .campo small{font-size:12.5px;color:var(--cinza);line-height:1.45}
+
+  .opcao-linha{
+    display:flex;gap:11px;align-items:flex-start;
+    grid-column:1/-1;padding:14px 16px;background:var(--fundo);border:1px solid var(--linha);
+  }
+  .opcao-linha input{margin-top:3px;accent-color:var(--verde);width:16px;height:16px;flex:none}
+  .opcao-linha span{font-size:14px;line-height:1.5;color:var(--grafite)}
+  .opcao-linha strong{display:block;color:var(--tinta);font-weight:600;margin-bottom:2px}
+
+  .barra-acoes{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    padding-top:22px;border-top:1px solid var(--linha);
+  }
+  .retorno-perfil{margin:0;font-size:14px;font-weight:600;min-height:1.3em}
+  .retorno-perfil.ok{color:var(--verde)}
+  .retorno-perfil.erro{color:#9B322B}
+
+  .cartao-conta{
+    display:flex;align-items:center;gap:14px;
+    padding:18px 20px;margin-bottom:26px;
+    background:var(--verde-fundo);border:1px solid var(--verde-linha);
+  }
+  .cartao-conta img{width:46px;height:46px;border-radius:50%;border:1px solid var(--verde-linha)}
+  .cartao-conta div{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .cartao-conta strong{font-size:16px;letter-spacing:-.02em}
+  .cartao-conta span{font-size:13.5px;color:var(--grafite-2);overflow:hidden;text-overflow:ellipsis}
+
+  #carregando{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-size:12.5px;color:var(--cinza);
+  }
+  #conteudo{display:none}
+  @media (max-width:560px){.form-perfil{padding:22px 18px}}
+</style>
+</head>
+<body>
+
+<div id="carregando">verificando acesso…</div>
+
+<div id="conteudo">
+
+<header class="topo">
+  <a class="marca" href="/">
+    <svg width="42" height="42" viewBox="0 0 100 100" role="img" aria-label="Sala Elétrica">
+      <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+    </svg>
+    <span class="marca-texto">
+      <span>Sala</span>
+      <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+    </span>
+  </a>
+
+  <nav class="menu">
+    <label class="busca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6E7074" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M16.5 16.5 L21 21" stroke-linecap="round"/>
+      </svg>
+      <input type="search" placeholder="Buscar no site" aria-label="Buscar no site">
+    </label>
+    <a href="/calculadoras">Calculadoras</a>
+    <a href="/ferramentas">Ferramentas</a>
+    <a href="/downloads">Downloads</a>
+    <a href="/sobre">Sobre</a>
+    <span class="acesso" id="acesso"><a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a></span>
+  </nav>
+</header>
+
+<div class="capa">
+  <div class="trilha"><a href="/">Início</a> / Meu perfil</div>
+  <h1>Meu perfil</h1>
+  <p>
+    Os dados abaixo são seus e servem para adaptar as ferramentas ao seu trabalho.
+    Todos os campos são opcionais, menos o nome.
+  </p>
+</div>
+
+<section class="faixa-conteudo">
+  <form class="form-perfil" id="formPerfil" novalidate>
+
+    <div class="cartao-conta">
+      <img id="contaFoto" alt="" hidden referrerpolicy="no-referrer">
+      <div>
+        <strong id="contaNome"></strong>
+        <span id="contaEmail"></span>
+      </div>
+    </div>
+
+    <div class="grupo-campos">
+      <h2 class="titulo-grupo">Identificação</h2>
+        <div class="campo largo">
+          <label for="nome">Nome completo</label>
+          <div class="entrada"><input id="nome" type="text" placeholder="" autocomplete="off"></div>
+          
+        </div>
+        <div class="campo">
+          <label for="empresa">Empresa</label>
+          <div class="entrada"><input id="empresa" type="text" placeholder="" autocomplete="off"></div>
+          
+        </div>
+        <div class="campo">
+          <label for="cargo">Cargo ou função</label>
+          <div class="entrada"><input id="cargo" type="text" placeholder="Engenheiro eletricista" autocomplete="off"></div>
+          
+        </div>
+        <div class="campo">
+          <label for="crea">Registro no CREA</label>
+          <div class="entrada"><input id="crea" type="text" placeholder="" autocomplete="off"></div>
+          <small>Opcional. Fica visível só para você.</small>
+        </div>
+        <div class="campo">
+          <label for="telefone">Telefone</label>
+          <div class="entrada"><input id="telefone" type="tel" placeholder="(31) 90000-0000" autocomplete="off"></div>
+          
+        </div>
+        <div class="campo">
+          <label for="cidade">Cidade</label>
+          <div class="entrada"><input id="cidade" type="text" placeholder="" autocomplete="off"></div>
+          
+        </div>
+        <div class="campo">
+          <label for="uf">UF</label>
+          <div class="entrada"><select id="uf"><option value="">—</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select></div>
+          
+        </div>
+    </div>
+
+    <div class="grupo-campos">
+      <h2 class="titulo-grupo">Atuação</h2>
+        <div class="campo largo">
+          <label for="atuacao">Área principal</label>
+          <div class="entrada"><select id="atuacao"><option value="">—</option><option value="industrial">Projeto elétrico industrial</option><option value="predial">Projeto elétrico predial</option><option value="infraestrutura">Infraestrutura e energia</option><option value="manutencao">Manutenção e operação</option><option value="automacao">Automação e instrumentação</option><option value="ensino">Ensino ou pesquisa</option><option value="estudante">Estudante</option><option value="outra">Outra</option></select></div>
+          
+        </div>
+      <div class="campo largo">
+        <label for="interesses">O que você mais faz no dia a dia</label>
+        <div class="entrada"><textarea id="interesses" rows="3" placeholder="Estudo de demanda, dimensionamento de painéis, memoriais de cálculo…"></textarea></div>
+        <small>Ajuda a priorizar quais ferramentas entram primeiro.</small>
+      </div>
+    </div>
+
+    <div class="grupo-campos unico">
+      <h2 class="titulo-grupo">Comunicação</h2>
+      <label class="opcao-linha">
+        <input type="checkbox" id="newsletter">
+        <span><strong>Quero receber a newsletter</strong>
+        Uma vez por semana: mudanças em normas, notícias do setor e o que entrou de novo nas ferramentas.</span>
+      </label>
+      <label class="opcao-linha">
+        <input type="checkbox" id="avisos">
+        <span><strong>Avisar quando uma ferramenta nova ficar pronta</strong>
+        Só quando houver novidade de verdade na área de membros.</span>
+      </label>
+    </div>
+
+    <div class="barra-acoes">
+      <button type="submit" class="botao botao-verde" id="salvar">Salvar</button>
+      <a class="ver-mais" href="/app">Ir para as ferramentas</a>
+      <p class="retorno-perfil" id="retorno" role="status" aria-live="polite"></p>
+    </div>
+
+  </form>
+</section>
+
+<footer class="rodape">
+  <div class="rodape-grade">
+
+    <div class="rodape-sobre">
+      <a class="marca" href="/">
+        <svg width="32" height="32" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z" fill="#00A37A" fill-rule="evenodd"/>
+        </svg>
+        <span class="marca-texto" style="font-size:13px">
+          <span>Sala</span>
+          <span class="marca-linha2"><span>Elétrica</span><span class="marca-cursor"></span></span>
+        </span>
+      </a>
+      <p>Ferramentas de apoio ao projeto elétrico industrial, mantidas pela comunidade projetista.</p>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Usar</span>
+      <a href="#calculadoras">Calculadoras</a>
+      <a href="#ferramentas">Ferramentas <span class="nota-membros">∗ área de membros</span></a>
+      <a href="#downloads">Downloads</a>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Consultar</span>
+      <a href="https://www.confea.org.br/sistema-profissional/creas" target="_blank" rel="noopener">CREA</a>
+      <a href="https://www.abntcatalogo.com.br/confea/" target="_blank" rel="noopener">Consulta de normas (CREA)</a>
+      <a href="https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/ctpp-nrs/normas-regulamentadoras-nrs" target="_blank" rel="noopener">Normas Regulamentadoras</a>
+      <a href="/concessionarias">Concessionárias</a>
+    </div>
+
+    <div class="rodape-coluna">
+      <span class="rodape-titulo">Site</span>
+      <a href="/sobre">Sobre</a>
+      <a href="/login">Área de membros</a>
+      <a href="mailto:contato@salaeletrica.com.br">Contato</a>
+      <a href="/termos">Termos de uso</a>
+      <a href="/privacidade">Privacidade</a>
+    </div>
+
+  </div>
+
+  <div class="assinatura">
+    <div>Desenvolvido por Caio Falqueto e IAs</div>
+  </div>
+</footer>
+
+</div>
+
+<script type="module">
+  import { supabase } from '/sessao.js';
+
+  const CAMPOS = ['nome', 'empresa', 'cargo', 'crea', 'telefone', 'cidade', 'uf', 'atuacao', 'interesses'];
+  const MARCAS = ['newsletter', 'avisos'];
+  const el = id => document.getElementById(id);
+
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    location.replace('/login');
+  } else {
+    const u = session.user.user_metadata || {};
+    el('contaNome').textContent = u.full_name || u.name || session.user.email;
+    el('contaEmail').textContent = session.user.email;
+    if (u.avatar_url) { el('contaFoto').src = u.avatar_url; el('contaFoto').hidden = false; }
+
+    /* Carrega o perfil salvo; se ainda não existir, usa o nome vindo do Google */
+    const { data, error } = await supabase.from('perfis').select('*').eq('id', session.user.id).maybeSingle();
+    if (!error && data) {
+      CAMPOS.forEach(c => { if (data[c] != null) el(c).value = data[c]; });
+      MARCAS.forEach(c => { el(c).checked = !!data[c]; });
+    }
+    if (!el('nome').value) el('nome').value = u.full_name || u.name || '';
+
+    el('carregando').remove();
+    el('conteudo').style.display = 'block';
+
+    el('formPerfil').addEventListener('submit', async ev => {
+      ev.preventDefault();
+      const retorno = el('retorno'), botao = el('salvar');
+      const nome = el('nome').value.trim();
+      if (!nome) {
+        retorno.textContent = 'Informe ao menos o nome.'; retorno.className = 'retorno-perfil erro';
+        el('nome').focus(); return;
+      }
+      botao.disabled = true; retorno.textContent = ''; retorno.className = 'retorno-perfil';
+
+      const registro = { id: session.user.id, email: session.user.email, atualizado_em: new Date().toISOString() };
+      CAMPOS.forEach(c => { registro[c] = el(c).value.trim() || null; });
+      MARCAS.forEach(c => { registro[c] = el(c).checked; });
+
+      const { error } = await supabase.from('perfis').upsert(registro);
+      if (error) {
+        retorno.textContent = 'Não foi possível salvar agora. Tente de novo em instantes.';
+        retorno.className = 'retorno-perfil erro';
+      } else {
+        retorno.textContent = 'Perfil salvo.';
+        retorno.className = 'retorno-perfil ok';
+        setTimeout(() => { retorno.textContent = ''; }, 4000);
+      }
+      botao.disabled = false;
+    });
+  }
+</script>
+
+<script src="/busca.js" defer></script>
+</body>
+</html>

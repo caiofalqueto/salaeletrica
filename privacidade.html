@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#00795A">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png"><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -27,17 +27,24 @@
     </span>
   </a>
   <nav class="menu">
+    <label class="busca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6E7074" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M16.5 16.5 L21 21" stroke-linecap="round"/>
+      </svg>
+      <input type="search" placeholder="Buscar no site" aria-label="Buscar no site">
+    </label>
     <a href="/#calculadoras">Calculadoras</a>
     <a href="/#ferramentas">Ferramentas</a>
     <a href="/#downloads">Downloads</a>
     <a href="/sobre">Sobre</a>
-    <a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a>
+    <span class="acesso" id="acesso"><a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a></span>
   </nav>
 </header>
 
 <article class="documento">
 
-  <h1>Política de Privacidade</h1>
+  <h1 id="politica-de-privacidade">Política de Privacidade</h1>
   <p class="data-doc">Última atualização: <span class="preencher">DATA</span></p>
 
   <p>
@@ -46,7 +53,7 @@
     (Lei Geral de Proteção de Dados Pessoais — LGPD).
   </p>
 
-  <h2>1. Quem é o controlador dos dados</h2>
+  <h2 id="1-quem-e-o-controlador-dos-dados">1. Quem é o controlador dos dados</h2>
   <p>
     O controlador dos dados pessoais tratados neste site é
     <span class="preencher">NOME COMPLETO OU RAZÃO SOCIAL</span>,
@@ -58,9 +65,9 @@
     <a href="mailto:contato@salaeletrica.com.br">contato@salaeletrica.com.br</a>.
   </p>
 
-  <h2>2. Quais dados são coletados</h2>
+  <h2 id="2-quais-dados-sao-coletados">2. Quais dados são coletados</h2>
 
-  <h3>2.1 Dados de cadastro</h3>
+  <h3 id="2-1-dados-de-cadastro">2.1 Dados de cadastro</h3>
   <p>
     O acesso à área de membros exige login com uma conta Google. Nesse processo recebemos
     do Google, mediante a sua autorização: <strong>nome</strong>, <strong>endereço de
@@ -72,7 +79,7 @@
     agenda ou qualquer outro serviço da sua conta.
   </p>
 
-  <h3>2.2 Dados inseridos nas ferramentas</h3>
+  <h3 id="2-2-dados-inseridos-nas-ferramentas">2.2 Dados inseridos nas ferramentas</h3>
   <p>
     As informações que você informa ou carrega para usar as ferramentas — listas de
     cargas, parâmetros de cálculo, nomes de projetos e resultados salvos — são
@@ -84,14 +91,14 @@
     navegador e não armazenam o que você digita.
   </p>
 
-  <h3>2.3 Dados técnicos</h3>
+  <h3 id="2-3-dados-tecnicos">2.3 Dados técnicos</h3>
   <p>
     Nossos provedores de infraestrutura registram automaticamente dados como endereço
     IP, tipo de navegador, sistema operacional, data e hora de acesso e páginas
     visitadas. Esses registros servem à segurança e ao funcionamento do serviço.
   </p>
 
-  <h3>2.4 Inscrição na newsletter</h3>
+  <h3 id="2-4-inscricao-na-newsletter">2.4 Inscrição na newsletter</h3>
   <p>
     Se você se inscrever para receber a newsletter, armazenamos o
     <strong>endereço de e-mail</strong> informado e a data da inscrição. A inscrição é
@@ -99,7 +106,7 @@
     momento.
   </p>
 
-  <h2>3. Para que usamos e com qual base legal</h2>
+  <h2 id="3-para-que-usamos-e-com-qual-base-legal">3. Para que usamos e com qual base legal</h2>
 
   <table>
     <tr><th>Finalidade</th><th>Dados</th><th>Base legal (LGPD)</th></tr>
@@ -116,7 +123,7 @@
     e <strong>não vendemos dados pessoais a terceiros</strong>.
   </p>
 
-  <h2>4. Com quem compartilhamos</h2>
+  <h2 id="4-com-quem-compartilhamos">4. Com quem compartilhamos</h2>
   <p>
     Utilizamos prestadores de serviço que atuam como operadores, tratando dados
     exclusivamente conforme nossas instruções:
@@ -132,7 +139,7 @@
     requisição de autoridade competente ou necessidade de defesa em processo.
   </p>
 
-  <h2>5. Transferência internacional</h2>
+  <h2 id="5-transferencia-internacional">5. Transferência internacional</h2>
   <p>
     Os prestadores acima mantêm servidores fora do Brasil, o que implica
     transferência internacional de dados pessoais, nos termos dos artigos 33 e
@@ -141,7 +148,7 @@
     segurança compatíveis com a legislação aplicável.
   </p>
 
-  <h2>6. Por quanto tempo guardamos</h2>
+  <h2 id="6-por-quanto-tempo-guardamos">6. Por quanto tempo guardamos</h2>
   <ul>
     <li><strong>Dados de cadastro:</strong> enquanto a conta existir.</li>
     <li><strong>E-mail da newsletter:</strong> até o cancelamento da inscrição.</li>
@@ -153,7 +160,7 @@
     obrigatória previstas no art. 16 da LGPD.
   </p>
 
-  <h2>7. Segurança</h2>
+  <h2 id="7-seguranca">7. Segurança</h2>
   <p>
     Adotamos medidas técnicas para proteger seus dados, entre elas conexão
     criptografada (HTTPS), autenticação delegada ao Google — de modo que não
@@ -166,7 +173,7 @@
     Nacional de Proteção de Dados, conforme o art. 48 da LGPD.
   </p>
 
-  <h2>8. Seus direitos</h2>
+  <h2 id="8-seus-direitos">8. Seus direitos</h2>
   <p>O art. 18 da LGPD assegura a você o direito de:</p>
   <ul>
     <li>confirmar se tratamos dados seus e acessá-los;</li>
@@ -185,7 +192,7 @@
     Responderemos no menor prazo possível, observados os limites legais.
   </p>
 
-  <h2>9. Cookies e armazenamento local</h2>
+  <h2 id="9-cookies-e-armazenamento-local">9. Cookies e armazenamento local</h2>
   <p>
     Utilizamos armazenamento local do navegador para manter você autenticado entre
     as visitas. Esse recurso é necessário ao funcionamento do serviço — sem ele, o
@@ -193,13 +200,13 @@
     por terceiros.
   </p>
 
-  <h2>10. Menores de idade</h2>
+  <h2 id="10-menores-de-idade">10. Menores de idade</h2>
   <p>
     O serviço é destinado a profissionais e estudantes de engenharia elétrica e não
     se dirige a menores de 18 anos.
   </p>
 
-  <h2>11. Alterações desta política</h2>
+  <h2 id="11-alteracoes-desta-politica">11. Alterações desta política</h2>
   <p>
     Esta política pode ser atualizada. Quando houver mudança relevante, avisaremos
     pelo site ou por e-mail. A data da última atualização consta no topo desta página.
@@ -217,5 +224,7 @@
   </div>
 </footer>
 
+<script src="/busca.js" defer></script>
+<script type="module" src="/sessao.js"></script>
 </body>
 </html>

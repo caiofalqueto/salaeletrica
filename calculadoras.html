@@ -147,13 +147,13 @@
     <a href="/ferramentas">Ferramentas</a>
     <a href="/downloads">Downloads</a>
     <a href="/sobre">Sobre</a>
-    <a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a>
+    <span class="acesso" id="acesso"><a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a></span>
   </nav>
 </header>
 
 <div class="capa">
   <div class="trilha"><a href="/">Início</a> / Calculadoras</div>
-  <h1>Calculadoras</h1>
+  <h1 id="calculadoras">Calculadoras</h1>
   <p>
     As contas rápidas do dia a dia de projeto e as tabelas de consulta, abertas e sem
     cadastro. O resultado aparece enquanto você digita, e cada calculadora mostra como
@@ -355,5 +355,7 @@
 })();
 </script>
 
+<script src="/busca.js" defer></script>
+<script type="module" src="/sessao.js"></script>
 </body>
 </html>

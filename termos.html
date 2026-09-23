@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#00795A">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png"><path d='M22 0 H78 A22 22 0 0 1 100 22 V78 A22 22 0 0 1 78 100 H22 A22 22 0 0 1 0 78 V22 A22 22 0 0 1 22 0 Z M64 12 L30 54 H46 L36 88 L70 44 H52 Z' fill='%2300A37A' fill-rule='evenodd'/></svg>">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -27,17 +27,24 @@
     </span>
   </a>
   <nav class="menu">
+    <label class="busca">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6E7074" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="M16.5 16.5 L21 21" stroke-linecap="round"/>
+      </svg>
+      <input type="search" placeholder="Buscar no site" aria-label="Buscar no site">
+    </label>
     <a href="/#calculadoras">Calculadoras</a>
     <a href="/#ferramentas">Ferramentas</a>
     <a href="/#downloads">Downloads</a>
     <a href="/sobre">Sobre</a>
-    <a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a>
+    <span class="acesso" id="acesso"><a class="botao botao-escuro" href="/login" style="padding:10px 18px">Entrar</a></span>
   </nav>
 </header>
 
 <article class="documento">
 
-  <h1>Termos de Uso</h1>
+  <h1 id="termos-de-uso">Termos de Uso</h1>
   <p class="data-doc">Última atualização: <span class="preencher">DATA</span></p>
 
   <p>
@@ -46,7 +53,7 @@
     compreendeu e concorda com as condições abaixo.
   </p>
 
-  <h2>1. Quem oferece o serviço</h2>
+  <h2 id="1-quem-oferece-o-servico">1. Quem oferece o serviço</h2>
   <p>
     O Sala Elétrica é oferecido por
     <span class="preencher">NOME COMPLETO OU RAZÃO SOCIAL</span>,
@@ -54,7 +61,7 @@
     doravante denominado simplesmente &ldquo;Sala Elétrica&rdquo;.
   </p>
 
-  <h2>2. Objeto</h2>
+  <h2 id="2-objeto">2. Objeto</h2>
   <p>
     O Sala Elétrica disponibiliza ferramentas computacionais de apoio a atividades de
     projeto elétrico industrial, tais como estudo de demanda, dimensional de painéis,
@@ -67,7 +74,7 @@
     pagas no futuro, mediante aviso prévio.
   </p>
 
-  <h2>3. Natureza das ferramentas e responsabilidade técnica</h2>
+  <h2 id="3-natureza-das-ferramentas-e-responsabilidade-te">3. Natureza das ferramentas e responsabilidade técnica</h2>
   <p>
     <strong>Esta é a cláusula mais importante destes termos. Leia com atenção.</strong>
   </p>
@@ -114,7 +121,7 @@
     em seus resultados.
   </p>
 
-  <h2>4. Cadastro e conta</h2>
+  <h2 id="4-cadastro-e-conta">4. Cadastro e conta</h2>
   <p>
     O cadastro na área de membros é feito por meio de conta Google. Você é responsável
     por manter a segurança da sua conta Google e por todas as atividades realizadas sob
@@ -128,7 +135,7 @@
     Você pode encerrar sua conta a qualquer momento solicitando por e-mail.
   </p>
 
-  <h2>5. Uso permitido</h2>
+  <h2 id="5-uso-permitido">5. Uso permitido</h2>
   <p>Ao utilizar o serviço, você se compromete a não:</p>
   <ul>
     <li>
@@ -154,7 +161,7 @@
     </li>
   </ul>
 
-  <h2>6. Propriedade intelectual</h2>
+  <h2 id="6-propriedade-intelectual">6. Propriedade intelectual</h2>
   <p>
     O nome Sala Elétrica, a marca, a identidade visual, o código, a estrutura das
     ferramentas e os textos do site são de titularidade do Sala Elétrica e protegidos
@@ -173,7 +180,7 @@
     disponibilizados apenas para consulta, nos termos autorizados por eles.
   </p>
 
-  <h2>7. Conteúdo de terceiros</h2>
+  <h2 id="7-conteudo-de-terceiros">7. Conteúdo de terceiros</h2>
   <p>
     O site contém links para sites de terceiros, bem como referências a publicações e
     notícias do setor elétrico. O Sala Elétrica não controla esse conteúdo, não
@@ -181,7 +188,7 @@
     implica vínculo, endosso ou parceria.
   </p>
 
-  <h2>8. Disponibilidade</h2>
+  <h2 id="8-disponibilidade">8. Disponibilidade</h2>
   <p>
     O serviço é fornecido <strong>no estado em que se encontra</strong>, sem garantia de
     disponibilidade contínua, ausência de erros ou adequação a finalidade específica.
@@ -196,27 +203,27 @@
     Elétrica não garante a preservação indefinida dos dados armazenados.
   </p>
 
-  <h2>9. Dados pessoais</h2>
+  <h2 id="9-dados-pessoais">9. Dados pessoais</h2>
   <p>
     O tratamento de dados pessoais está descrito na
     <a href="/privacidade">política de privacidade</a>, que integra estes termos.
   </p>
 
-  <h2>10. Suspensão e encerramento</h2>
+  <h2 id="10-suspensao-e-encerramento">10. Suspensão e encerramento</h2>
   <p>
     O Sala Elétrica poderá suspender ou encerrar o acesso de usuário que descumprir
     estes termos, praticar ato ilícito ou comprometer a segurança e a disponibilidade
     do serviço, sem aviso prévio quando a gravidade justificar.
   </p>
 
-  <h2>11. Alterações</h2>
+  <h2 id="11-alteracoes">11. Alterações</h2>
   <p>
     Estes termos podem ser alterados. Mudanças relevantes serão comunicadas pelo site
     ou por e-mail. O uso continuado após a comunicação implica concordância com a nova
     versão.
   </p>
 
-  <h2>12. Lei aplicável e foro</h2>
+  <h2 id="12-lei-aplicavel-e-foro">12. Lei aplicável e foro</h2>
   <p>
     Estes termos são regidos pela legislação brasileira. Fica eleito o foro da comarca
     de <span class="preencher">CIDADE/UF</span> para dirimir controvérsias, com renúncia
@@ -224,7 +231,7 @@
     quando aplicável.
   </p>
 
-  <h2>13. Contato</h2>
+  <h2 id="13-contato">13. Contato</h2>
   <p>
     Dúvidas sobre estes termos:
     <a href="mailto:contato@salaeletrica.com.br">contato@salaeletrica.com.br</a>.
@@ -242,5 +249,7 @@
   </div>
 </footer>
 
+<script src="/busca.js" defer></script>
+<script type="module" src="/sessao.js"></script>
 </body>
 </html>
