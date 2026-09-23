@@ -631,7 +631,88 @@
     }
   ];
 
-  const API = { CALCULADORAS, num, fmt, fatorTemperatura, fatorAgrupamento, AMPACIDADE, SECOES, resistividade };
+
+  /* ================================================================ tabelas */
+  const COMERCIAIS = [1, 1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120, 150, 185, 240, 300, 400, 500, 630];
+  const proxima = a => {
+    if (a < 1) return '—';
+    const c = COMERCIAIS.reduce((m, x) => Math.abs(x - a) < Math.abs(m - a) ? x : m);
+    return fmt(c, 1);
+  };
+  /* AWG: d = 0,127 mm × 92^((36−n)/39). 4/0 = −3, 3/0 = −2, 2/0 = −1, 1/0 = 0. */
+  const diamAWG = n => 0.127 * Math.pow(92, (36 - n) / 39);
+  const nomeAWG = n => n <= 0 ? `${1 - n}/0` : String(n);
+  const linhasAWG = [];
+  for (let n = -3; n <= 40; n++) {
+    const d = diamAWG(n), a = Math.PI * d * d / 4;
+    linhasAWG.push([nomeAWG(n), fmtFixo(d, 3), a >= 1 ? fmtFixo(a, 2) : fmtFixo(a, 4), proxima(a)]);
+  }
+  const MM2_POR_KCMIL = 0.5067075;
+  const linhasMCM = [250, 300, 350, 400, 500, 600, 700, 750, 800, 900, 1000]
+    .map(k => [fmt(k, 0), fmtFixo(k * MM2_POR_KCMIL, 1), proxima(k * MM2_POR_KCMIL)]);
+
+  /* Corrente estimada de motor trifásico, com premissas explícitas. */
+  const FP_MOTOR = 0.85, REND_MOTOR = 0.88;
+  const linhasMotor = [1, 2, 3, 5, 7.5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 100, 125, 150, 200].map(cv => {
+    const P = cv * CV / REND_MOTOR;
+    const I = V => fmt(P / (FP_MOTOR * R3 * V), 1);
+    return [fmt(cv, 1) + ' cv', fmt(cv * CV / 1000, 1), I(220), I(380), I(440)];
+  });
+
+  const linhasRotacao = [2, 4, 6, 8, 10, 12].map(p =>
+    [String(p), fmt(120 * 60 / p, 0), fmt(120 * 50 / p, 0)]);
+
+
+  const TABELAS = [
+    {
+      id: 'tabela-bitolas', grupo: 'Tabelas', titulo: 'AWG, MCM e mm²',
+      resumo: 'Equivalência entre as bitolas americanas e a seção em milímetros quadrados, para leitura de catálogos e projetos importados.',
+      busca: true,
+      blocos: [
+        { titulo: 'Bitolas AWG', colunas: ['AWG', 'Diâmetro (mm)', 'Seção (mm²)', 'Seção comercial próxima'], linhas: linhasAWG },
+        { titulo: 'Bitolas MCM (kcmil)', colunas: ['MCM', 'Seção (mm²)', 'Seção comercial próxima'], linhas: linhasMCM }
+      ],
+      nota: 'Valores calculados: d = 0,127 mm × 92^((36 − n)/39) e 1 kcmil = 0,50671 mm². A coluna de seção comercial é a bitola métrica mais próxima em área — serve para leitura, não substitui o dimensionamento: a capacidade de condução precisa ser verificada para a seção efetivamente adotada.'
+    },
+    {
+      id: 'tabela-unidades', grupo: 'Tabelas', titulo: 'Conversão de unidades',
+      resumo: 'As conversões que mais aparecem em dado de placa, catálogo de fornecedor e documento importado.',
+      busca: true,
+      blocos: [
+        { titulo: 'Potência', colunas: ['Unidade', 'Equivale a'], linhas: [
+          ['1 cv', '735,5 W'], ['1 hp', '745,7 W'], ['1 cv', '0,9863 hp'], ['1 hp', '1,0139 cv'],
+          ['1 kW', '1,3596 cv'], ['1 kW', '1,3410 hp'],
+          ['1 TR (tonelada de refrigeração)', '3.516,85 W'], ['1 BTU/h', '0,29307 W'], ['12.000 BTU/h', '1 TR']] },
+        { titulo: 'Energia', colunas: ['Unidade', 'Equivale a'], linhas: [
+          ['1 kWh', '3,6 MJ'], ['1 BTU', '1.055,06 J'], ['1 kcal', '4.186,8 J'], ['1 kWh', '859,8 kcal']] },
+        { titulo: 'Pressão', colunas: ['Unidade', 'Equivale a'], linhas: [
+          ['1 bar', '14,5038 psi'], ['1 psi', '0,068948 bar'], ['1 kgf/cm²', '0,980665 bar'],
+          ['1 kgf/cm²', '14,2233 psi'], ['1 atm', '1,01325 bar'], ['1 mca (metro de coluna d\u2019água)', '0,0980665 bar']] },
+        { titulo: 'Vazão', colunas: ['Unidade', 'Equivale a'], linhas: [
+          ['1 m³/h', '0,5886 cfm'], ['1 cfm', '1,6990 m³/h'], ['1 cfm', '28,317 L/min'], ['1 L/s', '3,6 m³/h']] },
+        { titulo: 'Comprimento e volume', colunas: ['Unidade', 'Equivale a'], linhas: [
+          ['1 pol', '25,4 mm'], ['1 m', '39,370 pol'], ['1 pé', '0,3048 m'], ['1 milha', '1.609,34 m'],
+          ['1 m³', '1.000 L'], ['1 ft³', '28,3168 L']] },
+        { titulo: 'Massa e torque', colunas: ['Unidade', 'Equivale a'], linhas: [
+          ['1 lb', '0,45359 kg'], ['1 kg', '2,2046 lb'], ['1 kgf·m', '9,80665 N·m'], ['1 lbf·ft', '1,3558 N·m']] }
+      ]
+    },
+    {
+      id: 'tabela-rotacao', grupo: 'Tabelas', titulo: 'Rotação de motores',
+      resumo: 'Rotação síncrona do motor de indução conforme o número de polos, em 60 Hz e em 50 Hz.',
+      blocos: [{ titulo: 'Rotação síncrona', colunas: ['Polos', '60 Hz (rpm)', '50 Hz (rpm)'], linhas: linhasRotacao }],
+      nota: 'n = 120 × f / número de polos. A rotação nominal em carga é menor que a síncrona por causa do escorregamento — em geral de 2 % a 5 %. Um motor de 4 polos em 60 Hz, por exemplo, costuma girar entre 1.700 e 1.760 rpm. O valor de placa prevalece.'
+    },
+    {
+      id: 'tabela-corrente-motores', grupo: 'Tabelas', titulo: 'Corrente de motores trifásicos',
+      resumo: 'Ordem de grandeza da corrente nominal de motores de indução trifásicos, para conferência rápida.',
+      blocos: [{ titulo: 'Corrente estimada a plena carga',
+                 colunas: ['Potência', 'kW no eixo', '220 V (A)', '380 V (A)', '440 V (A)'], linhas: linhasMotor }],
+      nota: 'Estimativa calculada com fator de potência 0,85 e rendimento 88 %, iguais para toda a faixa. Na prática os dois variam com a potência e com a linha do fabricante, sobretudo abaixo de 5 cv, onde a corrente real costuma ser maior que a da tabela. Use sempre os dados de placa no projeto; esta tabela serve para conferir se uma ordem de grandeza está coerente.'
+    }
+  ];
+
+  const API = { CALCULADORAS, TABELAS, num, fmt, fatorTemperatura, fatorAgrupamento, AMPACIDADE, SECOES, resistividade };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   else raiz.SalaCalc = API;
 })(typeof window !== 'undefined' ? window : globalThis);

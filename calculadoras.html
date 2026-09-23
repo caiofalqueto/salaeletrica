@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calculadoras — Sala Elétrica</title>
-<meta name="description" content="Calculadoras abertas para projeto elétrico: seção de condutor e queda de tensão pela NBR 5410, corrente de projeto, disjuntor, eletroduto, fator de potência, transformador, iluminação e mais.">
+<meta name="description" content="Calculadoras e tabelas abertas para projeto elétrico: seção de condutor e queda de tensão pela NBR 5410, disjuntor, eletroduto, transformador, equivalência AWG e MCM, conversão de unidades e corrente de motores.">
 <meta name="theme-color" content="#00795A">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +58,7 @@
     flex:1;min-width:0;border:none;outline:none;background:transparent;
     padding:11px 12px;font-family:var(--texto);font-size:15px;color:var(--tinta);
   }
-  .entrada select{cursor:pointer}
+  .entrada select{cursor:pointer;width:100%;max-width:100%}
   .entrada .un{
     display:flex;align-items:center;padding:0 12px;
     background:var(--fundo);border-left:1px solid var(--linha);
@@ -112,7 +112,8 @@
   .visao .cartao{background:var(--quase-branco)}
 
   @media (max-width:860px){
-    .calc-layout{grid-template-columns:1fr;gap:16px}
+    /* minmax(0,1fr) impede que o select cresça além da tela */
+    .calc-layout{grid-template-columns:minmax(0,1fr);gap:16px}
     .calc-nav{display:none}
     .seletor-movel{display:block}
     .painel-calc{padding:22px 18px}
@@ -152,8 +153,9 @@
   <div class="trilha"><a href="/">Início</a> / Calculadoras</div>
   <h1>Calculadoras</h1>
   <p>
-    As contas rápidas do dia a dia de projeto, abertas e sem cadastro. O resultado
-    aparece enquanto você digita, e cada calculadora mostra como a conta é feita.
+    As contas rápidas do dia a dia de projeto e as tabelas de consulta, abertas e sem
+    cadastro. O resultado aparece enquanto você digita, e cada calculadora mostra como
+    a conta é feita.
   </p>
 </div>
 
@@ -219,31 +221,32 @@
 <script src="/calculadoras.js"></script>
 <script>
 (() => {
-  const { CALCULADORAS, num } = window.SalaCalc;
+  const { CALCULADORAS, TABELAS, num } = window.SalaCalc;
+  const ITENS = [...CALCULADORAS, ...TABELAS];
   const painel = document.getElementById('painel');
   const nav = document.getElementById('navCalc');
   const seletor = document.getElementById('seletorCalc');
-  const grupos = [...new Set(CALCULADORAS.map(c => c.grupo))];
+  const grupos = [...new Set(ITENS.map(c => c.grupo))];
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   /* Navegacao lateral e seletor do celular */
   nav.insertAdjacentHTML('beforeend', grupos.map(g => `
     <div class="nav-grupo"><span>${esc(g)}</span>
-      ${CALCULADORAS.filter(c => c.grupo === g).map(c =>
+      ${ITENS.filter(c => c.grupo === g).map(c =>
         `<a class="nav-item" href="#${c.id}" data-id="${c.id}">${esc(c.titulo)}</a>`).join('')}
     </div>`).join(''));
   seletor.insertAdjacentHTML('beforeend', grupos.map(g => `
     <optgroup label="${esc(g)}">
-      ${CALCULADORAS.filter(c => c.grupo === g).map(c => `<option value="${c.id}">${esc(c.titulo)}</option>`).join('')}
+      ${ITENS.filter(c => c.grupo === g).map(c => `<option value="${c.id}">${esc(c.titulo)}</option>`).join('')}
     </optgroup>`).join(''));
   seletor.addEventListener('change', () => { location.hash = seletor.value || ''; });
 
   function visaoGeral() {
     painel.innerHTML = `<div class="visao">
       <h2>Escolha uma calculadora</h2>
-      <p>${CALCULADORAS.length} calculadoras abertas, sem cadastro. O cálculo roda no seu navegador.</p>
+      <p>${CALCULADORAS.length} calculadoras e ${TABELAS.length} tabelas de consulta, abertas e sem cadastro. Tudo roda no seu navegador.</p>
       ${grupos.map(g => `<div class="visao-grupo"><h3>${esc(g)}</h3><div class="grade">
-        ${CALCULADORAS.filter(c => c.grupo === g).map(c => `
+        ${ITENS.filter(c => c.grupo === g).map(c => `
           <a class="cartao" href="#${c.id}">
             <span class="cartao-titulo">${esc(c.titulo)}</span>
             <span class="cartao-texto">${esc(c.resumo)}</span>
@@ -288,6 +291,36 @@
     atualizar();
   }
 
+  function mostrarTabela(t) {
+    painel.innerHTML = `
+      <div class="cabeca-calc"><h2>${esc(t.titulo)}</h2></div>
+      <p class="resumo-calc">${esc(t.resumo)}</p>
+      ${t.busca ? `<div class="busca-tabela"><div class="entrada"><input id="filtro" type="search" placeholder="Filtrar" aria-label="Filtrar a tabela"></div></div>` : ''}
+      ${t.blocos.map((b, i) => `
+        <div class="bloco-tabela" data-bloco="${i}">
+          <h3>${esc(b.titulo)}</h3>
+          <div class="rolagem"><table class="tabela-dados${b.quebra ? ' quebra' : ''}">
+            <thead><tr>${b.colunas.map(c => `<th>${esc(c)}</th>`).join('')}</tr></thead>
+            <tbody>${b.linhas.map(l => `<tr>${l.map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody>
+          </table></div>
+          <p class="vazio-busca" hidden>Nada encontrado neste bloco.</p>
+        </div>`).join('')}
+      ${t.nota ? `<p class="nota-tabela">${esc(t.nota)}</p>` : ''}`;
+    const filtro = document.getElementById('filtro');
+    if (filtro) filtro.addEventListener('input', () => {
+      const termo = filtro.value.trim().toLowerCase();
+      painel.querySelectorAll('.bloco-tabela').forEach(bloco => {
+        let visiveis = 0;
+        bloco.querySelectorAll('tbody tr').forEach(tr => {
+          const achou = !termo || tr.textContent.toLowerCase().includes(termo);
+          tr.hidden = !achou; if (achou) visiveis++;
+        });
+        bloco.querySelector('.vazio-busca').hidden = visiveis > 0;
+        bloco.querySelector('.rolagem').hidden = visiveis === 0;
+      });
+    });
+  }
+
   function render(r) {
     const caixa = document.getElementById('res');
     let h = '';
@@ -304,11 +337,12 @@
 
   function rota() {
     const id = decodeURIComponent(location.hash.slice(1));
-    const calc = CALCULADORAS.find(c => c.id === id);
+    const item = ITENS.find(c => c.id === id);
     nav.querySelectorAll('.nav-item').forEach(a => a.classList.toggle('ativo', a.dataset.id === id));
-    seletor.value = calc ? id : '';
-    if (calc) { mostrar(calc); document.title = calc.titulo + ' — Calculadoras — Sala Elétrica'; }
-    else { visaoGeral(); document.title = 'Calculadoras — Sala Elétrica'; }
+    seletor.value = item ? id : '';
+    if (!item) { visaoGeral(); document.title = 'Calculadoras — Sala Elétrica'; return; }
+    item.campos ? mostrar(item) : mostrarTabela(item);
+    document.title = item.titulo + ' — Calculadoras — Sala Elétrica';
   }
   window.addEventListener('hashchange', () => {
     rota();

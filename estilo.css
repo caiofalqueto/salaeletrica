@@ -266,6 +266,42 @@ a.cartao:hover{border-color:var(--verde);color:var(--tinta)}
 .trilha a:hover{color:var(--verde)}
 
 /* --------------------------------------------------------------------------
+   Tabelas de consulta (páginas de calculadoras e de downloads)
+   -------------------------------------------------------------------------- */
+
+.busca-tabela{max-width:280px;margin-bottom:22px}
+.bloco-tabela{margin-top:26px}
+.bloco-tabela:first-of-type{margin-top:0}
+.bloco-tabela h3{
+  margin:0 0 10px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--grafite-2);font-weight:500;
+}
+.rolagem{overflow-x:auto}
+.tabela-dados{width:100%;border-collapse:collapse;font-size:14.5px}
+.tabela-dados th{
+  position:sticky;top:0;z-index:1;text-align:left;padding:9px 12px;
+  background:var(--quase-branco);border-bottom:2px solid var(--tinta);
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--grafite);font-weight:600;white-space:nowrap;
+}
+.tabela-dados td{
+  padding:8px 12px;border-bottom:1px solid var(--linha-clara);
+  font-variant-numeric:tabular-nums;color:var(--tinta);white-space:nowrap;
+}
+.tabela-dados td:first-child{font-weight:600}
+/* Tabelas com texto longo quebram em linha, em vez de rolar de lado */
+.tabela-dados.quebra th,.tabela-dados.quebra td{white-space:normal}
+.tabela-dados.quebra td{font-variant-numeric:normal}
+.tabela-dados tr:hover td{background:var(--verde-fundo)}
+.tabela-dados tr[hidden]{display:none}
+.vazio-busca{padding:16px 0;font-size:14px;color:var(--cinza)}
+.nota-tabela{
+  margin:22px 0 0;padding-top:14px;border-top:1px solid var(--linha);
+  font-size:13.5px;line-height:1.6;color:var(--grafite-2);
+}
+
+
+/* --------------------------------------------------------------------------
    Rodapé
    -------------------------------------------------------------------------- */
 
